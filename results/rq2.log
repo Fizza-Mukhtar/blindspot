@@ -1,0 +1,47 @@
+EVAL_EXIT=0
+REPRODUCTION FAILED — 132 difference(s) across 210 runs:
+
+  - missing run: abl_clause_only_referee / allocate_money__t21
+  - missing run: abl_clause_only_referee / allocate_money__v0
+  - missing run: abl_clause_only_referee / allocate_money__v1
+  - missing run: abl_clause_only_referee / csv_rfc4180__t20
+  - missing run: abl_clause_only_referee / csv_rfc4180__v0
+  - missing run: abl_clause_only_referee / csv_rfc4180__v1
+  - missing run: abl_clause_only_referee / discount_stacking__v11
+  - missing run: abl_clause_only_referee / discount_stacking__v12
+  - missing run: abl_clause_only_referee / full_jitter_backoff__t22
+  - missing run: abl_clause_only_referee / full_jitter_backoff__t42
+  - missing run: abl_clause_only_referee / full_jitter_backoff__t46
+  - missing run: abl_clause_only_referee / full_jitter_backoff__v12
+  - missing run: abl_clause_only_referee / http_range_resolve__t20
+  - missing run: abl_clause_only_referee / http_range_resolve__t40
+  - missing run: abl_clause_only_referee / http_range_resolve__v0
+  - missing run: abl_docstrings / allocate_money__t21
+  - missing run: abl_docstrings / allocate_money__v0
+  - missing run: abl_docstrings / allocate_money__v1
+  - missing run: abl_docstrings / csv_rfc4180__t20
+  - missing run: abl_docstrings / csv_rfc4180__v0
+  - missing run: abl_docstrings / csv_rfc4180__v1
+  - missing run: abl_docstrings / discount_stacking__v11
+  - missing run: abl_docstrings / discount_stacking__v12
+  - missing run: abl_docstrings / full_jitter_backoff__t22
+  - missing run: abl_docstrings / full_jitter_backoff__t42
+  - missing run: abl_docstrings / full_jitter_backoff__t46
+  - missing run: abl_docstrings / full_jitter_backoff__v12
+  - missing run: abl_docstrings / http_range_resolve__t20
+  - missing run: abl_docstrings / http_range_resolve__t40
+  - missing run: abl_docstrings / http_range_resolve__v0
+  - missing run: abl_no_barrier / allocate_money__t21
+  - missing run: abl_no_barrier / allocate_money__v0
+  - missing run: abl_no_barrier / allocate_money__v1
+  - missing run: abl_no_barrier / csv_rfc4180__t20
+  - missing run: abl_no_barrier / csv_rfc4180__v0
+  - missing run: abl_no_barrier / csv_rfc4180__v1
+  - missing run: abl_no_barrier / discount_stacking__v11
+  - missing run: abl_no_barrier / discount_stacking__v12
+  - missing run: abl_no_barrier / full_jitter_backoff__t22
+  - missing run: abl_no_barrier / full_jitter_backoff__t42
+  ... and 92 more
+
+If you changed a prompt or the pipeline, this is expected: re-record with `make record` and commit the new cassettes and results together.
+RQ2_DONE

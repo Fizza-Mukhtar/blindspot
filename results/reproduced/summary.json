@@ -1,0 +1,376 @@
+{
+  "ablation_case_ids": null,
+  "ablation_reference": {},
+  "config_fingerprint": "a4af2c197d192ec3",
+  "models": {
+    "fast": "haiku",
+    "smart": "sonnet"
+  },
+  "n_cases": 35,
+  "paired_comparisons": [
+    {
+      "b_system_only": 0,
+      "baseline": "baseline_direct",
+      "c_baseline_only": 3,
+      "cases_baseline_only": [
+        "http_range_resolve__t20",
+        "http_range_resolve__t40",
+        "http_range_resolve__v0"
+      ],
+      "cases_system_only": [],
+      "delta": -0.3333,
+      "delta_ci95": [
+        -0.6667,
+        0.0
+      ],
+      "n_paired": 9,
+      "p_exact": 0.25,
+      "p_midp": 0.125,
+      "power_note": "3 discordant pairs; exact conditional McNemar is the appropriate test at this n.",
+      "significant_at_05": false,
+      "system": "blindspot"
+    },
+    {
+      "b_system_only": 0,
+      "baseline": "baseline_agent",
+      "c_baseline_only": 4,
+      "cases_baseline_only": [
+        "discount_stacking__v11",
+        "http_range_resolve__t20",
+        "http_range_resolve__t40",
+        "http_range_resolve__v0"
+      ],
+      "cases_system_only": [],
+      "delta": -0.4444,
+      "delta_ci95": [
+        -0.7778,
+        -0.1111
+      ],
+      "n_paired": 9,
+      "p_exact": 0.125,
+      "p_midp": 0.0625,
+      "power_note": "4 discordant pairs; exact conditional McNemar is the appropriate test at this n.",
+      "significant_at_05": false,
+      "system": "blindspot"
+    },
+    {
+      "b_system_only": 0,
+      "baseline": "baseline_direct",
+      "c_baseline_only": 3,
+      "cases_baseline_only": [
+        "http_range_resolve__t20",
+        "http_range_resolve__t40",
+        "http_range_resolve__v0"
+      ],
+      "cases_system_only": [],
+      "delta": -0.3333,
+      "delta_ci95": [
+        -0.6667,
+        0.0
+      ],
+      "n_paired": 9,
+      "p_exact": 0.25,
+      "p_midp": 0.125,
+      "power_note": "3 discordant pairs; exact conditional McNemar is the appropriate test at this n.",
+      "significant_at_05": false,
+      "system": "blindspot_search"
+    },
+    {
+      "b_system_only": 0,
+      "baseline": "baseline_agent",
+      "c_baseline_only": 4,
+      "cases_baseline_only": [
+        "discount_stacking__v11",
+        "http_range_resolve__t20",
+        "http_range_resolve__t40",
+        "http_range_resolve__v0"
+      ],
+      "cases_system_only": [],
+      "delta": -0.4444,
+      "delta_ci95": [
+        -0.7778,
+        -0.1111
+      ],
+      "n_paired": 9,
+      "p_exact": 0.125,
+      "p_midp": 0.0625,
+      "power_note": "4 discordant pairs; exact conditional McNemar is the appropriate test at this n.",
+      "significant_at_05": false,
+      "system": "blindspot_search"
+    },
+    {
+      "b_system_only": 2,
+      "baseline": "baseline_direct",
+      "c_baseline_only": 0,
+      "cases_baseline_only": [],
+      "cases_system_only": [
+        "discount_stacking__v11",
+        "discount_stacking__v12"
+      ],
+      "delta": 0.2222,
+      "delta_ci95": [
+        0.0,
+        0.5556
+      ],
+      "n_paired": 9,
+      "p_exact": 0.5,
+      "p_midp": 0.25,
+      "power_note": "With c=0, exact two-sided McNemar gives p = 2^(1-b); reaching p < 0.05 requires b >= 6 system-only wins (observed b = 2).",
+      "significant_at_05": false,
+      "system": "agent_plus_oracle"
+    },
+    {
+      "b_system_only": 1,
+      "baseline": "baseline_agent",
+      "c_baseline_only": 0,
+      "cases_baseline_only": [],
+      "cases_system_only": [
+        "discount_stacking__v12"
+      ],
+      "delta": 0.1111,
+      "delta_ci95": [
+        0.0,
+        0.3333
+      ],
+      "n_paired": 9,
+      "p_exact": 1.0,
+      "p_midp": 0.5,
+      "power_note": "With c=0, exact two-sided McNemar gives p = 2^(1-b); reaching p < 0.05 requires b >= 6 system-only wins (observed b = 1).",
+      "significant_at_05": false,
+      "system": "agent_plus_oracle"
+    }
+  ],
+  "split": "test",
+  "systems": [
+    {
+      "detected": 0,
+      "detected_spec_visible": 0,
+      "detection_ci95": [
+        0.0,
+        0.2991
+      ],
+      "detection_ci95_clustered": [
+        0.0,
+        0.0
+      ],
+      "detection_rate": 0.0,
+      "detection_rate_lenient": 0.0,
+      "detection_rate_spec_visible": 0.0,
+      "errors": 0,
+      "false_alarm_ci95": [
+        0.0,
+        0.1287
+      ],
+      "false_alarm_rate": 0.0,
+      "false_alarms": 0,
+      "flakes": 0,
+      "input_tokens": 0,
+      "label": "The model's own test suite",
+      "llm_calls": 0,
+      "n_buggy": 9,
+      "n_clean": 26,
+      "n_distinct_defects": 4,
+      "n_spec_visible": 2,
+      "output_tokens": 0,
+      "system": "self_tests",
+      "tests_emitted": 615,
+      "unsound_claims": 24,
+      "usd": 0.0,
+      "wall_ms": 0,
+      "youden_j": 0.0
+    },
+    {
+      "detected": 4,
+      "detected_spec_visible": 0,
+      "detection_ci95": [
+        0.1888,
+        0.7333
+      ],
+      "detection_ci95_clustered": [
+        0.0,
+        1.0
+      ],
+      "detection_rate": 0.4444,
+      "detection_rate_lenient": 0.6667,
+      "detection_rate_spec_visible": 0.0,
+      "errors": 0,
+      "false_alarm_ci95": [
+        0.2554,
+        0.6105
+      ],
+      "false_alarm_rate": 0.4231,
+      "false_alarms": 11,
+      "flakes": 0,
+      "input_tokens": 75021,
+      "label": "Baseline A: one direct prompt",
+      "llm_calls": 35,
+      "n_buggy": 9,
+      "n_clean": 26,
+      "n_distinct_defects": 4,
+      "n_spec_visible": 2,
+      "output_tokens": 38791,
+      "system": "baseline_direct",
+      "tests_emitted": 201,
+      "unsound_claims": 7,
+      "usd": 0.8069,
+      "wall_ms": 66,
+      "youden_j": 0.0214
+    },
+    {
+      "detected": 5,
+      "detected_spec_visible": 1,
+      "detection_ci95": [
+        0.2667,
+        0.8112
+      ],
+      "detection_ci95_clustered": [
+        0.1,
+        1.0
+      ],
+      "detection_rate": 0.5556,
+      "detection_rate_lenient": 0.6667,
+      "detection_rate_spec_visible": 0.5,
+      "errors": 0,
+      "false_alarm_ci95": [
+        0.1941,
+        0.5378
+      ],
+      "false_alarm_rate": 0.3462,
+      "false_alarms": 9,
+      "flakes": 0,
+      "input_tokens": 403331,
+      "label": "Baseline B: general agent with tools",
+      "llm_calls": 156,
+      "n_buggy": 9,
+      "n_clean": 26,
+      "n_distinct_defects": 4,
+      "n_spec_visible": 2,
+      "output_tokens": 58619,
+      "system": "baseline_agent",
+      "tests_emitted": 26,
+      "unsound_claims": 5,
+      "usd": 2.0893,
+      "wall_ms": 289,
+      "youden_j": 0.2094
+    },
+    {
+      "detected": 1,
+      "detected_spec_visible": 0,
+      "detection_ci95": [
+        0.0199,
+        0.435
+      ],
+      "detection_ci95_clustered": [
+        0.0,
+        0.5
+      ],
+      "detection_rate": 0.1111,
+      "detection_rate_lenient": 0.1111,
+      "detection_rate_spec_visible": 0.0,
+      "errors": 0,
+      "false_alarm_ci95": [
+        0.0068,
+        0.1889
+      ],
+      "false_alarm_rate": 0.0385,
+      "false_alarms": 1,
+      "flakes": 0,
+      "input_tokens": 518662,
+      "label": "Blindspot",
+      "llm_calls": 396,
+      "n_buggy": 9,
+      "n_clean": 26,
+      "n_distinct_defects": 4,
+      "n_spec_visible": 2,
+      "output_tokens": 129410,
+      "system": "blindspot",
+      "tests_emitted": 2,
+      "unsound_claims": 1,
+      "usd": 3.4953,
+      "wall_ms": 3254365,
+      "youden_j": 0.0726
+    },
+    {
+      "detected": 6,
+      "detected_spec_visible": 2,
+      "detection_ci95": [
+        0.3542,
+        0.8794
+      ],
+      "detection_ci95_clustered": [
+        0.1818,
+        1.0
+      ],
+      "detection_rate": 0.6667,
+      "detection_rate_lenient": 0.6667,
+      "detection_rate_spec_visible": 1.0,
+      "errors": 0,
+      "false_alarm_ci95": [
+        0.1941,
+        0.5378
+      ],
+      "false_alarm_rate": 0.3462,
+      "false_alarms": 9,
+      "flakes": 0,
+      "input_tokens": 853889,
+      "label": "General agent + spec-anchored Oracle",
+      "llm_calls": 337,
+      "n_buggy": 9,
+      "n_clean": 26,
+      "n_distinct_defects": 4,
+      "n_spec_visible": 2,
+      "output_tokens": 118973,
+      "system": "agent_plus_oracle",
+      "tests_emitted": 25,
+      "unsound_claims": 4,
+      "usd": 4.3463,
+      "wall_ms": 262105,
+      "youden_j": 0.3205
+    },
+    {
+      "detected": 1,
+      "detected_spec_visible": 0,
+      "detection_ci95": [
+        0.0199,
+        0.435
+      ],
+      "detection_ci95_clustered": [
+        0.0,
+        0.5
+      ],
+      "detection_rate": 0.1111,
+      "detection_rate_lenient": 0.1111,
+      "detection_rate_spec_visible": 0.0,
+      "errors": 0,
+      "false_alarm_ci95": [
+        0.0214,
+        0.2414
+      ],
+      "false_alarm_rate": 0.0769,
+      "false_alarms": 2,
+      "flakes": 0,
+      "input_tokens": 616512,
+      "label": "Blindspot (search-first probes)",
+      "llm_calls": 408,
+      "n_buggy": 9,
+      "n_clean": 26,
+      "n_distinct_defects": 4,
+      "n_spec_visible": 2,
+      "output_tokens": 145102,
+      "system": "blindspot_search",
+      "tests_emitted": 3,
+      "unsound_claims": 2,
+      "usd": 4.014,
+      "wall_ms": 3338960,
+      "youden_j": 0.0342
+    }
+  ],
+  "systems_evaluated": [
+    "self_tests",
+    "baseline_direct",
+    "baseline_agent",
+    "blindspot",
+    "blindspot_search",
+    "agent_plus_oracle"
+  ]
+}
