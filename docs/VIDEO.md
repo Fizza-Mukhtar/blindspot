@@ -10,9 +10,16 @@ this was written, read the file, not this script.
 
 ```bash
 make install
-make reproduce      # ~40 min; confirms the repo is in the state you are about to film
-make trace          # builds trajectories/viewer.html for shot 5
+make trace          # builds trajectories/viewer.html
+python scripts/demo.py --case full_jitter_backoff__v12   # ~100s; rehearse this shot once
 ```
+
+`make reproduce` (~40 min) is worth running once beforehand to confirm the repository is in
+the state you are filming, but it is not needed for any shot.
+
+**If you are working inside OneDrive, Dropbox or iCloud, everything above is several times
+slower** — the sandbox spawns thousands of short-lived processes and the sync client
+contends for each one. Nothing is wrong; it is just slow.
 
 Terminal at ~110×34, dark theme, font large enough to read at 720p. `python scripts/demo.py
 --pace 0` removes the deliberate pauses if you would rather cut than wait.
@@ -59,7 +66,19 @@ running it green.
 
 ## 1:25 – 2:25 — One realistic execution, end to end
 
-**On screen:** `make demo`
+**On screen:** run exactly this — it takes about 100 seconds, offline, no API key:
+
+```bash
+python scripts/demo.py --case full_jitter_backoff__v12
+```
+
+**Name the case honestly as you start it:** *"This is the one case in nine that Blindspot
+catches — I'll come to the other eight in a moment."* Filming the single success without
+saying so would be the one dishonest frame in the video, and the next shot is about to
+admit it anyway.
+
+(Plain `make demo` picks the first buggy case, where Blindspot finds nothing. That is the
+representative outcome, not the useful one to film.)
 
 Let it run. Narrate the stages as they appear:
 
@@ -74,8 +93,18 @@ Let it run. Narrate the stages as they appear:
 > independent reading of the specification that sees the call but never the accusation,
 > compared mechanically with `ast.literal_eval`. No model adjudicates anything."
 
-**End the shot on** the counterexample executed twice — red on the implementation, green on
-the hidden reference. That is the grader's whole definition of a sound finding.
+**End the shot on** the final panel, which the demo prints for you:
+
+```
+| the model's implementation | FAIL | the code violates the quoted clause       |
+| the hidden reference       | PASS | the test is right about the specification |
+```
+
+> "Red on this code, green on a correct one. That conjunction is the entire scoring rule —
+> and it is why `assert False`, which is red on everything, scores zero."
+
+That is the grader's whole definition of a sound finding, and nothing in the scoring path
+is a language model.
 
 ---
 
