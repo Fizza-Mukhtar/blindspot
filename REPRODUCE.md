@@ -78,14 +78,11 @@ offline default.
 make reproduce
 ```
 
-or, without make:
+or, without make — one command per line, and no shell-specific syntax, so this works
+identically in PowerShell, cmd and any POSIX shell:
 
 ```bash
-BLINDSPOT_PROVIDER=replay python -m blindspot.cli eval \
-    --split test \
-    --systems self_tests baseline_direct baseline_agent blindspot \
-    --ablations \
-    --out results/reproduced
+python -m blindspot.cli eval --provider replay --split test --ablations --ablation-clean 6 --systems self_tests baseline_direct baseline_agent blindspot blindspot_search agent_plus_oracle --out results/reproduced
 python scripts/compare_results.py results/expected results/reproduced
 ```
 
@@ -114,6 +111,12 @@ slow.
 
 If you want a faster signal than either, `make test` proves the whole pipeline end to end
 against an offline stub model in well under a minute.
+
+> **Clone outside a synced folder.** These timings are for an ordinary directory. The
+> reproduction spawns thousands of short-lived subprocesses, each writing files, and a sync
+> client (OneDrive, Dropbox, iCloud) or an aggressive virus scanner will contend for every
+> one of them — measured here at several times slower inside a OneDrive folder than outside
+> it. If `make reproduce` seems to crawl, that is almost certainly why.
 
 **If it fails.** The script prints every differing cell. The usual cause is an edited prompt
 or pipeline: cassettes are keyed on the exact prompt text, so changing a prompt invalidates

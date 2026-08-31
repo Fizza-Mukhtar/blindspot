@@ -6,7 +6,10 @@
 # test against two targets -- so `make reproduce-quick` does the headline systems
 # only.  No model is ever called by either.
 #
-# Every target works on Linux, macOS and Windows (git-bash / MSYS make).
+# Every target works on Linux, macOS and Windows.  No recipe uses shell-specific
+# syntax: `VAR=value cmd` is POSIX-only and is a syntax error under cmd.exe,
+# which is the shell GNU make picks on Windows outside git-bash.  Options go
+# on the command line instead.
 
 PY ?= python
 PIP ?= $(PY) -m pip
@@ -115,7 +118,7 @@ check: lint typecheck test verify-corpus check-docs
 # whether to spend longer.
 reproduce-quick:
 	@echo ">> replaying the headline systems from committed cassettes (no API key)"
-	BLINDSPOT_PROVIDER=replay $(BLINDSPOT) eval \
+	$(BLINDSPOT) eval --provider replay \
 		--split test \
 		--systems self_tests baseline_direct baseline_agent blindspot blindspot_search agent_plus_oracle \
 		--out results/reproduced
@@ -123,7 +126,7 @@ reproduce-quick:
 
 reproduce:
 	@echo ">> replaying the full benchmark from committed cassettes (no API key needed)"
-	BLINDSPOT_PROVIDER=replay $(BLINDSPOT) eval \
+	$(BLINDSPOT) eval --provider replay \
 		--split test \
 		--systems self_tests baseline_direct baseline_agent blindspot blindspot_search agent_plus_oracle \
 		--ablations --ablation-clean 6 \
