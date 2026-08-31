@@ -59,13 +59,12 @@ appeared to.
 |---|---|
 | **1. Solution code + improvement changelog** | this repository · [`CHANGELOG.md`](CHANGELOG.md) (the Improvement Changelog, one entry per experiment, with evidence) |
 | **2. Reproduction guide** | [`REPRODUCE.md`](REPRODUCE.md) — clean-environment walkthrough, exact commands, runtimes, cost |
-| **3. Solution video (≤5 min)** | [`docs/VIDEO.md`](docs/VIDEO.md) — shot-by-shot script; `make demo` reproduces every frame |
+| **3. Solution video (≤5 min)** | submitted with the entry. Every frame of it is reproducible here: `python scripts/demo.py --case full_jitter_backoff__v12` is the walkthrough it shows, and `make reproduce` regenerates every number it quotes |
 | **4. Agent trajectories** | [`trajectories/`](trajectories/) — JSONL per run + a self-contained `viewer.html` (double-click, no server). Curated entry points in [`trajectories/README.md`](trajectories/README.md) |
 | Agent instructions | [`src/blindspot/prompts/`](src/blindspot/prompts/) — every system prompt as a reviewable Markdown file |
 | **Pre-registration** | [`PREREGISTRATION.md`](PREREGISTRATION.md) — the endpoint, the analysis plan and what would count as a *negative* result, written before the sweep ran |
 | Prior art & honest differentiation | [`PRIOR_ART.md`](PRIOR_ART.md) — every citation verified against the arXiv API |
 | Architecture | [`ARCHITECTURE.md`](ARCHITECTURE.md) |
-| Submission checklist | [`docs/SUBMISSION.md`](docs/SUBMISSION.md) — the rule book line by line, and what to look at first |
 
 **The one command that matters:**
 

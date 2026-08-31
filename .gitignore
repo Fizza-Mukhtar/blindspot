@@ -21,9 +21,6 @@ venv/
 htmlcov/
 .coverage
 
-# Submission archive (rebuild with `make package`)
-blindspot-submission.zip
-
 # Run logs are scratch output, not evidence. The evidence is
 # results/*.csv, *.json and *.md, all of which are tracked.
 results/*.log

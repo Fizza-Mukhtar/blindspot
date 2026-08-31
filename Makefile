@@ -17,9 +17,11 @@ BLINDSPOT ?= $(PY) -m blindspot.cli
 
 .DEFAULT_GOAL := help
 .PHONY: help install install-dev doctor test test-fast lint typecheck check \
-        check-docs triage-audit verify-corpus verify-citations crosscheck \n        reproduce reproduce-quick \
-        eval eval-ablations eval-dev record forge learn split trace demo results \
-        freeze freeze-corpus label-spec-visible package clean distclean
+        check-docs triage-audit verify-corpus verify-citations crosscheck \
+        reproduce reproduce-quick eval eval-ablations eval-dev record forge \
+        learn split trace demo results freeze freeze-corpus label-spec-visible \
+        clean distclean
+
 # --------------------------------------------------------------------------- #
 
 help:
@@ -47,9 +49,6 @@ help:
 	@echo "  DEMO"
 	@echo "    make demo             audit one real case end to end, offline"
 	@echo "    make trace            render agent trajectories to a single HTML file"
-	@echo ""
-	@echo "  SUBMIT"
-	@echo "    make package          build the archive; refuses if a secret is inside"
 	@echo ""
 	@echo "  LIVE  (needs model access — see REPRODUCE.md)"
 	@echo "    make record           re-run the sweep live and write cassettes (resumable)"
@@ -198,11 +197,6 @@ trace:
 	$(BLINDSPOT) trace --out trajectories/viewer.html
 
 # --------------------------------------------------------------------------- #
-
-# Build the submission archive.  Refuses to write one containing anything
-# credential-shaped -- `.env` is gitignored, which does nothing for a hand-made zip.
-package:
-	$(PY) scripts/package_submission.py
 
 clean:
 	$(PY) scripts/clean.py
