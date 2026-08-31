@@ -1,6 +1,0 @@
-+ cd 'C:/Users/USER/OneDrive/Desktop/Frontier Engineering challenge'
-+ python -m blindspot.cli eval --provider claude_cli --record --inflight 8 --concurrency 5 --split test --ablations --ablation-clean 6 --systems self_tests baseline_direct baseline_agent blindspot blindspot_search agent_plus_oracle --out results/live
-+ BLINDSPOT_PROVIDER=replay
-+ python -m blindspot.cli eval --concurrency 4 --split test --ablations --ablation-clean 6 --systems self_tests baseline_direct baseline_agent blindspot blindspot_search agent_plus_oracle --out results
-+ echo FINAL_DONE
-FINAL_DONE
