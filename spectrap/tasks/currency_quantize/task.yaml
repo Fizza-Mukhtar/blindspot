@@ -1,0 +1,46 @@
+task_id: currency_quantize
+title: Quantise a monetary amount to its currency's minor units
+entrypoint: format_amount
+difficulty: 3
+
+# The trap is not invented for this benchmark: it is the interaction of a
+# published currency standard with a published rounding mode, and production
+# payment code gets it wrong routinely enough to have its own incident genre.
+grounding:
+  standard: ISO 4217 minor units ("exponent" column) with decimal.ROUND_HALF_EVEN
+  url: https://www.iso.org/iso-4217-currency-codes.html
+trap_class: rounding/precision
+trap: >-
+  The number of decimals is the currency's ISO 4217 exponent, which is 0 for
+  JPY/ISK/UGX, 3 for KWD/BHD/OMR/TND and 4 for CLF rather than always 2 -- and
+  at exponent 0 the result must carry no decimal point at all; rounding is
+  ROUND_HALF_EVEN on a Decimal built from the input STRING, so "2.675" is 2.68
+  while "2.665" is 2.66, and any detour through float or through ROUND_HALF_UP
+  flips half-way values; negative amounts round symmetrically but a negative
+  amount that rounds to zero must be emitted unsigned.
+why_models_miss_it: >-
+  Money formatting is so strongly associated with two decimal places that the
+  exponent lookup gets read, stored, and then quietly ignored in favour of
+  f"{value:.2f}" or round(x, 2). The rounding mode is the second layer: Python's
+  decimal default context is already ROUND_HALF_EVEN, so an implementation can
+  look correct while actually relying on the default and then break the moment
+  it uses round(), format(), or a float intermediate -- all three of which agree
+  with half-even on most inputs and disagree exactly on the ties. The zero
+  exponent is a third layer: quantize(Decimal("1e-0")) plus a naive
+  f"{q:.{exp}f}" is fine, but hand-rolled padding tends to leave a trailing dot,
+  and negative zero survives every arithmetic path unless it is explicitly
+  normalised.
+
+# Genuine under-determination, deliberately left in the spec. These exist so
+# the ambiguity gate has something real to catch; they are NOT defects and a
+# system that reports them as defects is penalised.
+open_questions:
+  - "What to do when `exponents` supplies a negative or non-integer exponent for a currency; ISO 4217 publishes none, and the ticket says the caller's table is authoritative without saying whether it must be sanity-checked."
+  - "Whether the `KeyError` raised for an unknown currency must carry any particular message, e.g. the offending code, the way the `ValueError` path is described."
+
+runtime:
+  pure: true
+  deterministic: true
+  stdlib_only: true
+  needs_clock: false
+  needs_rng: false

@@ -1,0 +1,274 @@
+{
+  "ablation_case_ids": null,
+  "ablation_reference": {},
+  "config_fingerprint": "d33dea73cd15acd8",
+  "models": {
+    "fast": "haiku",
+    "smart": "sonnet"
+  },
+  "n_cases": 35,
+  "paired_comparisons": [
+    {
+      "b_system_only": 0,
+      "baseline": "baseline_direct",
+      "c_baseline_only": 4,
+      "cases_baseline_only": [
+        "full_jitter_backoff__v12",
+        "http_range_resolve__t20",
+        "http_range_resolve__t40",
+        "http_range_resolve__v0"
+      ],
+      "cases_system_only": [],
+      "delta": -0.4444,
+      "delta_ci95": [
+        -0.7778,
+        -0.1111
+      ],
+      "n_paired": 9,
+      "p_exact": 0.125,
+      "p_midp": 0.0625,
+      "power_note": "4 discordant pairs; exact conditional McNemar is the appropriate test at this n.",
+      "significant_at_05": false,
+      "system": "blindspot"
+    },
+    {
+      "b_system_only": 0,
+      "baseline": "baseline_agent",
+      "c_baseline_only": 5,
+      "cases_baseline_only": [
+        "discount_stacking__v11",
+        "full_jitter_backoff__v12",
+        "http_range_resolve__t20",
+        "http_range_resolve__t40",
+        "http_range_resolve__v0"
+      ],
+      "cases_system_only": [],
+      "delta": -0.5556,
+      "delta_ci95": [
+        -0.8889,
+        -0.2222
+      ],
+      "n_paired": 9,
+      "p_exact": 0.0625,
+      "p_midp": 0.03125,
+      "power_note": "5 discordant pairs; exact conditional McNemar is the appropriate test at this n.",
+      "significant_at_05": false,
+      "system": "blindspot"
+    }
+  ],
+  "split": "test",
+  "systems": [
+    {
+      "detected": 0,
+      "detection_ci95": [
+        0.0,
+        0.2991
+      ],
+      "detection_ci95_clustered": [
+        0.0,
+        0.0
+      ],
+      "detection_rate": 0.0,
+      "detection_rate_lenient": 0.0,
+      "errors": 0,
+      "false_alarm_ci95": [
+        0.0,
+        0.1287
+      ],
+      "false_alarm_rate": 0.0,
+      "false_alarms": 0,
+      "flakes": 0,
+      "input_tokens": 0,
+      "label": "The model's own test suite",
+      "llm_calls": 0,
+      "n_buggy": 9,
+      "n_clean": 26,
+      "n_distinct_defects": 4,
+      "output_tokens": 0,
+      "system": "self_tests",
+      "tests_emitted": 615,
+      "unsound_claims": 24,
+      "usd": 0.0,
+      "wall_ms": 0,
+      "youden_j": 0.0
+    },
+    {
+      "detected": 4,
+      "detection_ci95": [
+        0.1888,
+        0.7333
+      ],
+      "detection_ci95_clustered": [
+        0.0,
+        1.0
+      ],
+      "detection_rate": 0.4444,
+      "detection_rate_lenient": 0.6667,
+      "errors": 0,
+      "false_alarm_ci95": [
+        0.2554,
+        0.6105
+      ],
+      "false_alarm_rate": 0.4231,
+      "false_alarms": 11,
+      "flakes": 0,
+      "input_tokens": 75021,
+      "label": "Baseline A: one direct prompt",
+      "llm_calls": 35,
+      "n_buggy": 9,
+      "n_clean": 26,
+      "n_distinct_defects": 4,
+      "output_tokens": 38791,
+      "system": "baseline_direct",
+      "tests_emitted": 201,
+      "unsound_claims": 7,
+      "usd": 0.8069,
+      "wall_ms": 359,
+      "youden_j": 0.0214
+    },
+    {
+      "detected": 5,
+      "detection_ci95": [
+        0.2667,
+        0.8112
+      ],
+      "detection_ci95_clustered": [
+        0.1,
+        1.0
+      ],
+      "detection_rate": 0.5556,
+      "detection_rate_lenient": 0.6667,
+      "errors": 0,
+      "false_alarm_ci95": [
+        0.1941,
+        0.5378
+      ],
+      "false_alarm_rate": 0.3462,
+      "false_alarms": 9,
+      "flakes": 0,
+      "input_tokens": 397065,
+      "label": "Baseline B: general agent with tools",
+      "llm_calls": 154,
+      "n_buggy": 9,
+      "n_clean": 26,
+      "n_distinct_defects": 4,
+      "output_tokens": 57949,
+      "system": "baseline_agent",
+      "tests_emitted": 26,
+      "unsound_claims": 5,
+      "usd": 2.0604,
+      "wall_ms": 323,
+      "youden_j": 0.2094
+    },
+    {
+      "detected": 0,
+      "detection_ci95": [
+        0.0,
+        0.2991
+      ],
+      "detection_ci95_clustered": [
+        0.0,
+        0.0
+      ],
+      "detection_rate": 0.0,
+      "detection_rate_lenient": 0.0,
+      "errors": 35,
+      "false_alarm_ci95": [
+        0.0,
+        0.1287
+      ],
+      "false_alarm_rate": 0.0,
+      "false_alarms": 0,
+      "flakes": 0,
+      "input_tokens": 85478,
+      "label": "Blindspot",
+      "llm_calls": 37,
+      "n_buggy": 9,
+      "n_clean": 26,
+      "n_distinct_defects": 4,
+      "output_tokens": 66034,
+      "system": "blindspot",
+      "tests_emitted": 0,
+      "unsound_claims": 0,
+      "usd": 1.2469,
+      "wall_ms": 74,
+      "youden_j": 0.0
+    },
+    {
+      "detected": 0,
+      "detection_ci95": [
+        0.0,
+        0.2991
+      ],
+      "detection_ci95_clustered": [
+        0.0,
+        0.0
+      ],
+      "detection_rate": 0.0,
+      "detection_rate_lenient": 0.0,
+      "errors": 35,
+      "false_alarm_ci95": [
+        0.0,
+        0.1287
+      ],
+      "false_alarm_rate": 0.0,
+      "false_alarms": 0,
+      "flakes": 0,
+      "input_tokens": 85478,
+      "label": "Blindspot (targeted search)",
+      "llm_calls": 37,
+      "n_buggy": 9,
+      "n_clean": 26,
+      "n_distinct_defects": 4,
+      "output_tokens": 66034,
+      "system": "blindspot_targeted",
+      "tests_emitted": 0,
+      "unsound_claims": 0,
+      "usd": 1.2469,
+      "wall_ms": 140,
+      "youden_j": 0.0
+    },
+    {
+      "detected": 5,
+      "detection_ci95": [
+        0.2667,
+        0.8112
+      ],
+      "detection_ci95_clustered": [
+        0.1,
+        1.0
+      ],
+      "detection_rate": 0.5556,
+      "detection_rate_lenient": 0.6667,
+      "errors": 15,
+      "false_alarm_ci95": [
+        0.1941,
+        0.5378
+      ],
+      "false_alarm_rate": 0.3462,
+      "false_alarms": 9,
+      "flakes": 0,
+      "input_tokens": 688433,
+      "label": "General agent + spec-anchored Oracle",
+      "llm_calls": 287,
+      "n_buggy": 9,
+      "n_clean": 26,
+      "n_distinct_defects": 4,
+      "output_tokens": 91848,
+      "system": "agent_plus_oracle",
+      "tests_emitted": 26,
+      "unsound_claims": 5,
+      "usd": 3.443,
+      "wall_ms": 20385,
+      "youden_j": 0.2094
+    }
+  ],
+  "systems_evaluated": [
+    "self_tests",
+    "baseline_direct",
+    "baseline_agent",
+    "blindspot",
+    "blindspot_targeted",
+    "agent_plus_oracle"
+  ]
+}

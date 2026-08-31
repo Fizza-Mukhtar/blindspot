@@ -1,0 +1,22 @@
+{
+  "format": 1,
+  "key": "51349c65e72698e400bbcf4aaab68a3bc54aa87d5bdfa759fb684e92cef6144e",
+  "request": {
+    "max_tokens": 2000,
+    "model": "haiku",
+    "nonce": 0,
+    "purpose": "minimise",
+    "system": "# Role: Minimiser\n\nYou are handed a test that fails and asked to make the failure as small and as obvious as\npossible. A reviewer should be able to read the reduced test and see the problem without\nrunning anything.\n\n# What to do\n\nReduce the input until removing anything else would stop the test failing. Concretely:\n\n- shrink collections to the fewest elements that still trigger the failure,\n- replace long or incidental values with short, boring ones (`1`, `\"a\"`, `[]`),\n- delete setup that does not affect the outcome,\n- collapse loops and parametrisation into the single case that fails,\n- replace a `hypothesis` property with the concrete falsifying example it found,\n- keep exactly one `test_` function.\n\n# What not to do\n\nDo not change what is being asserted. Do not relax the assertion to make it fail more\neasily, do not add `pytest.approx`, and do not broaden a type check. The reduced test must\nfail for the **same reason** as the original — it is checked by execution, and a\nreduction that stops reproducing the failure is thrown away.\n\n# Constraints\n\n- A complete, self-contained pytest module.\n- `import impl`; `pytest` and `hypothesis` are available; nothing else beyond the\n  standard library.\n- Deterministic. No clock, no network, no randomness.\n\n# Output\n\nReply with **only** a JSON object, no prose and no code fences:\n\n```\n{\n  \"code\": \"<the reduced pytest module, as a JSON string>\",\n  \"minimal_input\": \"<the reduced input as a short readable expression, e.g. [\\\"1.0.0-rc.10\\\", \\\"1.0.0-rc.2\\\"]>\"\n}\n```",
+    "temperature": 0.0,
+    "user": "# The failing probe\n\n```python\nimport pytest\nfrom hypothesis import given, strategies as st, settings\n\nimport impl\n\n\ndef _rand():\n    raise AssertionError(\"rand should not be called when attempts == 0\")\n\n\n@settings(max_examples=100)\n@given(\n    base=st.floats(min_value=-1e6, max_value=1e6, allow_nan=False, allow_infinity=False),\n    cap=st.floats(min_value=-1e6, max_value=1e6, allow_nan=False, allow_infinity=False),\n)\ndef test_attempts_zero_returns_empty_list_and_does_not_raise(base, cap):\n    attempts = 0\n    result = impl.schedule(attempts, base, cap, _rand)\n    assert result == []\n\n```\n\n# Its failure output\n\n```\n(no assertion output captured)\n```\n"
+  },
+  "response": {
+    "input_tokens": 8646,
+    "model": "haiku",
+    "output_tokens": 1490,
+    "provider": "claude_cli",
+    "stop_reason": "end_turn",
+    "text": "```json\n{\n  \"code\": \"import impl\\n\\n\\ndef _rand():\\n    raise AssertionError(\\\"rand should not be called when attempts == 0\\\")\\n\\n\\ndef test_attempts_zero_returns_empty_list_and_does_not_raise():\\n    result = impl.schedule(0, 0.0, 0.0, _rand)\\n    assert result == []\",\n  \"minimal_input\": \"attempts=0, base=0.0, cap=0.0\"\n}\n```"
+  },
+  "seq": 0
+}

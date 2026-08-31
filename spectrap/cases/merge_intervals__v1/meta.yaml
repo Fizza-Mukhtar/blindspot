@@ -1,0 +1,14 @@
+case_id: merge_intervals__v1
+difficulty: 3
+entrypoint: merge_bookings
+forged_by: sonnet
+grounding: https://www.cs.utexas.edu/~EWD/transcriptions/EWD08xx/EWD831.html
+has_defect: false
+notes: ''
+provenance: forged
+self_tests_green: true
+split: dev
+task_id: merge_intervals
+trap: ''
+trap_class: ''
+witness_input: ''

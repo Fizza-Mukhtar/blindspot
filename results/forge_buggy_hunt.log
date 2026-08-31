@@ -1,0 +1,16 @@
+                       Forge                        
++--------------------------------------------------+
+| statistic                                | value |
+|------------------------------------------+-------|
+| tasks                                    |    14 |
+| implementations generated                |   112 |
+| self-written suites green                |    79 |
+| self-written suites red (discarded)      |    33 |
+| green but provably wrong                 |     6 |
+| green and equivalent to reference        |    73 |
+| green-and-wrong rate                     |    8% |
+| suites that reject the correct reference |    23 |
+| oracle disagreements (flagged)           |     5 |
++--------------------------------------------------+
+wrote C:\Users\USER\OneDrive\Desktop\Frontier Engineering 
+challenge\results\forge_report.json

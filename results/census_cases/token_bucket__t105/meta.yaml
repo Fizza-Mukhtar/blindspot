@@ -1,0 +1,16 @@
+case_id: token_bucket__t105
+difficulty: 4
+entrypoint: simulate
+forged_by: haiku
+grounding: https://datatracker.ietf.org/doc/html/rfc2697
+has_defect: false
+notes: ''
+provenance: forged
+self_tests_green: true
+spec_variant: terse
+spec_visible: null
+split: test
+task_id: token_bucket
+trap: ''
+trap_class: ''
+witness_input: ''

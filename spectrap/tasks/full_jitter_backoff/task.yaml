@@ -1,0 +1,47 @@
+task_id: full_jitter_backoff
+title: Compute a Full Jitter retry schedule for the API client
+entrypoint: schedule
+difficulty: 3
+
+# The trap is not invented for this benchmark: it is the published definition of
+# a named algorithm that implementations routinely mangle into a neighbouring
+# variant of the same algorithm.
+grounding:
+  standard: AWS Architecture Blog, "Exponential Backoff And Jitter" - the Full Jitter variant
+  url: https://aws.amazon.com/blogs/architecture/exponential-backoff-and-jitter/
+trap_class: algorithm-identity/formula-substitution
+trap: >-
+  Full Jitter is sleep = rand(0, min(cap, base * 2**attempt)) with attempt
+  starting at 0: the cap bounds the CEILING of the draw rather than the drawn
+  delay, there is no additive base term (base + rand(...) is Equal Jitter, a
+  different algorithm), attempt 0 is already jittered rather than a flat `base`
+  first hop, and the exponent must be clamped once the ceiling reaches cap so
+  that a few thousand attempts do not overflow 2**attempt.
+why_models_miss_it: >-
+  "Exponential backoff with jitter" is remembered as a shape rather than as a
+  formula, so implementations reach for the most familiar-looking arrangement of
+  the same three symbols. The two dominant substitutions are computing
+  min(cap, rand(base * 2**i)) - clamping after the draw, which only diverges
+  from the correct answer once the exponential exceeds the cap - and
+  base + rand(min(cap, base * 2**i) - base), which is the blog post's Equal
+  Jitter variant and only diverges when the draw is near zero. A third habit is
+  emitting an unjittered first delay of `base` and jittering from attempt 1
+  onwards, which looks right in a printed schedule. Finally, the natural
+  transcription of the formula is `base * 2 ** i` inside the loop, which raises
+  OverflowError (or silently returns inf) long before the reconciliation
+  worker's few thousand attempts are reached, because the clamp is applied to
+  the product rather than to the exponent.
+
+# Genuine under-determination, deliberately left in the spec. These exist so
+# the ambiguity gate has something real to catch; they are NOT defects and a
+# system that reports them as defects is penalised.
+open_questions:
+  - "Whether each returned delay must be coerced to `float`, or may be handed back with whatever numeric type `rand` returned (e.g. an `int` or a `Decimal`)."
+  - "Whether there is an upper bound on `attempts` above which the call should be rejected rather than allocating an arbitrarily long list."
+
+runtime:
+  pure: true
+  deterministic: true
+  stdlib_only: true
+  needs_clock: false
+  needs_rng: false

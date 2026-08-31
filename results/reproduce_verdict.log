@@ -1,0 +1,3 @@
+REPRODUCED — 330 runs matched exactly on 8 outcome columns.
+  expected: results\expected\per_case.csv
+  actual:   results\reproduced\per_case.csv

@@ -1,0 +1,3 @@
+{"case_id": "iso_week_date__v0", "config": {"system": "self_tests"}, "event": "run.start", "format": 1, "inputs": {"case_id": "iso_week_date__v0"}, "run_id": "self_tests--iso_week_date__v0", "stage": "init", "step": 1, "system": "self_tests"}
+{"case_id": "iso_week_date__v0", "event": "note", "format": 1, "message": "replaying 18 self-written test(s); no model call", "run_id": "self_tests--iso_week_date__v0", "stage": "init", "step": 2, "system": "self_tests"}
+{"case_id": "iso_week_date__v0", "cost": {}, "event": "run.end", "findings": 0, "format": 1, "run_id": "self_tests--iso_week_date__v0", "stage": "done", "step": 3, "system": "self_tests", "verdict": "CLEAN"}

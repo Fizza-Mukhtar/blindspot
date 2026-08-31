@@ -1,0 +1,90 @@
+# Continuous integration.
+#
+# Everything here runs with NO model access and NO network beyond PyPI: the test
+# suite uses a deterministic offline stub provider, and `make reproduce` replays
+# committed cassettes.  That is the point -- if CI can do it on a clean runner,
+# so can a judge.
+name: ci
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  check:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python: ["3.11", "3.13"]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev]"
+
+      - name: Lint
+        run: python -m ruff check src tests scripts
+
+      - name: Format
+        run: python -m ruff format --check src tests scripts
+
+      - name: Types
+        run: python -m mypy
+
+      - name: Tests (offline, no credentials)
+        run: python -m pytest tests -q
+
+      - name: Corpus integrity
+        run: python scripts/verify_corpus.py --json results/corpus_integrity.json
+
+      # `has_defect` means "differs from the reference"; `spec_visible` means
+      # "violates a stated requirement". Re-derived by execution, so the two can
+      # never drift apart silently.
+      - name: Specification-visibility labels are current
+        run: python scripts/label_spec_visible.py --check
+
+      # The benchmark was frozen before the evaluation ran. Any edit to a spec,
+      # reference, implementation or label since then fails here rather than
+      # quietly improving a number.
+      - name: Corpus lock
+        run: python scripts/freeze_corpus.py --check
+
+      - name: Documentation references resolve
+        run: python scripts/check_docs.py --strict
+
+      - name: Reference vs. independent oracle
+        run: python scripts/run_crosscheck.py --budget 1500
+
+      - name: No secrets in the tree
+        shell: bash
+        run: |
+          set -e
+          test ! -f .env || (echo "::error::.env must never be committed" && exit 1)
+          if git grep -nIE 'sk-ant-(api|oat)[0-9]{2}-|sk-proj-[A-Za-z0-9]{20}' -- . ':!*.example' ':!.github/*'; then
+            echo "::error::a credential-shaped string is present in the tree"; exit 1
+          fi
+          echo "clean"
+
+  reproduce:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+      - run: python -m pip install -e .
+      - name: Replay the published result from cassettes
+        run: make reproduce
+      - name: README numbers match results/
+        run: python scripts/update_readme.py --check

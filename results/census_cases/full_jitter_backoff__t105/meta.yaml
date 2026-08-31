@@ -1,0 +1,21 @@
+case_id: full_jitter_backoff__t105
+difficulty: 3
+entrypoint: schedule
+forged_by: haiku
+grounding: https://aws.amazon.com/blogs/architecture/exponential-backoff-and-jitter/
+has_defect: true
+notes: reference raises ValueError; candidate returns []
+provenance: forged
+self_tests_green: true
+spec_variant: terse
+spec_visible: false
+split: test
+task_id: full_jitter_backoff
+trap: 'Full Jitter is sleep = rand(0, min(cap, base * 2**attempt)) with attempt starting
+  at 0: the cap bounds the CEILING of the draw rather than the drawn delay, there
+  is no additive base term (base + rand(...) is Equal Jitter, a different algorithm),
+  attempt 0 is already jittered rather than a flat `base` first hop, and the exponent
+  must be clamped once the ceiling reaches cap so that a few thousand attempts do
+  not overflow 2**attempt.'
+trap_class: algorithm-identity/formula-substitution
+witness_input: schedule(0, 1e-300, -1.0, <function _make_rand.<locals>.rand >)

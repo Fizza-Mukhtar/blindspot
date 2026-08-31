@@ -1,0 +1,2635 @@
+{
+  "config_fingerprint": "a4af2c197d192ec3",
+  "generated_utc": "2026-08-29T21:05:54Z",
+  "models": {
+    "fast": "haiku",
+    "smart": "sonnet"
+  },
+  "provider": "claude_cli",
+  "records": [
+    {
+      "case_id": "byte_units__t20",
+      "grade": {
+        "case_id": "byte_units__t20",
+        "detected": false,
+        "detected_lenient": false,
+        "emitted": 0,
+        "error": "",
+        "false_alarm": false,
+        "flakes": 0,
+        "has_defect": true,
+        "reported_verdict": "NEEDS_HUMAN",
+        "sound_counterexamples": 0,
+        "split": "dev",
+        "system": "blindspot",
+        "task_id": "byte_units",
+        "trap_id": "byte_units::format_bytes(-999949999999999999)",
+        "unsound_claims": 0,
+        "verdicts": []
+      },
+      "report": {
+        "case_id": "byte_units__t20",
+        "cost": {
+          "calls": 13,
+          "input_tokens": 17290,
+          "output_tokens": 4866,
+          "provider_input_tokens": 167617,
+          "provider_output_tokens": 20433,
+          "sandbox_runs": 10,
+          "usd": 0.12486,
+          "wall_ms": 80351
+        },
+        "error": null,
+        "findings": [],
+        "notes": [],
+        "obligations_probed": 10,
+        "obligations_total": 10,
+        "open_questions": [
+          {
+            "affects": [
+              "OB-001",
+              "OB-006"
+            ],
+            "id": "AM-001",
+            "options": [
+              "Use a strict `type(n) is int` check, rejecting bool and every other subclass",
+              "Use `isinstance(n, int)` and special-case only bool, accepting other int subclasses"
+            ],
+            "question": "Does the int-type validation reject any int subclass other than bool (e.g. an IntEnum or numpy integer), or is bool merely the one explicitly-called-out exception to an otherwise permissive int-subtype check?",
+            "quote": "`n` must be an `int`.",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "Determines whether format_bytes(SomeIntEnum.X) should succeed or raise TypeError, which isn't directly testable from the examples given."
+          }
+        ],
+        "probes_discarded": 1,
+        "probes_run": 10,
+        "system": "blindspot",
+        "verdict": "NEEDS_HUMAN",
+        "withdrawn_by_oracle": 0
+      },
+      "system": "blindspot",
+      "trajectory": "blindspot--byte_units__t20.jsonl"
+    },
+    {
+      "case_id": "byte_units__t21",
+      "grade": {
+        "case_id": "byte_units__t21",
+        "detected": false,
+        "detected_lenient": false,
+        "emitted": 0,
+        "error": "",
+        "false_alarm": false,
+        "flakes": 0,
+        "has_defect": true,
+        "reported_verdict": "NEEDS_HUMAN",
+        "sound_counterexamples": 0,
+        "split": "dev",
+        "system": "blindspot",
+        "task_id": "byte_units",
+        "trap_id": "byte_units::format_bytes(-999949999999999999)",
+        "unsound_claims": 0,
+        "verdicts": []
+      },
+      "report": {
+        "case_id": "byte_units__t21",
+        "cost": {
+          "calls": 11,
+          "input_tokens": 13058,
+          "output_tokens": 3465,
+          "provider_input_tokens": 142892,
+          "provider_output_tokens": 28353,
+          "sandbox_runs": 10,
+          "usd": 0.091149,
+          "wall_ms": 69131
+        },
+        "error": null,
+        "findings": [],
+        "notes": [],
+        "obligations_probed": 10,
+        "obligations_total": 10,
+        "open_questions": [
+          {
+            "affects": [],
+            "id": "AM-001",
+            "options": [
+              "Accept isinstance(n, int) and not isinstance(n, bool) \u2014 any int subclass besides bool is treated as a valid byte count",
+              "Require type(n) is int exactly \u2014 reject all int subclasses, including non-bool ones, with TypeError"
+            ],
+            "question": "Does 'n must be an int' mean strict type(n) is int, or does it accept any int subclass other than bool (e.g. an IntEnum member or numpy.integer)?",
+            "quote": "`n` must be an `int`.",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "The spec only explicitly carves out bool as a rejected int subtype; it never says whether other int subclasses should be accepted or rejected, so an implementation could reasonably do either and both would satisfy the letter of the text."
+          }
+        ],
+        "probes_discarded": 0,
+        "probes_run": 10,
+        "system": "blindspot",
+        "verdict": "NEEDS_HUMAN",
+        "withdrawn_by_oracle": 0
+      },
+      "system": "blindspot",
+      "trajectory": "blindspot--byte_units__t21.jsonl"
+    },
+    {
+      "case_id": "byte_units__t22",
+      "grade": {
+        "case_id": "byte_units__t22",
+        "detected": false,
+        "detected_lenient": false,
+        "emitted": 0,
+        "error": "",
+        "false_alarm": false,
+        "flakes": 0,
+        "has_defect": false,
+        "reported_verdict": "NEEDS_HUMAN",
+        "sound_counterexamples": 0,
+        "split": "dev",
+        "system": "blindspot",
+        "task_id": "byte_units",
+        "trap_id": "",
+        "unsound_claims": 0,
+        "verdicts": []
+      },
+      "report": {
+        "case_id": "byte_units__t22",
+        "cost": {
+          "calls": 11,
+          "input_tokens": 13077,
+          "output_tokens": 3880,
+          "provider_input_tokens": 194292,
+          "provider_output_tokens": 21592,
+          "sandbox_runs": 10,
+          "usd": 0.097431,
+          "wall_ms": 98462
+        },
+        "error": null,
+        "findings": [],
+        "notes": [],
+        "obligations_probed": 10,
+        "obligations_total": 10,
+        "open_questions": [
+          {
+            "affects": [
+              "OB-002"
+            ],
+            "id": "AM-001",
+            "options": [
+              "Only exactly type(n) is int is accepted; any subclass (bool or otherwise) raises TypeError",
+              "Any isinstance(n, int) is accepted except bool is specifically special-cased to raise TypeError"
+            ],
+            "question": "Does the type check on n reject only bool specifically, or does it reject all int subclasses other than plain int (e.g. an IntEnum or a custom int subtype)?",
+            "quote": "Python treats\n`bool` as a subtype of `int`, but `True` is not a byte count, so",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "Determines whether format_bytes accepts int-like subclasses (e.g. IntEnum members) or rejects everything but the built-in int, which changes the validation logic and its test cases."
+          },
+          {
+            "affects": [],
+            "id": "AM-002",
+            "options": [
+              "binary is type-checked like n and any non-bool raises TypeError",
+              "binary is used as-is via normal Python truthiness, so any truthy/falsy value works without error"
+            ],
+            "question": "Should a non-bool value passed for the binary parameter (e.g. a string, an int, or None) raise TypeError, or is it simply used for its truthiness?",
+            "quote": "",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "Affects whether callers passing e.g. binary=1 or binary='yes' get a TypeError or silently get IEC-style output, which is untested behavior a caller could rely on by accident."
+          }
+        ],
+        "probes_discarded": 0,
+        "probes_run": 10,
+        "system": "blindspot",
+        "verdict": "NEEDS_HUMAN",
+        "withdrawn_by_oracle": 0
+      },
+      "system": "blindspot",
+      "trajectory": "blindspot--byte_units__t22.jsonl"
+    },
+    {
+      "case_id": "byte_units__t40",
+      "grade": {
+        "case_id": "byte_units__t40",
+        "detected": false,
+        "detected_lenient": false,
+        "emitted": 0,
+        "error": "",
+        "false_alarm": false,
+        "flakes": 0,
+        "has_defect": true,
+        "reported_verdict": "NEEDS_HUMAN",
+        "sound_counterexamples": 0,
+        "split": "dev",
+        "system": "blindspot",
+        "task_id": "byte_units",
+        "trap_id": "byte_units::format_bytes(-999949999999999999)",
+        "unsound_claims": 0,
+        "verdicts": []
+      },
+      "report": {
+        "case_id": "byte_units__t40",
+        "cost": {
+          "calls": 11,
+          "input_tokens": 13046,
+          "output_tokens": 3585,
+          "provider_input_tokens": 165779,
+          "provider_output_tokens": 19558,
+          "sandbox_runs": 10,
+          "usd": 0.092913,
+          "wall_ms": 83544
+        },
+        "error": null,
+        "findings": [],
+        "notes": [],
+        "obligations_probed": 10,
+        "obligations_total": 10,
+        "open_questions": [
+          {
+            "affects": [
+              "OB-001",
+              "OB-004"
+            ],
+            "id": "AM-001",
+            "options": [
+              "Accept any object satisfying isinstance(n, int) except bool specifically (bool is the only named exception)",
+              "Reject all int subclasses other than the plain int type, treating 'must be an int' strictly"
+            ],
+            "question": "Should int subclasses other than bool (e.g. a custom IntEnum, or a NumPy integer type) be accepted as a valid n, or rejected like bool is?",
+            "quote": "",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "Determines whether format_bytes(MyIntSubclass(5)) or format_bytes(numpy.int64(5)) should succeed or raise TypeError; the spec only calls out bool explicitly."
+          },
+          {
+            "affects": [],
+            "id": "AM-002",
+            "options": [
+              "Only accept True/False for binary, raising TypeError otherwise, mirroring the strictness applied to n",
+              "Treat binary as a normal Python boolean-ish flag and use truthiness (e.g. binary=1 behaves like True)"
+            ],
+            "question": "Is the binary parameter strictly type-checked (raising for non-bool values), or does any truthy/falsy value select the ladder like ordinary Python truthiness?",
+            "quote": "",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "Affects whether format_bytes(100, binary=1) or format_bytes(100, binary='yes') should raise or silently select a ladder."
+          }
+        ],
+        "probes_discarded": 0,
+        "probes_run": 10,
+        "system": "blindspot",
+        "verdict": "NEEDS_HUMAN",
+        "withdrawn_by_oracle": 0
+      },
+      "system": "blindspot",
+      "trajectory": "blindspot--byte_units__t40.jsonl"
+    },
+    {
+      "case_id": "byte_units__t41",
+      "grade": {
+        "case_id": "byte_units__t41",
+        "detected": false,
+        "detected_lenient": false,
+        "emitted": 0,
+        "error": "",
+        "false_alarm": false,
+        "flakes": 0,
+        "has_defect": true,
+        "reported_verdict": "NEEDS_HUMAN",
+        "sound_counterexamples": 0,
+        "split": "dev",
+        "system": "blindspot",
+        "task_id": "byte_units",
+        "trap_id": "byte_units::format_bytes(-999949999999999999)",
+        "unsound_claims": 0,
+        "verdicts": []
+      },
+      "report": {
+        "case_id": "byte_units__t41",
+        "cost": {
+          "calls": 12,
+          "input_tokens": 15109,
+          "output_tokens": 5211,
+          "provider_input_tokens": 155479,
+          "provider_output_tokens": 22975,
+          "sandbox_runs": 10,
+          "usd": 0.123492,
+          "wall_ms": 91778
+        },
+        "error": null,
+        "findings": [],
+        "notes": [],
+        "obligations_probed": 10,
+        "obligations_total": 10,
+        "open_questions": [
+          {
+            "affects": [
+              "OB-010"
+            ],
+            "id": "AM-001",
+            "options": [
+              "Always format abs(n) as a wholly independent positive call, then prepend '-' (spec's stated behaviour)",
+              "Round/format the signed magnitude in place, which could theoretically diverge on edge cases if not careful"
+            ],
+            "question": "For negative n, is the promotion/rounding computed on abs(n) exactly as if it were a fresh positive call, or could an implementation reasonably round the signed value directly and get a different tie-break result?",
+            "quote": "a negative `n` prints `-` followed by exactly what the magnitude `abs(n)` would produce on its own",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "The spec explicitly resolves this, but an implementation could still accidentally round the signed float and get a different tie-break; listed here only to flag it is NOT actually ambiguous, covered by OB-010."
+          }
+        ],
+        "probes_discarded": 0,
+        "probes_run": 10,
+        "system": "blindspot",
+        "verdict": "NEEDS_HUMAN",
+        "withdrawn_by_oracle": 0
+      },
+      "system": "blindspot",
+      "trajectory": "blindspot--byte_units__t41.jsonl"
+    },
+    {
+      "case_id": "byte_units__v0",
+      "grade": {
+        "case_id": "byte_units__v0",
+        "detected": false,
+        "detected_lenient": false,
+        "emitted": 0,
+        "error": "",
+        "false_alarm": false,
+        "flakes": 0,
+        "has_defect": false,
+        "reported_verdict": "NEEDS_HUMAN",
+        "sound_counterexamples": 0,
+        "split": "dev",
+        "system": "blindspot",
+        "task_id": "byte_units",
+        "trap_id": "",
+        "unsound_claims": 0,
+        "verdicts": []
+      },
+      "report": {
+        "case_id": "byte_units__v0",
+        "cost": {
+          "calls": 13,
+          "input_tokens": 18923,
+          "output_tokens": 6039,
+          "provider_input_tokens": 170746,
+          "provider_output_tokens": 36415,
+          "sandbox_runs": 10,
+          "usd": 0.147354,
+          "wall_ms": 87337
+        },
+        "error": null,
+        "findings": [],
+        "notes": [],
+        "obligations_probed": 10,
+        "obligations_total": 10,
+        "open_questions": [
+          {
+            "affects": [],
+            "id": "AM-001",
+            "options": [
+              "Accept any isinstance(n, int) that is not bool",
+              "Reject anything whose type is not exactly int, treating all other subclasses like bool"
+            ],
+            "question": "For int subclasses other than bool (e.g. an IntEnum member or a numpy integer), should format_bytes accept them like a plain int, or reject them because they are not exactly type int?",
+            "quote": "`n` must be an `int`.",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "The spec singles out bool as the one int-subtype exclusion; it never states whether other int subclasses are in-bounds, so a test with e.g. an IntEnum could reasonably expect either acceptance or TypeError."
+          }
+        ],
+        "probes_discarded": 0,
+        "probes_run": 10,
+        "system": "blindspot",
+        "verdict": "NEEDS_HUMAN",
+        "withdrawn_by_oracle": 0
+      },
+      "system": "blindspot",
+      "trajectory": "blindspot--byte_units__v0.jsonl"
+    },
+    {
+      "case_id": "byte_units__v10",
+      "grade": {
+        "case_id": "byte_units__v10",
+        "detected": false,
+        "detected_lenient": false,
+        "emitted": 0,
+        "error": "",
+        "false_alarm": false,
+        "flakes": 0,
+        "has_defect": true,
+        "reported_verdict": "NEEDS_HUMAN",
+        "sound_counterexamples": 0,
+        "split": "dev",
+        "system": "blindspot",
+        "task_id": "byte_units",
+        "trap_id": "byte_units::format_bytes(-999949999999999999)",
+        "unsound_claims": 0,
+        "verdicts": []
+      },
+      "report": {
+        "case_id": "byte_units__v10",
+        "cost": {
+          "calls": 13,
+          "input_tokens": 18923,
+          "output_tokens": 6298,
+          "provider_input_tokens": 170821,
+          "provider_output_tokens": 35733,
+          "sandbox_runs": 10,
+          "usd": 0.151239,
+          "wall_ms": 76026
+        },
+        "error": null,
+        "findings": [],
+        "notes": [],
+        "obligations_probed": 10,
+        "obligations_total": 10,
+        "open_questions": [
+          {
+            "affects": [],
+            "id": "AM-001",
+            "options": [
+              "Accept any isinstance(n, int) that is not bool",
+              "Reject anything whose type is not exactly int, treating all other subclasses like bool"
+            ],
+            "question": "For int subclasses other than bool (e.g. an IntEnum member or a numpy integer), should format_bytes accept them like a plain int, or reject them because they are not exactly type int?",
+            "quote": "`n` must be an `int`.",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "The spec singles out bool as the one int-subtype exclusion; it never states whether other int subclasses are in-bounds, so a test with e.g. an IntEnum could reasonably expect either acceptance or TypeError."
+          }
+        ],
+        "probes_discarded": 0,
+        "probes_run": 10,
+        "system": "blindspot",
+        "verdict": "NEEDS_HUMAN",
+        "withdrawn_by_oracle": 0
+      },
+      "system": "blindspot",
+      "trajectory": "blindspot--byte_units__v10.jsonl"
+    },
+    {
+      "case_id": "byte_units__v11",
+      "grade": {
+        "case_id": "byte_units__v11",
+        "detected": false,
+        "detected_lenient": false,
+        "emitted": 0,
+        "error": "",
+        "false_alarm": false,
+        "flakes": 0,
+        "has_defect": false,
+        "reported_verdict": "NEEDS_HUMAN",
+        "sound_counterexamples": 0,
+        "split": "dev",
+        "system": "blindspot",
+        "task_id": "byte_units",
+        "trap_id": "",
+        "unsound_claims": 0,
+        "verdicts": []
+      },
+      "report": {
+        "case_id": "byte_units__v11",
+        "cost": {
+          "calls": 13,
+          "input_tokens": 18923,
+          "output_tokens": 6015,
+          "provider_input_tokens": 158251,
+          "provider_output_tokens": 34228,
+          "sandbox_runs": 10,
+          "usd": 0.146994,
+          "wall_ms": 72646
+        },
+        "error": null,
+        "findings": [],
+        "notes": [],
+        "obligations_probed": 10,
+        "obligations_total": 10,
+        "open_questions": [
+          {
+            "affects": [],
+            "id": "AM-001",
+            "options": [
+              "Accept any isinstance(n, int) that is not bool",
+              "Reject anything whose type is not exactly int, treating all other subclasses like bool"
+            ],
+            "question": "For int subclasses other than bool (e.g. an IntEnum member or a numpy integer), should format_bytes accept them like a plain int, or reject them because they are not exactly type int?",
+            "quote": "`n` must be an `int`.",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "The spec singles out bool as the one int-subtype exclusion; it never states whether other int subclasses are in-bounds, so a test with e.g. an IntEnum could reasonably expect either acceptance or TypeError."
+          }
+        ],
+        "probes_discarded": 0,
+        "probes_run": 10,
+        "system": "blindspot",
+        "verdict": "NEEDS_HUMAN",
+        "withdrawn_by_oracle": 0
+      },
+      "system": "blindspot",
+      "trajectory": "blindspot--byte_units__v11.jsonl"
+    },
+    {
+      "case_id": "byte_units__v12",
+      "grade": {
+        "case_id": "byte_units__v12",
+        "detected": false,
+        "detected_lenient": false,
+        "emitted": 0,
+        "error": "",
+        "false_alarm": false,
+        "flakes": 0,
+        "has_defect": true,
+        "reported_verdict": "NEEDS_HUMAN",
+        "sound_counterexamples": 0,
+        "split": "dev",
+        "system": "blindspot",
+        "task_id": "byte_units",
+        "trap_id": "byte_units::format_bytes(-999949999999999999)",
+        "unsound_claims": 0,
+        "verdicts": []
+      },
+      "report": {
+        "case_id": "byte_units__v12",
+        "cost": {
+          "calls": 14,
+          "input_tokens": 21435,
+          "output_tokens": 6242,
+          "provider_input_tokens": 185317,
+          "provider_output_tokens": 36963,
+          "sandbox_runs": 10,
+          "usd": 0.157935,
+          "wall_ms": 65168
+        },
+        "error": null,
+        "findings": [],
+        "notes": [],
+        "obligations_probed": 10,
+        "obligations_total": 10,
+        "open_questions": [
+          {
+            "affects": [],
+            "id": "AM-001",
+            "options": [
+              "Accept any isinstance(n, int) that is not bool",
+              "Reject anything whose type is not exactly int, treating all other subclasses like bool"
+            ],
+            "question": "For int subclasses other than bool (e.g. an IntEnum member or a numpy integer), should format_bytes accept them like a plain int, or reject them because they are not exactly type int?",
+            "quote": "`n` must be an `int`.",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "The spec singles out bool as the one int-subtype exclusion; it never states whether other int subclasses are in-bounds, so a test with e.g. an IntEnum could reasonably expect either acceptance or TypeError."
+          }
+        ],
+        "probes_discarded": 1,
+        "probes_run": 10,
+        "system": "blindspot",
+        "verdict": "NEEDS_HUMAN",
+        "withdrawn_by_oracle": 0
+      },
+      "system": "blindspot",
+      "trajectory": "blindspot--byte_units__v12.jsonl"
+    },
+    {
+      "case_id": "merge_intervals__t20",
+      "grade": {
+        "case_id": "merge_intervals__t20",
+        "detected": false,
+        "detected_lenient": false,
+        "emitted": 0,
+        "error": "",
+        "false_alarm": false,
+        "flakes": 0,
+        "has_defect": false,
+        "reported_verdict": "NEEDS_HUMAN",
+        "sound_counterexamples": 0,
+        "split": "dev",
+        "system": "blindspot",
+        "task_id": "merge_intervals",
+        "trap_id": "",
+        "unsound_claims": 0,
+        "verdicts": []
+      },
+      "report": {
+        "case_id": "merge_intervals__t20",
+        "cost": {
+          "calls": 9,
+          "input_tokens": 10649,
+          "output_tokens": 3197,
+          "provider_input_tokens": 105462,
+          "provider_output_tokens": 16751,
+          "sandbox_runs": 8,
+          "usd": 0.079902,
+          "wall_ms": 71210
+        },
+        "error": null,
+        "findings": [],
+        "notes": [],
+        "obligations_probed": 8,
+        "obligations_total": 10,
+        "open_questions": [
+          {
+            "affects": [
+              "OB-006"
+            ],
+            "id": "AM-001",
+            "options": [
+              "Accept bools silently since they pass isinstance(x, int)",
+              "Reject bools with ValueError because the spec means genuine integers, not booleans"
+            ],
+            "question": "Should bool values (which are a subclass of int in Python) be accepted as valid start/end ints, since isinstance(True, int) is True?",
+            "quote": "",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "Determines whether merge_bookings([(True, 5)]) succeeds (treating True as 1) or raises ValueError; implementations using isinstance checks vs type(x) is int checks will diverge."
+          },
+          {
+            "affects": [
+              "OB-004",
+              "OB-005",
+              "OB-006"
+            ],
+            "id": "AM-002",
+            "options": [
+              "Raise on the first invalid entry encountered while iterating in input order",
+              "Validate all entries first and raise for some other selected entry (e.g. first structural-type failure before any start>end check)"
+            ],
+            "question": "When multiple entries in the input are invalid (e.g. several have start > end, or a mix of malformed-type and start>end entries), which single ValueError/message is raised \u2014 first offending entry in input order, or some other rule?",
+            "quote": "",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "Affects which pair appears in the ValueError message when the input contains more than one bad row, changing what on-call greps out of the log."
+          }
+        ],
+        "probes_discarded": 0,
+        "probes_run": 8,
+        "system": "blindspot",
+        "verdict": "NEEDS_HUMAN",
+        "withdrawn_by_oracle": 0
+      },
+      "system": "blindspot",
+      "trajectory": "blindspot--merge_intervals__t20.jsonl"
+    },
+    {
+      "case_id": "merge_intervals__v0",
+      "grade": {
+        "case_id": "merge_intervals__v0",
+        "detected": false,
+        "detected_lenient": false,
+        "emitted": 0,
+        "error": "",
+        "false_alarm": false,
+        "flakes": 0,
+        "has_defect": false,
+        "reported_verdict": "NEEDS_HUMAN",
+        "sound_counterexamples": 0,
+        "split": "dev",
+        "system": "blindspot",
+        "task_id": "merge_intervals",
+        "trap_id": "",
+        "unsound_claims": 0,
+        "verdicts": []
+      },
+      "report": {
+        "case_id": "merge_intervals__v0",
+        "cost": {
+          "calls": 10,
+          "input_tokens": 12397,
+          "output_tokens": 3142,
+          "provider_input_tokens": 117971,
+          "provider_output_tokens": 22763,
+          "sandbox_runs": 9,
+          "usd": 0.084321,
+          "wall_ms": 46621
+        },
+        "error": null,
+        "findings": [],
+        "notes": [],
+        "obligations_probed": 9,
+        "obligations_total": 10,
+        "open_questions": [
+          {
+            "affects": [
+              "OB-008"
+            ],
+            "id": "AM-001",
+            "options": [
+              "Accept bools because isinstance(True, int) is True",
+              "Reject bools because they are not 'really' int values, even though they pass isinstance checks"
+            ],
+            "question": "Does a bool value (e.g. True/False) count as a valid 'int' for the two elements of an entry, given that Python's bool is a subclass of int?",
+            "quote": "",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "Determines whether inputs like [(True, 60)] are accepted and merged as (1, 60) or rejected with ValueError."
+          },
+          {
+            "affects": [
+              "OB-005",
+              "OB-008"
+            ],
+            "id": "AM-002",
+            "options": [
+              "Validate in original input order and raise on the first offending entry encountered",
+              "Validate in any order (e.g. after sorting, or all-at-once), so which entry's error surfaces when several are invalid is unspecified"
+            ],
+            "question": "When the input contains multiple invalid entries (e.g. one with start > end and another with a wrong type/length), does validation need to proceed in original list order so a specific, predictable entry's error is raised first?",
+            "quote": "",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "Affects what message a test should expect when an input list contains more than one invalid entry."
+          }
+        ],
+        "probes_discarded": 0,
+        "probes_run": 9,
+        "system": "blindspot",
+        "verdict": "NEEDS_HUMAN",
+        "withdrawn_by_oracle": 0
+      },
+      "system": "blindspot",
+      "trajectory": "blindspot--merge_intervals__v0.jsonl"
+    },
+    {
+      "case_id": "merge_intervals__v1",
+      "grade": {
+        "case_id": "merge_intervals__v1",
+        "detected": false,
+        "detected_lenient": false,
+        "emitted": 0,
+        "error": "",
+        "false_alarm": false,
+        "flakes": 0,
+        "has_defect": false,
+        "reported_verdict": "NEEDS_HUMAN",
+        "sound_counterexamples": 0,
+        "split": "dev",
+        "system": "blindspot",
+        "task_id": "merge_intervals",
+        "trap_id": "",
+        "unsound_claims": 0,
+        "verdicts": []
+      },
+      "report": {
+        "case_id": "merge_intervals__v1",
+        "cost": {
+          "calls": 11,
+          "input_tokens": 13849,
+          "output_tokens": 3477,
+          "provider_input_tokens": 147874,
+          "provider_output_tokens": 26546,
+          "sandbox_runs": 9,
+          "usd": 0.093702,
+          "wall_ms": 99025
+        },
+        "error": null,
+        "findings": [],
+        "notes": [],
+        "obligations_probed": 9,
+        "obligations_total": 10,
+        "open_questions": [
+          {
+            "affects": [
+              "OB-008"
+            ],
+            "id": "AM-001",
+            "options": [
+              "Accept bools because isinstance(True, int) is True",
+              "Reject bools because they are not 'really' int values, even though they pass isinstance checks"
+            ],
+            "question": "Does a bool value (e.g. True/False) count as a valid 'int' for the two elements of an entry, given that Python's bool is a subclass of int?",
+            "quote": "",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "Determines whether inputs like [(True, 60)] are accepted and merged as (1, 60) or rejected with ValueError."
+          },
+          {
+            "affects": [
+              "OB-005",
+              "OB-008"
+            ],
+            "id": "AM-002",
+            "options": [
+              "Validate in original input order and raise on the first offending entry encountered",
+              "Validate in any order (e.g. after sorting, or all-at-once), so which entry's error surfaces when several are invalid is unspecified"
+            ],
+            "question": "When the input contains multiple invalid entries (e.g. one with start > end and another with a wrong type/length), does validation need to proceed in original list order so a specific, predictable entry's error is raised first?",
+            "quote": "",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "Affects what message a test should expect when an input list contains more than one invalid entry."
+          }
+        ],
+        "probes_discarded": 0,
+        "probes_run": 9,
+        "system": "blindspot",
+        "verdict": "NEEDS_HUMAN",
+        "withdrawn_by_oracle": 0
+      },
+      "system": "blindspot",
+      "trajectory": "blindspot--merge_intervals__v1.jsonl"
+    },
+    {
+      "case_id": "rbac_authorize__t20",
+      "grade": {
+        "case_id": "rbac_authorize__t20",
+        "detected": false,
+        "detected_lenient": false,
+        "emitted": 0,
+        "error": "",
+        "false_alarm": false,
+        "flakes": 0,
+        "has_defect": false,
+        "reported_verdict": "NEEDS_HUMAN",
+        "sound_counterexamples": 0,
+        "split": "dev",
+        "system": "blindspot",
+        "task_id": "rbac_authorize",
+        "trap_id": "",
+        "unsound_claims": 0,
+        "verdicts": []
+      },
+      "report": {
+        "case_id": "rbac_authorize__t20",
+        "cost": {
+          "calls": 20,
+          "input_tokens": 30493,
+          "output_tokens": 7612,
+          "provider_input_tokens": 257892,
+          "provider_output_tokens": 40956,
+          "sandbox_runs": 10,
+          "usd": 0.205659,
+          "wall_ms": 235679
+        },
+        "error": null,
+        "findings": [],
+        "notes": [],
+        "obligations_probed": 10,
+        "obligations_total": 10,
+        "open_questions": [
+          {
+            "affects": [
+              "OB-009"
+            ],
+            "id": "AM-001",
+            "options": [
+              "Reject any request/policy with keys outside the exact required set, since the spec says a request/policy has 'exactly' those fields",
+              "Only check that the required fields are present (and, for policies, that effect is ALLOW/DENY); ignore any additional keys"
+            ],
+            "question": "If a request or policy dict contains extra keys beyond the four specified fields, should authorize raise ValueError, or is the presence of the required fields sufficient regardless of extras?",
+            "quote": "A request has exactly the fields",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "Determines whether callers passing dicts with incidental extra metadata get a hard failure or a silently-accepted request, affecting both validation coverage and integration ergonomics."
+          },
+          {
+            "affects": [
+              "OB-009"
+            ],
+            "id": "AM-002",
+            "options": [
+              "Validate only that roles is a list; elements are used as-is for matching regardless of type",
+              "Additionally validate that every element is a string, raising ValueError otherwise, since 'roles (a list of role names)' implies string contents"
+            ],
+            "question": "The spec requires roles to be a list, but does it also require every element of that list to be a string (a valid role name), or is a list containing non-string entries acceptable as long as it is a list?",
+            "quote": "roles` (a list of role names,\npossibly empty)",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "Affects whether malformed inputs like roles=[1,2] raise ValueError or silently fail to match any role: pattern."
+          },
+          {
+            "affects": [
+              "OB-009",
+              "OB-010"
+            ],
+            "id": "AM-003",
+            "options": [
+              "Any order is acceptable as long as ValueError is raised before a decision is made; the spec doesn't mandate which invalid item is reported first",
+              "Requests must be validated before policies, or fields must be checked in the order listed, since the spec enumerates request fields before policy fields"
+            ],
+            "question": "When multiple validation problems exist at once (e.g. the request is missing a field and a policy has an invalid effect), does the spec require a specific order of checking, or is raising on any one of them (in any order) sufficient?",
+            "quote": "Validate everything before deciding anything",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "Determines whether tests asserting on which specific error message surfaces first (when several inputs are simultaneously invalid) are meaningful or over-specified."
+          }
+        ],
+        "probes_discarded": 8,
+        "probes_run": 10,
+        "system": "blindspot",
+        "verdict": "NEEDS_HUMAN",
+        "withdrawn_by_oracle": 0
+      },
+      "system": "blindspot",
+      "trajectory": "blindspot--rbac_authorize__t20.jsonl"
+    },
+    {
+      "case_id": "rbac_authorize__v0",
+      "grade": {
+        "case_id": "rbac_authorize__v0",
+        "detected": false,
+        "detected_lenient": false,
+        "emitted": 0,
+        "error": "",
+        "false_alarm": false,
+        "flakes": 0,
+        "has_defect": false,
+        "reported_verdict": "NEEDS_HUMAN",
+        "sound_counterexamples": 0,
+        "split": "dev",
+        "system": "blindspot",
+        "task_id": "rbac_authorize",
+        "trap_id": "",
+        "unsound_claims": 0,
+        "verdicts": []
+      },
+      "report": {
+        "case_id": "rbac_authorize__v0",
+        "cost": {
+          "calls": 19,
+          "input_tokens": 34673,
+          "output_tokens": 5172,
+          "provider_input_tokens": 281100,
+          "provider_output_tokens": 34604,
+          "sandbox_runs": 10,
+          "usd": 0.181599,
+          "wall_ms": 183281
+        },
+        "error": null,
+        "findings": [],
+        "notes": [],
+        "obligations_probed": 10,
+        "obligations_total": 10,
+        "open_questions": [
+          {
+            "affects": [],
+            "id": "AM-001",
+            "options": [
+              "Reject any dict with extra keys as invalid, since the spec says the dict has 'exactly these fields'",
+              "Only validate presence of the required fields and ignore any additional keys"
+            ],
+            "question": "If a request or policy dict contains extra keys beyond the specified fields, should authorize raise ValueError, or should the extra keys be silently ignored?",
+            "quote": "A **request** is a dict with exactly these fields:",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "Determines whether a caller that accidentally passes an extra field (e.g. a 'sourceIp' left over from another system) gets a hard failure or a silently-processed request/policy."
+          },
+          {
+            "affects": [
+              "OB-008"
+            ],
+            "id": "AM-002",
+            "options": [
+              "The error must reference the first invalid policy encountered in list order",
+              "Any single invalid policy's effect value is an acceptable message content, order unspecified"
+            ],
+            "question": "When multiple policies in the list have invalid effect values, does it matter which offending value's ValueError is raised (first in list order, or any one)?",
+            "quote": "",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "Affects whether an implementation that reports a different (but still invalid) policy's effect than a reference implementation should be considered correct."
+          },
+          {
+            "affects": [],
+            "id": "AM-003",
+            "options": [
+              "Treat it as a validation failure requiring ValueError, by analogy with the roles-not-a-list check",
+              "Let it fail naturally wherever string operations are applied (e.g. TypeError from .startswith), since the spec only names ValueError for the listed conditions"
+            ],
+            "question": "What must happen if a field that should be a string (subject, action, resource, principal, effect, or an element of roles) is instead a non-string value, e.g. an integer?",
+            "quote": "",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "Determines whether authorize must defensively type-check every scalar field or may let non-conforming callers hit an unspecified exception type."
+          }
+        ],
+        "probes_discarded": 8,
+        "probes_run": 10,
+        "system": "blindspot",
+        "verdict": "NEEDS_HUMAN",
+        "withdrawn_by_oracle": 0
+      },
+      "system": "blindspot",
+      "trajectory": "blindspot--rbac_authorize__v0.jsonl"
+    },
+    {
+      "case_id": "rbac_authorize__v1",
+      "grade": {
+        "case_id": "rbac_authorize__v1",
+        "detected": false,
+        "detected_lenient": false,
+        "emitted": 0,
+        "error": "",
+        "false_alarm": false,
+        "flakes": 0,
+        "has_defect": false,
+        "reported_verdict": "NEEDS_HUMAN",
+        "sound_counterexamples": 0,
+        "split": "dev",
+        "system": "blindspot",
+        "task_id": "rbac_authorize",
+        "trap_id": "",
+        "unsound_claims": 0,
+        "verdicts": []
+      },
+      "report": {
+        "case_id": "rbac_authorize__v1",
+        "cost": {
+          "calls": 19,
+          "input_tokens": 34662,
+          "output_tokens": 5571,
+          "provider_input_tokens": 264336,
+          "provider_output_tokens": 36256,
+          "sandbox_runs": 10,
+          "usd": 0.187551,
+          "wall_ms": 171110
+        },
+        "error": null,
+        "findings": [],
+        "notes": [],
+        "obligations_probed": 10,
+        "obligations_total": 10,
+        "open_questions": [
+          {
+            "affects": [],
+            "id": "AM-001",
+            "options": [
+              "Reject any dict with extra keys as invalid, since the spec says the dict has 'exactly these fields'",
+              "Only validate presence of the required fields and ignore any additional keys"
+            ],
+            "question": "If a request or policy dict contains extra keys beyond the specified fields, should authorize raise ValueError, or should the extra keys be silently ignored?",
+            "quote": "A **request** is a dict with exactly these fields:",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "Determines whether a caller that accidentally passes an extra field (e.g. a 'sourceIp' left over from another system) gets a hard failure or a silently-processed request/policy."
+          },
+          {
+            "affects": [
+              "OB-008"
+            ],
+            "id": "AM-002",
+            "options": [
+              "The error must reference the first invalid policy encountered in list order",
+              "Any single invalid policy's effect value is an acceptable message content, order unspecified"
+            ],
+            "question": "When multiple policies in the list have invalid effect values, does it matter which offending value's ValueError is raised (first in list order, or any one)?",
+            "quote": "",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "Affects whether an implementation that reports a different (but still invalid) policy's effect than a reference implementation should be considered correct."
+          },
+          {
+            "affects": [],
+            "id": "AM-003",
+            "options": [
+              "Treat it as a validation failure requiring ValueError, by analogy with the roles-not-a-list check",
+              "Let it fail naturally wherever string operations are applied (e.g. TypeError from .startswith), since the spec only names ValueError for the listed conditions"
+            ],
+            "question": "What must happen if a field that should be a string (subject, action, resource, principal, effect, or an element of roles) is instead a non-string value, e.g. an integer?",
+            "quote": "",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "Determines whether authorize must defensively type-check every scalar field or may let non-conforming callers hit an unspecified exception type."
+          }
+        ],
+        "probes_discarded": 8,
+        "probes_run": 10,
+        "system": "blindspot",
+        "verdict": "NEEDS_HUMAN",
+        "withdrawn_by_oracle": 0
+      },
+      "system": "blindspot",
+      "trajectory": "blindspot--rbac_authorize__v1.jsonl"
+    },
+    {
+      "case_id": "semver_sort__t21",
+      "grade": {
+        "case_id": "semver_sort__t21",
+        "detected": false,
+        "detected_lenient": false,
+        "emitted": 0,
+        "error": "",
+        "false_alarm": false,
+        "flakes": 0,
+        "has_defect": false,
+        "reported_verdict": "NEEDS_HUMAN",
+        "sound_counterexamples": 0,
+        "split": "dev",
+        "system": "blindspot",
+        "task_id": "semver_sort",
+        "trap_id": "",
+        "unsound_claims": 0,
+        "verdicts": []
+      },
+      "report": {
+        "case_id": "semver_sort__t21",
+        "cost": {
+          "calls": 12,
+          "input_tokens": 13896,
+          "output_tokens": 3607,
+          "provider_input_tokens": 165529,
+          "provider_output_tokens": 21071,
+          "sandbox_runs": 10,
+          "usd": 0.095793,
+          "wall_ms": 77025
+        },
+        "error": null,
+        "findings": [],
+        "notes": [],
+        "obligations_probed": 10,
+        "obligations_total": 10,
+        "open_questions": [
+          {
+            "affects": [
+              "OB-004",
+              "OB-009"
+            ],
+            "id": "AM-001",
+            "options": [
+              "Only a lowercase 'v' is recognized as the decorative prefix; anything else including 'V' fails the grammar check and raises ValueError.",
+              "The leading letter is treated case-insensitively, so 'V1.0.0' is accepted and parsed the same as 'v1.0.0'."
+            ],
+            "question": "Does an uppercase 'V' prefix (e.g. 'V1.0.0') count as the same decorative marker as lowercase 'v', or is it a malformed tag that must raise ValueError?",
+            "quote": "an optional leading `v`",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "Determines whether tags like 'V2.0.0' are valid input at all, and if valid, whether they participate in ordering the same way as lowercase-v or unprefixed tags."
+          },
+          {
+            "affects": [
+              "OB-005",
+              "OB-006",
+              "OB-007"
+            ],
+            "id": "AM-002",
+            "options": [
+              "Validate tags in input order and raise on the first malformed tag encountered.",
+              "Validation order is unspecified; any malformed tag's ValueError satisfies the contract as long as the offending tag text is correct."
+            ],
+            "question": "When multiple tags in the input list are individually malformed, in what order (if any) must validation errors be raised \u2014 e.g. must the function report the first malformed tag by list position, or is any one of them acceptable?",
+            "quote": "",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "Affects whether tests asserting a specific error message (tied to a specific tag) are meaningful when several tags in the same call are invalid."
+          }
+        ],
+        "probes_discarded": 1,
+        "probes_run": 10,
+        "system": "blindspot",
+        "verdict": "NEEDS_HUMAN",
+        "withdrawn_by_oracle": 0
+      },
+      "system": "blindspot",
+      "trajectory": "blindspot--semver_sort__t21.jsonl"
+    },
+    {
+      "case_id": "semver_sort__t46",
+      "grade": {
+        "case_id": "semver_sort__t46",
+        "detected": false,
+        "detected_lenient": false,
+        "emitted": 0,
+        "error": "",
+        "false_alarm": false,
+        "flakes": 0,
+        "has_defect": true,
+        "reported_verdict": "NEEDS_HUMAN",
+        "sound_counterexamples": 0,
+        "split": "dev",
+        "system": "blindspot",
+        "task_id": "semver_sort",
+        "trap_id": "semver_sort::sort_versions(['1.0.0-'])",
+        "unsound_claims": 0,
+        "verdicts": []
+      },
+      "report": {
+        "case_id": "semver_sort__t46",
+        "cost": {
+          "calls": 12,
+          "input_tokens": 13891,
+          "output_tokens": 3440,
+          "provider_input_tokens": 178229,
+          "provider_output_tokens": 22195,
+          "sandbox_runs": 10,
+          "usd": 0.093273,
+          "wall_ms": 43137
+        },
+        "error": null,
+        "findings": [],
+        "notes": [],
+        "obligations_probed": 10,
+        "obligations_total": 10,
+        "open_questions": [
+          {
+            "affects": [
+              "OB-004",
+              "OB-009"
+            ],
+            "id": "AM-001",
+            "options": [
+              "Only a lowercase 'v' is recognized as the decorative prefix; anything else including 'V' fails the grammar check and raises ValueError.",
+              "The leading letter is treated case-insensitively, so 'V1.0.0' is accepted and parsed the same as 'v1.0.0'."
+            ],
+            "question": "Does an uppercase 'V' prefix (e.g. 'V1.0.0') count as the same decorative marker as lowercase 'v', or is it a malformed tag that must raise ValueError?",
+            "quote": "an optional leading `v`",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "Determines whether tags like 'V2.0.0' are valid input at all, and if valid, whether they participate in ordering the same way as lowercase-v or unprefixed tags."
+          },
+          {
+            "affects": [
+              "OB-005",
+              "OB-006",
+              "OB-007"
+            ],
+            "id": "AM-002",
+            "options": [
+              "Validate tags in input order and raise on the first malformed tag encountered.",
+              "Validation order is unspecified; any malformed tag's ValueError satisfies the contract as long as the offending tag text is correct."
+            ],
+            "question": "When multiple tags in the input list are individually malformed, in what order (if any) must validation errors be raised \u2014 e.g. must the function report the first malformed tag by list position, or is any one of them acceptable?",
+            "quote": "",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "Affects whether tests asserting a specific error message (tied to a specific tag) are meaningful when several tags in the same call are invalid."
+          }
+        ],
+        "probes_discarded": 1,
+        "probes_run": 10,
+        "system": "blindspot",
+        "verdict": "NEEDS_HUMAN",
+        "withdrawn_by_oracle": 0
+      },
+      "system": "blindspot",
+      "trajectory": "blindspot--semver_sort__t46.jsonl"
+    },
+    {
+      "case_id": "semver_sort__v0",
+      "grade": {
+        "case_id": "semver_sort__v0",
+        "detected": false,
+        "detected_lenient": false,
+        "emitted": 0,
+        "error": "",
+        "false_alarm": false,
+        "flakes": 0,
+        "has_defect": false,
+        "reported_verdict": "NEEDS_HUMAN",
+        "sound_counterexamples": 0,
+        "split": "dev",
+        "system": "blindspot",
+        "task_id": "semver_sort",
+        "trap_id": "",
+        "unsound_claims": 0,
+        "verdicts": []
+      },
+      "report": {
+        "case_id": "semver_sort__v0",
+        "cost": {
+          "calls": 11,
+          "input_tokens": 13335,
+          "output_tokens": 3348,
+          "provider_input_tokens": 155166,
+          "provider_output_tokens": 19713,
+          "sandbox_runs": 10,
+          "usd": 0.090225,
+          "wall_ms": 32901
+        },
+        "error": null,
+        "findings": [],
+        "notes": [],
+        "obligations_probed": 10,
+        "obligations_total": 10,
+        "open_questions": [
+          {
+            "affects": [],
+            "id": "AM-001",
+            "options": [
+              "Build metadata is validated with the same identifier rules as pre-release (empty segments and leading-zero numeric segments raise ValueError)",
+              "Build metadata is accepted as-is (any non-empty text after '+') because the spec's validation rules are stated only in the context of numeric parts and pre-release identifiers, and build metadata is explicitly irrelevant to precedence"
+            ],
+            "question": "Does build metadata content need to satisfy the same validation rules as pre-release identifiers (non-empty, no leading zeroes on numeric identifiers), or is it accepted as unvalidated free text since it never affects precedence?",
+            "quote": "and optional build metadata introduced",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "Determines whether tags like '1.0.0+' or '1.0.0+01' or '1.0.0+build..1' should raise ValueError or be accepted unchanged."
+          },
+          {
+            "affects": [],
+            "id": "AM-002",
+            "options": [
+              "Restrict identifiers to [0-9A-Za-z-] as in the canonical SemVer grammar, rejecting anything else with ValueError",
+              "Accept any non-empty, non-dot substring between separators as a valid identifier, since the spec never explicitly forbids other characters"
+            ],
+            "question": "What exact character set is permitted within a pre-release (or build metadata) identifier \u2014 only ASCII letters, digits, and hyphens, or any other characters \u2014 since the spec only names 'digits', 'a letter', and 'a hyphen' without giving a full grammar?",
+            "quote": "identifiers containing a letter or a hyphen are compared **lexically in",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "Determines whether tags with identifiers containing characters like '_' or '.' (already used as separators) or Unicode letters should be accepted or rejected as invalid format."
+          }
+        ],
+        "probes_discarded": 0,
+        "probes_run": 10,
+        "system": "blindspot",
+        "verdict": "NEEDS_HUMAN",
+        "withdrawn_by_oracle": 0
+      },
+      "system": "blindspot",
+      "trajectory": "blindspot--semver_sort__v0.jsonl"
+    },
+    {
+      "case_id": "byte_units__t20",
+      "grade": {
+        "case_id": "byte_units__t20",
+        "detected": false,
+        "detected_lenient": false,
+        "emitted": 0,
+        "error": "",
+        "false_alarm": false,
+        "flakes": 0,
+        "has_defect": true,
+        "reported_verdict": "NEEDS_HUMAN",
+        "sound_counterexamples": 0,
+        "split": "dev",
+        "system": "blindspot_search",
+        "task_id": "byte_units",
+        "trap_id": "byte_units::format_bytes(-999949999999999999)",
+        "unsound_claims": 0,
+        "verdicts": []
+      },
+      "report": {
+        "case_id": "byte_units__t20",
+        "cost": {
+          "calls": 14,
+          "input_tokens": 21166,
+          "output_tokens": 5457,
+          "provider_input_tokens": 208956,
+          "provider_output_tokens": 22949,
+          "sandbox_runs": 10,
+          "usd": 0.145353,
+          "wall_ms": 54838
+        },
+        "error": null,
+        "findings": [],
+        "notes": [],
+        "obligations_probed": 10,
+        "obligations_total": 10,
+        "open_questions": [
+          {
+            "affects": [
+              "OB-001",
+              "OB-006"
+            ],
+            "id": "AM-001",
+            "options": [
+              "Use a strict `type(n) is int` check, rejecting bool and every other subclass",
+              "Use `isinstance(n, int)` and special-case only bool, accepting other int subclasses"
+            ],
+            "question": "Does the int-type validation reject any int subclass other than bool (e.g. an IntEnum or numpy integer), or is bool merely the one explicitly-called-out exception to an otherwise permissive int-subtype check?",
+            "quote": "`n` must be an `int`.",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "Determines whether format_bytes(SomeIntEnum.X) should succeed or raise TypeError, which isn't directly testable from the examples given."
+          }
+        ],
+        "probes_discarded": 0,
+        "probes_run": 10,
+        "system": "blindspot_search",
+        "verdict": "NEEDS_HUMAN",
+        "withdrawn_by_oracle": 0
+      },
+      "system": "blindspot_search",
+      "trajectory": "blindspot_search--byte_units__t20.jsonl"
+    },
+    {
+      "case_id": "byte_units__t21",
+      "grade": {
+        "case_id": "byte_units__t21",
+        "detected": false,
+        "detected_lenient": false,
+        "emitted": 0,
+        "error": "",
+        "false_alarm": false,
+        "flakes": 0,
+        "has_defect": true,
+        "reported_verdict": "NEEDS_HUMAN",
+        "sound_counterexamples": 0,
+        "split": "dev",
+        "system": "blindspot_search",
+        "task_id": "byte_units",
+        "trap_id": "byte_units::format_bytes(-999949999999999999)",
+        "unsound_claims": 0,
+        "verdicts": []
+      },
+      "report": {
+        "case_id": "byte_units__t21",
+        "cost": {
+          "calls": 13,
+          "input_tokens": 19477,
+          "output_tokens": 5180,
+          "provider_input_tokens": 195573,
+          "provider_output_tokens": 21451,
+          "sandbox_runs": 10,
+          "usd": 0.136131,
+          "wall_ms": 27167
+        },
+        "error": null,
+        "findings": [],
+        "notes": [],
+        "obligations_probed": 10,
+        "obligations_total": 10,
+        "open_questions": [
+          {
+            "affects": [
+              "OB-001",
+              "OB-006"
+            ],
+            "id": "AM-001",
+            "options": [
+              "Use a strict `type(n) is int` check, rejecting bool and every other subclass",
+              "Use `isinstance(n, int)` and special-case only bool, accepting other int subclasses"
+            ],
+            "question": "Does the int-type validation reject any int subclass other than bool (e.g. an IntEnum or numpy integer), or is bool merely the one explicitly-called-out exception to an otherwise permissive int-subtype check?",
+            "quote": "`n` must be an `int`.",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "Determines whether format_bytes(SomeIntEnum.X) should succeed or raise TypeError, which isn't directly testable from the examples given."
+          }
+        ],
+        "probes_discarded": 0,
+        "probes_run": 10,
+        "system": "blindspot_search",
+        "verdict": "NEEDS_HUMAN",
+        "withdrawn_by_oracle": 0
+      },
+      "system": "blindspot_search",
+      "trajectory": "blindspot_search--byte_units__t21.jsonl"
+    },
+    {
+      "case_id": "byte_units__t22",
+      "grade": {
+        "case_id": "byte_units__t22",
+        "detected": false,
+        "detected_lenient": false,
+        "emitted": 0,
+        "error": "",
+        "false_alarm": false,
+        "flakes": 0,
+        "has_defect": false,
+        "reported_verdict": "NEEDS_HUMAN",
+        "sound_counterexamples": 0,
+        "split": "dev",
+        "system": "blindspot_search",
+        "task_id": "byte_units",
+        "trap_id": "",
+        "unsound_claims": 0,
+        "verdicts": []
+      },
+      "report": {
+        "case_id": "byte_units__t22",
+        "cost": {
+          "calls": 14,
+          "input_tokens": 21166,
+          "output_tokens": 5457,
+          "provider_input_tokens": 208956,
+          "provider_output_tokens": 22949,
+          "sandbox_runs": 10,
+          "usd": 0.145353,
+          "wall_ms": 20965
+        },
+        "error": null,
+        "findings": [],
+        "notes": [],
+        "obligations_probed": 10,
+        "obligations_total": 10,
+        "open_questions": [
+          {
+            "affects": [
+              "OB-001",
+              "OB-006"
+            ],
+            "id": "AM-001",
+            "options": [
+              "Use a strict `type(n) is int` check, rejecting bool and every other subclass",
+              "Use `isinstance(n, int)` and special-case only bool, accepting other int subclasses"
+            ],
+            "question": "Does the int-type validation reject any int subclass other than bool (e.g. an IntEnum or numpy integer), or is bool merely the one explicitly-called-out exception to an otherwise permissive int-subtype check?",
+            "quote": "`n` must be an `int`.",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "Determines whether format_bytes(SomeIntEnum.X) should succeed or raise TypeError, which isn't directly testable from the examples given."
+          }
+        ],
+        "probes_discarded": 0,
+        "probes_run": 10,
+        "system": "blindspot_search",
+        "verdict": "NEEDS_HUMAN",
+        "withdrawn_by_oracle": 0
+      },
+      "system": "blindspot_search",
+      "trajectory": "blindspot_search--byte_units__t22.jsonl"
+    },
+    {
+      "case_id": "byte_units__t40",
+      "grade": {
+        "case_id": "byte_units__t40",
+        "detected": false,
+        "detected_lenient": false,
+        "emitted": 0,
+        "error": "",
+        "false_alarm": false,
+        "flakes": 0,
+        "has_defect": true,
+        "reported_verdict": "NEEDS_HUMAN",
+        "sound_counterexamples": 0,
+        "split": "dev",
+        "system": "blindspot_search",
+        "task_id": "byte_units",
+        "trap_id": "byte_units::format_bytes(-999949999999999999)",
+        "unsound_claims": 0,
+        "verdicts": []
+      },
+      "report": {
+        "case_id": "byte_units__t40",
+        "cost": {
+          "calls": 13,
+          "input_tokens": 19477,
+          "output_tokens": 5277,
+          "provider_input_tokens": 195654,
+          "provider_output_tokens": 21509,
+          "sandbox_runs": 10,
+          "usd": 0.137586,
+          "wall_ms": 44725
+        },
+        "error": null,
+        "findings": [],
+        "notes": [],
+        "obligations_probed": 10,
+        "obligations_total": 10,
+        "open_questions": [
+          {
+            "affects": [
+              "OB-001",
+              "OB-006"
+            ],
+            "id": "AM-001",
+            "options": [
+              "Use a strict `type(n) is int` check, rejecting bool and every other subclass",
+              "Use `isinstance(n, int)` and special-case only bool, accepting other int subclasses"
+            ],
+            "question": "Does the int-type validation reject any int subclass other than bool (e.g. an IntEnum or numpy integer), or is bool merely the one explicitly-called-out exception to an otherwise permissive int-subtype check?",
+            "quote": "`n` must be an `int`.",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "Determines whether format_bytes(SomeIntEnum.X) should succeed or raise TypeError, which isn't directly testable from the examples given."
+          }
+        ],
+        "probes_discarded": 0,
+        "probes_run": 10,
+        "system": "blindspot_search",
+        "verdict": "NEEDS_HUMAN",
+        "withdrawn_by_oracle": 0
+      },
+      "system": "blindspot_search",
+      "trajectory": "blindspot_search--byte_units__t40.jsonl"
+    },
+    {
+      "case_id": "byte_units__t41",
+      "grade": {
+        "case_id": "byte_units__t41",
+        "detected": false,
+        "detected_lenient": false,
+        "emitted": 0,
+        "error": "ValidationError: 1 validation error for Probe\ncode\n  Value error, probe code must define at least one `test_` function [type=value_error, input_value='import pytest\\nfrom deci...ceholder():\\n    pass\\n', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/value_error",
+        "false_alarm": false,
+        "flakes": 0,
+        "has_defect": true,
+        "reported_verdict": "CLEAN",
+        "sound_counterexamples": 0,
+        "split": "dev",
+        "system": "blindspot_search",
+        "task_id": "byte_units",
+        "trap_id": "byte_units::format_bytes(-999949999999999999)",
+        "unsound_claims": 0,
+        "verdicts": []
+      },
+      "report": {
+        "case_id": "byte_units__t41",
+        "cost": {
+          "calls": 14,
+          "input_tokens": 21166,
+          "output_tokens": 5390,
+          "provider_input_tokens": 207927,
+          "provider_output_tokens": 21717,
+          "sandbox_runs": 0,
+          "usd": 0.144348,
+          "wall_ms": 157672
+        },
+        "error": "ValidationError: 1 validation error for Probe\ncode\n  Value error, probe code must define at least one `test_` function [type=value_error, input_value='import pytest\\nfrom deci...ceholder():\\n    pass\\n', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/value_error",
+        "findings": [],
+        "notes": [],
+        "obligations_probed": 0,
+        "obligations_total": 0,
+        "open_questions": [],
+        "probes_discarded": 0,
+        "probes_run": 0,
+        "system": "blindspot_search",
+        "verdict": "CLEAN",
+        "withdrawn_by_oracle": 0
+      },
+      "system": "blindspot_search",
+      "trajectory": "blindspot_search--byte_units__t41.jsonl"
+    },
+    {
+      "case_id": "byte_units__v0",
+      "grade": {
+        "case_id": "byte_units__v0",
+        "detected": false,
+        "detected_lenient": false,
+        "emitted": 0,
+        "error": "",
+        "false_alarm": false,
+        "flakes": 0,
+        "has_defect": false,
+        "reported_verdict": "NEEDS_HUMAN",
+        "sound_counterexamples": 0,
+        "split": "dev",
+        "system": "blindspot_search",
+        "task_id": "byte_units",
+        "trap_id": "",
+        "unsound_claims": 0,
+        "verdicts": []
+      },
+      "report": {
+        "case_id": "byte_units__v0",
+        "cost": {
+          "calls": 13,
+          "input_tokens": 21443,
+          "output_tokens": 6069,
+          "provider_input_tokens": 174899,
+          "provider_output_tokens": 37698,
+          "sandbox_runs": 10,
+          "usd": 0.155364,
+          "wall_ms": 101987
+        },
+        "error": null,
+        "findings": [],
+        "notes": [],
+        "obligations_probed": 10,
+        "obligations_total": 10,
+        "open_questions": [
+          {
+            "affects": [],
+            "id": "AM-001",
+            "options": [
+              "Accept any isinstance(n, int) that is not bool",
+              "Reject anything whose type is not exactly int, treating all other subclasses like bool"
+            ],
+            "question": "For int subclasses other than bool (e.g. an IntEnum member or a numpy integer), should format_bytes accept them like a plain int, or reject them because they are not exactly type int?",
+            "quote": "`n` must be an `int`.",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "The spec singles out bool as the one int-subtype exclusion; it never states whether other int subclasses are in-bounds, so a test with e.g. an IntEnum could reasonably expect either acceptance or TypeError."
+          }
+        ],
+        "probes_discarded": 0,
+        "probes_run": 10,
+        "system": "blindspot_search",
+        "verdict": "NEEDS_HUMAN",
+        "withdrawn_by_oracle": 0
+      },
+      "system": "blindspot_search",
+      "trajectory": "blindspot_search--byte_units__v0.jsonl"
+    },
+    {
+      "case_id": "byte_units__v10",
+      "grade": {
+        "case_id": "byte_units__v10",
+        "detected": false,
+        "detected_lenient": false,
+        "emitted": 0,
+        "error": "",
+        "false_alarm": false,
+        "flakes": 0,
+        "has_defect": true,
+        "reported_verdict": "NEEDS_HUMAN",
+        "sound_counterexamples": 0,
+        "split": "dev",
+        "system": "blindspot_search",
+        "task_id": "byte_units",
+        "trap_id": "byte_units::format_bytes(-999949999999999999)",
+        "unsound_claims": 0,
+        "verdicts": []
+      },
+      "report": {
+        "case_id": "byte_units__v10",
+        "cost": {
+          "calls": 13,
+          "input_tokens": 21443,
+          "output_tokens": 6432,
+          "provider_input_tokens": 225308,
+          "provider_output_tokens": 44850,
+          "sandbox_runs": 10,
+          "usd": 0.160809,
+          "wall_ms": 119383
+        },
+        "error": null,
+        "findings": [],
+        "notes": [],
+        "obligations_probed": 10,
+        "obligations_total": 10,
+        "open_questions": [
+          {
+            "affects": [],
+            "id": "AM-001",
+            "options": [
+              "Accept any isinstance(n, int) that is not bool",
+              "Reject anything whose type is not exactly int, treating all other subclasses like bool"
+            ],
+            "question": "For int subclasses other than bool (e.g. an IntEnum member or a numpy integer), should format_bytes accept them like a plain int, or reject them because they are not exactly type int?",
+            "quote": "`n` must be an `int`.",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "The spec singles out bool as the one int-subtype exclusion; it never states whether other int subclasses are in-bounds, so a test with e.g. an IntEnum could reasonably expect either acceptance or TypeError."
+          }
+        ],
+        "probes_discarded": 0,
+        "probes_run": 10,
+        "system": "blindspot_search",
+        "verdict": "NEEDS_HUMAN",
+        "withdrawn_by_oracle": 0
+      },
+      "system": "blindspot_search",
+      "trajectory": "blindspot_search--byte_units__v10.jsonl"
+    },
+    {
+      "case_id": "byte_units__v11",
+      "grade": {
+        "case_id": "byte_units__v11",
+        "detected": false,
+        "detected_lenient": false,
+        "emitted": 0,
+        "error": "",
+        "false_alarm": false,
+        "flakes": 0,
+        "has_defect": false,
+        "reported_verdict": "NEEDS_HUMAN",
+        "sound_counterexamples": 0,
+        "split": "dev",
+        "system": "blindspot_search",
+        "task_id": "byte_units",
+        "trap_id": "",
+        "unsound_claims": 0,
+        "verdicts": []
+      },
+      "report": {
+        "case_id": "byte_units__v11",
+        "cost": {
+          "calls": 13,
+          "input_tokens": 21443,
+          "output_tokens": 6379,
+          "provider_input_tokens": 230392,
+          "provider_output_tokens": 39836,
+          "sandbox_runs": 10,
+          "usd": 0.160014,
+          "wall_ms": 80005
+        },
+        "error": null,
+        "findings": [],
+        "notes": [],
+        "obligations_probed": 10,
+        "obligations_total": 10,
+        "open_questions": [
+          {
+            "affects": [],
+            "id": "AM-001",
+            "options": [
+              "Accept any isinstance(n, int) that is not bool",
+              "Reject anything whose type is not exactly int, treating all other subclasses like bool"
+            ],
+            "question": "For int subclasses other than bool (e.g. an IntEnum member or a numpy integer), should format_bytes accept them like a plain int, or reject them because they are not exactly type int?",
+            "quote": "`n` must be an `int`.",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "The spec singles out bool as the one int-subtype exclusion; it never states whether other int subclasses are in-bounds, so a test with e.g. an IntEnum could reasonably expect either acceptance or TypeError."
+          }
+        ],
+        "probes_discarded": 0,
+        "probes_run": 10,
+        "system": "blindspot_search",
+        "verdict": "NEEDS_HUMAN",
+        "withdrawn_by_oracle": 0
+      },
+      "system": "blindspot_search",
+      "trajectory": "blindspot_search--byte_units__v11.jsonl"
+    },
+    {
+      "case_id": "byte_units__v12",
+      "grade": {
+        "case_id": "byte_units__v12",
+        "detected": false,
+        "detected_lenient": false,
+        "emitted": 0,
+        "error": "",
+        "false_alarm": false,
+        "flakes": 0,
+        "has_defect": true,
+        "reported_verdict": "NEEDS_HUMAN",
+        "sound_counterexamples": 0,
+        "split": "dev",
+        "system": "blindspot_search",
+        "task_id": "byte_units",
+        "trap_id": "byte_units::format_bytes(-999949999999999999)",
+        "unsound_claims": 0,
+        "verdicts": []
+      },
+      "report": {
+        "case_id": "byte_units__v12",
+        "cost": {
+          "calls": 14,
+          "input_tokens": 24019,
+          "output_tokens": 6267,
+          "provider_input_tokens": 200629,
+          "provider_output_tokens": 37043,
+          "sandbox_runs": 10,
+          "usd": 0.166062,
+          "wall_ms": 94532
+        },
+        "error": null,
+        "findings": [],
+        "notes": [],
+        "obligations_probed": 10,
+        "obligations_total": 10,
+        "open_questions": [
+          {
+            "affects": [],
+            "id": "AM-001",
+            "options": [
+              "Accept any isinstance(n, int) that is not bool",
+              "Reject anything whose type is not exactly int, treating all other subclasses like bool"
+            ],
+            "question": "For int subclasses other than bool (e.g. an IntEnum member or a numpy integer), should format_bytes accept them like a plain int, or reject them because they are not exactly type int?",
+            "quote": "`n` must be an `int`.",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "The spec singles out bool as the one int-subtype exclusion; it never states whether other int subclasses are in-bounds, so a test with e.g. an IntEnum could reasonably expect either acceptance or TypeError."
+          }
+        ],
+        "probes_discarded": 1,
+        "probes_run": 10,
+        "system": "blindspot_search",
+        "verdict": "NEEDS_HUMAN",
+        "withdrawn_by_oracle": 0
+      },
+      "system": "blindspot_search",
+      "trajectory": "blindspot_search--byte_units__v12.jsonl"
+    },
+    {
+      "case_id": "merge_intervals__t20",
+      "grade": {
+        "case_id": "merge_intervals__t20",
+        "detected": false,
+        "detected_lenient": false,
+        "emitted": 0,
+        "error": "",
+        "false_alarm": false,
+        "flakes": 0,
+        "has_defect": false,
+        "reported_verdict": "NEEDS_HUMAN",
+        "sound_counterexamples": 0,
+        "split": "dev",
+        "system": "blindspot_search",
+        "task_id": "merge_intervals",
+        "trap_id": "",
+        "unsound_claims": 0,
+        "verdicts": []
+      },
+      "report": {
+        "case_id": "merge_intervals__t20",
+        "cost": {
+          "calls": 9,
+          "input_tokens": 12665,
+          "output_tokens": 3501,
+          "provider_input_tokens": 145766,
+          "provider_output_tokens": 17890,
+          "sandbox_runs": 8,
+          "usd": 0.09051,
+          "wall_ms": 53560
+        },
+        "error": null,
+        "findings": [],
+        "notes": [],
+        "obligations_probed": 8,
+        "obligations_total": 10,
+        "open_questions": [
+          {
+            "affects": [
+              "OB-006"
+            ],
+            "id": "AM-001",
+            "options": [
+              "Accept bools silently since they pass isinstance(x, int)",
+              "Reject bools with ValueError because the spec means genuine integers, not booleans"
+            ],
+            "question": "Should bool values (which are a subclass of int in Python) be accepted as valid start/end ints, since isinstance(True, int) is True?",
+            "quote": "",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "Determines whether merge_bookings([(True, 5)]) succeeds (treating True as 1) or raises ValueError; implementations using isinstance checks vs type(x) is int checks will diverge."
+          },
+          {
+            "affects": [
+              "OB-004",
+              "OB-005",
+              "OB-006"
+            ],
+            "id": "AM-002",
+            "options": [
+              "Raise on the first invalid entry encountered while iterating in input order",
+              "Validate all entries first and raise for some other selected entry (e.g. first structural-type failure before any start>end check)"
+            ],
+            "question": "When multiple entries in the input are invalid (e.g. several have start > end, or a mix of malformed-type and start>end entries), which single ValueError/message is raised \u2014 first offending entry in input order, or some other rule?",
+            "quote": "",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "Affects which pair appears in the ValueError message when the input contains more than one bad row, changing what on-call greps out of the log."
+          }
+        ],
+        "probes_discarded": 0,
+        "probes_run": 8,
+        "system": "blindspot_search",
+        "verdict": "NEEDS_HUMAN",
+        "withdrawn_by_oracle": 0
+      },
+      "system": "blindspot_search",
+      "trajectory": "blindspot_search--merge_intervals__t20.jsonl"
+    },
+    {
+      "case_id": "merge_intervals__v0",
+      "grade": {
+        "case_id": "merge_intervals__v0",
+        "detected": false,
+        "detected_lenient": false,
+        "emitted": 0,
+        "error": "",
+        "false_alarm": false,
+        "flakes": 0,
+        "has_defect": false,
+        "reported_verdict": "NEEDS_HUMAN",
+        "sound_counterexamples": 0,
+        "split": "dev",
+        "system": "blindspot_search",
+        "task_id": "merge_intervals",
+        "trap_id": "",
+        "unsound_claims": 0,
+        "verdicts": []
+      },
+      "report": {
+        "case_id": "merge_intervals__v0",
+        "cost": {
+          "calls": 10,
+          "input_tokens": 14665,
+          "output_tokens": 3892,
+          "provider_input_tokens": 147368,
+          "provider_output_tokens": 28302,
+          "sandbox_runs": 9,
+          "usd": 0.102375,
+          "wall_ms": 80461
+        },
+        "error": null,
+        "findings": [],
+        "notes": [],
+        "obligations_probed": 9,
+        "obligations_total": 10,
+        "open_questions": [
+          {
+            "affects": [
+              "OB-008"
+            ],
+            "id": "AM-001",
+            "options": [
+              "Accept bools because isinstance(True, int) is True",
+              "Reject bools because they are not 'really' int values, even though they pass isinstance checks"
+            ],
+            "question": "Does a bool value (e.g. True/False) count as a valid 'int' for the two elements of an entry, given that Python's bool is a subclass of int?",
+            "quote": "",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "Determines whether inputs like [(True, 60)] are accepted and merged as (1, 60) or rejected with ValueError."
+          },
+          {
+            "affects": [
+              "OB-005",
+              "OB-008"
+            ],
+            "id": "AM-002",
+            "options": [
+              "Validate in original input order and raise on the first offending entry encountered",
+              "Validate in any order (e.g. after sorting, or all-at-once), so which entry's error surfaces when several are invalid is unspecified"
+            ],
+            "question": "When the input contains multiple invalid entries (e.g. one with start > end and another with a wrong type/length), does validation need to proceed in original list order so a specific, predictable entry's error is raised first?",
+            "quote": "",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "Affects what message a test should expect when an input list contains more than one invalid entry."
+          }
+        ],
+        "probes_discarded": 0,
+        "probes_run": 9,
+        "system": "blindspot_search",
+        "verdict": "NEEDS_HUMAN",
+        "withdrawn_by_oracle": 0
+      },
+      "system": "blindspot_search",
+      "trajectory": "blindspot_search--merge_intervals__v0.jsonl"
+    },
+    {
+      "case_id": "merge_intervals__v1",
+      "grade": {
+        "case_id": "merge_intervals__v1",
+        "detected": false,
+        "detected_lenient": false,
+        "emitted": 0,
+        "error": "",
+        "false_alarm": false,
+        "flakes": 0,
+        "has_defect": false,
+        "reported_verdict": "NEEDS_HUMAN",
+        "sound_counterexamples": 0,
+        "split": "dev",
+        "system": "blindspot_search",
+        "task_id": "merge_intervals",
+        "trap_id": "",
+        "unsound_claims": 0,
+        "verdicts": []
+      },
+      "report": {
+        "case_id": "merge_intervals__v1",
+        "cost": {
+          "calls": 11,
+          "input_tokens": 17207,
+          "output_tokens": 3780,
+          "provider_input_tokens": 160711,
+          "provider_output_tokens": 25800,
+          "sandbox_runs": 9,
+          "usd": 0.108321,
+          "wall_ms": 119234
+        },
+        "error": null,
+        "findings": [],
+        "notes": [],
+        "obligations_probed": 9,
+        "obligations_total": 10,
+        "open_questions": [
+          {
+            "affects": [
+              "OB-008"
+            ],
+            "id": "AM-001",
+            "options": [
+              "Accept bools because isinstance(True, int) is True",
+              "Reject bools because they are not 'really' int values, even though they pass isinstance checks"
+            ],
+            "question": "Does a bool value (e.g. True/False) count as a valid 'int' for the two elements of an entry, given that Python's bool is a subclass of int?",
+            "quote": "",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "Determines whether inputs like [(True, 60)] are accepted and merged as (1, 60) or rejected with ValueError."
+          },
+          {
+            "affects": [
+              "OB-005",
+              "OB-008"
+            ],
+            "id": "AM-002",
+            "options": [
+              "Validate in original input order and raise on the first offending entry encountered",
+              "Validate in any order (e.g. after sorting, or all-at-once), so which entry's error surfaces when several are invalid is unspecified"
+            ],
+            "question": "When the input contains multiple invalid entries (e.g. one with start > end and another with a wrong type/length), does validation need to proceed in original list order so a specific, predictable entry's error is raised first?",
+            "quote": "",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "Affects what message a test should expect when an input list contains more than one invalid entry."
+          }
+        ],
+        "probes_discarded": 1,
+        "probes_run": 9,
+        "system": "blindspot_search",
+        "verdict": "NEEDS_HUMAN",
+        "withdrawn_by_oracle": 0
+      },
+      "system": "blindspot_search",
+      "trajectory": "blindspot_search--merge_intervals__v1.jsonl"
+    },
+    {
+      "case_id": "rbac_authorize__t20",
+      "grade": {
+        "case_id": "rbac_authorize__t20",
+        "detected": false,
+        "detected_lenient": false,
+        "emitted": 0,
+        "error": "",
+        "false_alarm": false,
+        "flakes": 0,
+        "has_defect": false,
+        "reported_verdict": "NEEDS_HUMAN",
+        "sound_counterexamples": 0,
+        "split": "dev",
+        "system": "blindspot_search",
+        "task_id": "rbac_authorize",
+        "trap_id": "",
+        "unsound_claims": 0,
+        "verdicts": []
+      },
+      "report": {
+        "case_id": "rbac_authorize__t20",
+        "cost": {
+          "calls": 19,
+          "input_tokens": 31150,
+          "output_tokens": 8524,
+          "provider_input_tokens": 273737,
+          "provider_output_tokens": 46270,
+          "sandbox_runs": 10,
+          "usd": 0.22131,
+          "wall_ms": 234820
+        },
+        "error": null,
+        "findings": [],
+        "notes": [],
+        "obligations_probed": 10,
+        "obligations_total": 10,
+        "open_questions": [
+          {
+            "affects": [
+              "OB-009"
+            ],
+            "id": "AM-001",
+            "options": [
+              "Reject any request/policy with keys outside the exact required set, since the spec says a request/policy has 'exactly' those fields",
+              "Only check that the required fields are present (and, for policies, that effect is ALLOW/DENY); ignore any additional keys"
+            ],
+            "question": "If a request or policy dict contains extra keys beyond the four specified fields, should authorize raise ValueError, or is the presence of the required fields sufficient regardless of extras?",
+            "quote": "A request has exactly the fields",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "Determines whether callers passing dicts with incidental extra metadata get a hard failure or a silently-accepted request, affecting both validation coverage and integration ergonomics."
+          },
+          {
+            "affects": [
+              "OB-009"
+            ],
+            "id": "AM-002",
+            "options": [
+              "Validate only that roles is a list; elements are used as-is for matching regardless of type",
+              "Additionally validate that every element is a string, raising ValueError otherwise, since 'roles (a list of role names)' implies string contents"
+            ],
+            "question": "The spec requires roles to be a list, but does it also require every element of that list to be a string (a valid role name), or is a list containing non-string entries acceptable as long as it is a list?",
+            "quote": "roles` (a list of role names,\npossibly empty)",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "Affects whether malformed inputs like roles=[1,2] raise ValueError or silently fail to match any role: pattern."
+          },
+          {
+            "affects": [
+              "OB-009",
+              "OB-010"
+            ],
+            "id": "AM-003",
+            "options": [
+              "Any order is acceptable as long as ValueError is raised before a decision is made; the spec doesn't mandate which invalid item is reported first",
+              "Requests must be validated before policies, or fields must be checked in the order listed, since the spec enumerates request fields before policy fields"
+            ],
+            "question": "When multiple validation problems exist at once (e.g. the request is missing a field and a policy has an invalid effect), does the spec require a specific order of checking, or is raising on any one of them (in any order) sufficient?",
+            "quote": "Validate everything before deciding anything",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "Determines whether tests asserting on which specific error message surfaces first (when several inputs are simultaneously invalid) are meaningful or over-specified."
+          }
+        ],
+        "probes_discarded": 7,
+        "probes_run": 10,
+        "system": "blindspot_search",
+        "verdict": "NEEDS_HUMAN",
+        "withdrawn_by_oracle": 0
+      },
+      "system": "blindspot_search",
+      "trajectory": "blindspot_search--rbac_authorize__t20.jsonl"
+    },
+    {
+      "case_id": "rbac_authorize__v0",
+      "grade": {
+        "case_id": "rbac_authorize__v0",
+        "detected": false,
+        "detected_lenient": false,
+        "emitted": 0,
+        "error": "",
+        "false_alarm": false,
+        "flakes": 0,
+        "has_defect": false,
+        "reported_verdict": "NEEDS_HUMAN",
+        "sound_counterexamples": 0,
+        "split": "dev",
+        "system": "blindspot_search",
+        "task_id": "rbac_authorize",
+        "trap_id": "",
+        "unsound_claims": 0,
+        "verdicts": []
+      },
+      "report": {
+        "case_id": "rbac_authorize__v0",
+        "cost": {
+          "calls": 19,
+          "input_tokens": 37349,
+          "output_tokens": 5705,
+          "provider_input_tokens": 298179,
+          "provider_output_tokens": 38434,
+          "sandbox_runs": 10,
+          "usd": 0.197622,
+          "wall_ms": 205749
+        },
+        "error": null,
+        "findings": [],
+        "notes": [],
+        "obligations_probed": 10,
+        "obligations_total": 10,
+        "open_questions": [
+          {
+            "affects": [],
+            "id": "AM-001",
+            "options": [
+              "Reject any dict with extra keys as invalid, since the spec says the dict has 'exactly these fields'",
+              "Only validate presence of the required fields and ignore any additional keys"
+            ],
+            "question": "If a request or policy dict contains extra keys beyond the specified fields, should authorize raise ValueError, or should the extra keys be silently ignored?",
+            "quote": "A **request** is a dict with exactly these fields:",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "Determines whether a caller that accidentally passes an extra field (e.g. a 'sourceIp' left over from another system) gets a hard failure or a silently-processed request/policy."
+          },
+          {
+            "affects": [
+              "OB-008"
+            ],
+            "id": "AM-002",
+            "options": [
+              "The error must reference the first invalid policy encountered in list order",
+              "Any single invalid policy's effect value is an acceptable message content, order unspecified"
+            ],
+            "question": "When multiple policies in the list have invalid effect values, does it matter which offending value's ValueError is raised (first in list order, or any one)?",
+            "quote": "",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "Affects whether an implementation that reports a different (but still invalid) policy's effect than a reference implementation should be considered correct."
+          },
+          {
+            "affects": [],
+            "id": "AM-003",
+            "options": [
+              "Treat it as a validation failure requiring ValueError, by analogy with the roles-not-a-list check",
+              "Let it fail naturally wherever string operations are applied (e.g. TypeError from .startswith), since the spec only names ValueError for the listed conditions"
+            ],
+            "question": "What must happen if a field that should be a string (subject, action, resource, principal, effect, or an element of roles) is instead a non-string value, e.g. an integer?",
+            "quote": "",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "Determines whether authorize must defensively type-check every scalar field or may let non-conforming callers hit an unspecified exception type."
+          }
+        ],
+        "probes_discarded": 8,
+        "probes_run": 10,
+        "system": "blindspot_search",
+        "verdict": "NEEDS_HUMAN",
+        "withdrawn_by_oracle": 0
+      },
+      "system": "blindspot_search",
+      "trajectory": "blindspot_search--rbac_authorize__v0.jsonl"
+    },
+    {
+      "case_id": "rbac_authorize__v1",
+      "grade": {
+        "case_id": "rbac_authorize__v1",
+        "detected": false,
+        "detected_lenient": false,
+        "emitted": 0,
+        "error": "",
+        "false_alarm": false,
+        "flakes": 0,
+        "has_defect": false,
+        "reported_verdict": "NEEDS_HUMAN",
+        "sound_counterexamples": 0,
+        "split": "dev",
+        "system": "blindspot_search",
+        "task_id": "rbac_authorize",
+        "trap_id": "",
+        "unsound_claims": 0,
+        "verdicts": []
+      },
+      "report": {
+        "case_id": "rbac_authorize__v1",
+        "cost": {
+          "calls": 19,
+          "input_tokens": 37362,
+          "output_tokens": 5857,
+          "provider_input_tokens": 256726,
+          "provider_output_tokens": 41188,
+          "sandbox_runs": 10,
+          "usd": 0.199941,
+          "wall_ms": 199862
+        },
+        "error": null,
+        "findings": [],
+        "notes": [],
+        "obligations_probed": 10,
+        "obligations_total": 10,
+        "open_questions": [
+          {
+            "affects": [],
+            "id": "AM-001",
+            "options": [
+              "Reject any dict with extra keys as invalid, since the spec says the dict has 'exactly these fields'",
+              "Only validate presence of the required fields and ignore any additional keys"
+            ],
+            "question": "If a request or policy dict contains extra keys beyond the specified fields, should authorize raise ValueError, or should the extra keys be silently ignored?",
+            "quote": "A **request** is a dict with exactly these fields:",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "Determines whether a caller that accidentally passes an extra field (e.g. a 'sourceIp' left over from another system) gets a hard failure or a silently-processed request/policy."
+          },
+          {
+            "affects": [
+              "OB-008"
+            ],
+            "id": "AM-002",
+            "options": [
+              "The error must reference the first invalid policy encountered in list order",
+              "Any single invalid policy's effect value is an acceptable message content, order unspecified"
+            ],
+            "question": "When multiple policies in the list have invalid effect values, does it matter which offending value's ValueError is raised (first in list order, or any one)?",
+            "quote": "",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "Affects whether an implementation that reports a different (but still invalid) policy's effect than a reference implementation should be considered correct."
+          },
+          {
+            "affects": [],
+            "id": "AM-003",
+            "options": [
+              "Treat it as a validation failure requiring ValueError, by analogy with the roles-not-a-list check",
+              "Let it fail naturally wherever string operations are applied (e.g. TypeError from .startswith), since the spec only names ValueError for the listed conditions"
+            ],
+            "question": "What must happen if a field that should be a string (subject, action, resource, principal, effect, or an element of roles) is instead a non-string value, e.g. an integer?",
+            "quote": "",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "Determines whether authorize must defensively type-check every scalar field or may let non-conforming callers hit an unspecified exception type."
+          }
+        ],
+        "probes_discarded": 8,
+        "probes_run": 10,
+        "system": "blindspot_search",
+        "verdict": "NEEDS_HUMAN",
+        "withdrawn_by_oracle": 0
+      },
+      "system": "blindspot_search",
+      "trajectory": "blindspot_search--rbac_authorize__v1.jsonl"
+    },
+    {
+      "case_id": "semver_sort__t21",
+      "grade": {
+        "case_id": "semver_sort__t21",
+        "detected": false,
+        "detected_lenient": false,
+        "emitted": 0,
+        "error": "",
+        "false_alarm": false,
+        "flakes": 0,
+        "has_defect": false,
+        "reported_verdict": "NEEDS_HUMAN",
+        "sound_counterexamples": 0,
+        "split": "dev",
+        "system": "blindspot_search",
+        "task_id": "semver_sort",
+        "trap_id": "",
+        "unsound_claims": 0,
+        "verdicts": []
+      },
+      "report": {
+        "case_id": "semver_sort__t21",
+        "cost": {
+          "calls": 12,
+          "input_tokens": 16256,
+          "output_tokens": 3917,
+          "provider_input_tokens": 156064,
+          "provider_output_tokens": 23529,
+          "sandbox_runs": 10,
+          "usd": 0.107523,
+          "wall_ms": 81984
+        },
+        "error": null,
+        "findings": [],
+        "notes": [],
+        "obligations_probed": 10,
+        "obligations_total": 10,
+        "open_questions": [
+          {
+            "affects": [
+              "OB-004",
+              "OB-009"
+            ],
+            "id": "AM-001",
+            "options": [
+              "Only a lowercase 'v' is recognized as the decorative prefix; anything else including 'V' fails the grammar check and raises ValueError.",
+              "The leading letter is treated case-insensitively, so 'V1.0.0' is accepted and parsed the same as 'v1.0.0'."
+            ],
+            "question": "Does an uppercase 'V' prefix (e.g. 'V1.0.0') count as the same decorative marker as lowercase 'v', or is it a malformed tag that must raise ValueError?",
+            "quote": "an optional leading `v`",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "Determines whether tags like 'V2.0.0' are valid input at all, and if valid, whether they participate in ordering the same way as lowercase-v or unprefixed tags."
+          },
+          {
+            "affects": [
+              "OB-005",
+              "OB-006",
+              "OB-007"
+            ],
+            "id": "AM-002",
+            "options": [
+              "Validate tags in input order and raise on the first malformed tag encountered.",
+              "Validation order is unspecified; any malformed tag's ValueError satisfies the contract as long as the offending tag text is correct."
+            ],
+            "question": "When multiple tags in the input list are individually malformed, in what order (if any) must validation errors be raised \u2014 e.g. must the function report the first malformed tag by list position, or is any one of them acceptable?",
+            "quote": "",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "Affects whether tests asserting a specific error message (tied to a specific tag) are meaningful when several tags in the same call are invalid."
+          }
+        ],
+        "probes_discarded": 0,
+        "probes_run": 10,
+        "system": "blindspot_search",
+        "verdict": "NEEDS_HUMAN",
+        "withdrawn_by_oracle": 0
+      },
+      "system": "blindspot_search",
+      "trajectory": "blindspot_search--semver_sort__t21.jsonl"
+    },
+    {
+      "case_id": "semver_sort__t46",
+      "grade": {
+        "case_id": "semver_sort__t46",
+        "detected": false,
+        "detected_lenient": false,
+        "emitted": 0,
+        "error": "",
+        "false_alarm": false,
+        "flakes": 0,
+        "has_defect": true,
+        "reported_verdict": "NEEDS_HUMAN",
+        "sound_counterexamples": 0,
+        "split": "dev",
+        "system": "blindspot_search",
+        "task_id": "semver_sort",
+        "trap_id": "semver_sort::sort_versions(['1.0.0-'])",
+        "unsound_claims": 0,
+        "verdicts": []
+      },
+      "report": {
+        "case_id": "semver_sort__t46",
+        "cost": {
+          "calls": 13,
+          "input_tokens": 17830,
+          "output_tokens": 4116,
+          "provider_input_tokens": 208523,
+          "provider_output_tokens": 25049,
+          "sandbox_runs": 10,
+          "usd": 0.11523,
+          "wall_ms": 70340
+        },
+        "error": null,
+        "findings": [],
+        "notes": [],
+        "obligations_probed": 10,
+        "obligations_total": 10,
+        "open_questions": [
+          {
+            "affects": [
+              "OB-004",
+              "OB-009"
+            ],
+            "id": "AM-001",
+            "options": [
+              "Only a lowercase 'v' is recognized as the decorative prefix; anything else including 'V' fails the grammar check and raises ValueError.",
+              "The leading letter is treated case-insensitively, so 'V1.0.0' is accepted and parsed the same as 'v1.0.0'."
+            ],
+            "question": "Does an uppercase 'V' prefix (e.g. 'V1.0.0') count as the same decorative marker as lowercase 'v', or is it a malformed tag that must raise ValueError?",
+            "quote": "an optional leading `v`",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "Determines whether tags like 'V2.0.0' are valid input at all, and if valid, whether they participate in ordering the same way as lowercase-v or unprefixed tags."
+          },
+          {
+            "affects": [
+              "OB-005",
+              "OB-006",
+              "OB-007"
+            ],
+            "id": "AM-002",
+            "options": [
+              "Validate tags in input order and raise on the first malformed tag encountered.",
+              "Validation order is unspecified; any malformed tag's ValueError satisfies the contract as long as the offending tag text is correct."
+            ],
+            "question": "When multiple tags in the input list are individually malformed, in what order (if any) must validation errors be raised \u2014 e.g. must the function report the first malformed tag by list position, or is any one of them acceptable?",
+            "quote": "",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "Affects whether tests asserting a specific error message (tied to a specific tag) are meaningful when several tags in the same call are invalid."
+          }
+        ],
+        "probes_discarded": 1,
+        "probes_run": 10,
+        "system": "blindspot_search",
+        "verdict": "NEEDS_HUMAN",
+        "withdrawn_by_oracle": 0
+      },
+      "system": "blindspot_search",
+      "trajectory": "blindspot_search--semver_sort__t46.jsonl"
+    },
+    {
+      "case_id": "semver_sort__v0",
+      "grade": {
+        "case_id": "semver_sort__v0",
+        "detected": false,
+        "detected_lenient": false,
+        "emitted": 0,
+        "error": "",
+        "false_alarm": false,
+        "flakes": 0,
+        "has_defect": false,
+        "reported_verdict": "NEEDS_HUMAN",
+        "sound_counterexamples": 0,
+        "split": "dev",
+        "system": "blindspot_search",
+        "task_id": "semver_sort",
+        "trap_id": "",
+        "unsound_claims": 0,
+        "verdicts": []
+      },
+      "report": {
+        "case_id": "semver_sort__v0",
+        "cost": {
+          "calls": 12,
+          "input_tokens": 17826,
+          "output_tokens": 4342,
+          "provider_input_tokens": 198437,
+          "provider_output_tokens": 25396,
+          "sandbox_runs": 10,
+          "usd": 0.118608,
+          "wall_ms": 60245
+        },
+        "error": null,
+        "findings": [],
+        "notes": [],
+        "obligations_probed": 10,
+        "obligations_total": 10,
+        "open_questions": [
+          {
+            "affects": [],
+            "id": "AM-001",
+            "options": [
+              "Build metadata is validated with the same identifier rules as pre-release (empty segments and leading-zero numeric segments raise ValueError)",
+              "Build metadata is accepted as-is (any non-empty text after '+') because the spec's validation rules are stated only in the context of numeric parts and pre-release identifiers, and build metadata is explicitly irrelevant to precedence"
+            ],
+            "question": "Does build metadata content need to satisfy the same validation rules as pre-release identifiers (non-empty, no leading zeroes on numeric identifiers), or is it accepted as unvalidated free text since it never affects precedence?",
+            "quote": "and optional build metadata introduced",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "Determines whether tags like '1.0.0+' or '1.0.0+01' or '1.0.0+build..1' should raise ValueError or be accepted unchanged."
+          },
+          {
+            "affects": [],
+            "id": "AM-002",
+            "options": [
+              "Restrict identifiers to [0-9A-Za-z-] as in the canonical SemVer grammar, rejecting anything else with ValueError",
+              "Accept any non-empty, non-dot substring between separators as a valid identifier, since the spec never explicitly forbids other characters"
+            ],
+            "question": "What exact character set is permitted within a pre-release (or build metadata) identifier \u2014 only ASCII letters, digits, and hyphens, or any other characters \u2014 since the spec only names 'digits', 'a letter', and 'a hyphen' without giving a full grammar?",
+            "quote": "identifiers containing a letter or a hyphen are compared **lexically in",
+            "resolution": null,
+            "resolved_by": "unresolved",
+            "why_it_matters": "Determines whether tags with identifiers containing characters like '_' or '.' (already used as separators) or Unicode letters should be accepted or rejected as invalid format."
+          }
+        ],
+        "probes_discarded": 1,
+        "probes_run": 10,
+        "system": "blindspot_search",
+        "verdict": "NEEDS_HUMAN",
+        "withdrawn_by_oracle": 0
+      },
+      "system": "blindspot_search",
+      "trajectory": "blindspot_search--semver_sort__v0.jsonl"
+    }
+  ]
+}

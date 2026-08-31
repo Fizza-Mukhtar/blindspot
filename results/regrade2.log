@@ -1,0 +1,64 @@
+14 system(s) x 35 case(s) = 490 runs · provider=replay · 
+fingerprint=a4af2c197d192ec3
+      self_tests | currency_quantize__t24       | clean
+      self_tests | csv_rfc4180__v1              | clean
+      self_tests | allocate_money__v1           | clean
+      self_tests | csv_rfc4180__t20             | clean
+      self_tests | csv_rfc4180__v0              | clean
+      self_tests | currency_quantize__v11       | clean
+      self_tests | allocate_money__v0           | clean
+      self_tests | allocate_money__t21          | clean
+      self_tests | full_jitter_backoff__t20     | clean
+      self_tests | currency_quantize__v12       | clean
+      self_tests | discount_stacking__v0        | clean
+      self_tests | discount_stacking__t20       | clean
+      self_tests | discount_stacking__v12       | missed
+      self_tests | discount_stacking__v10       | clean
+      self_tests | full_jitter_backoff__t22     | missed
+      self_tests | full_jitter_backoff__t42     | missed
+      self_tests | discount_stacking__v11       | missed
+      self_tests | full_jitter_backoff__t46     | missed
+      self_tests | full_jitter_backoff__v11     | clean
+      self_tests | full_jitter_backoff__v10     | clean
+      self_tests | full_jitter_backoff__v12     | missed
+      self_tests | iso_week_date__t20           | clean
+      self_tests | http_range_resolve__t21      | clean
+      self_tests | http_range_resolve__t20      | missed
+      self_tests | http_range_resolve__v0       | missed
+      self_tests | http_range_resolve__v1       | clean
+      self_tests | http_range_resolve__t40      | missed
+      self_tests | http_range_resolve__v2       | clean
+      self_tests | keyset_paginate__t20         | clean
+      self_tests | iso_week_date__v0            | clean
+      self_tests | iso_week_date__v1            | clean
+      self_tests | rollout_bucketing__t20       | clean
+      self_tests | rollout_bucketing__v0        | clean
+      self_tests | rollout_bucketing__v1        | clean
+ baseline_direct | allocate_money__v0           | clean
+ baseline_direct | allocate_money__v1           | clean
+ baseline_direct | allocate_money__t21          | clean
+      self_tests | token_bucket__t20            | clean
+ baseline_direct | csv_rfc4180__t20             | clean
+ baseline_direct | csv_rfc4180__v0              | clean
+ baseline_direct | csv_rfc4180__v1              | clean
+ baseline_direct | discount_stacking__t20       | FALSE ALARM
+ baseline_direct | full_jitter_backoff__t20     | clean
+ baseline_direct | full_jitter_backoff__t22     | missed
+ baseline_direct | full_jitter_backoff__t42     | missed
+ baseline_direct | full_jitter_backoff__t46     | missed
+ baseline_direct | currency_quantize__t24       | FALSE ALARM
+ baseline_direct | currency_quantize__v11       | FALSE ALARM
+ baseline_direct | discount_stacking__v0        | FALSE ALARM
+ baseline_direct | full_jitter_backoff__v10     | clean
+ baseline_direct | full_jitter_backoff__v11     | clean
+ baseline_direct | discount_stacking__v10       | FALSE ALARM
+ baseline_direct | discount_stacking__v12       | missed
+ baseline_direct | discount_stacking__v11       | missed
+ baseline_direct | full_jitter_backoff__v12     | detected
+ baseline_direct | http_range_resolve__v1       | FALSE ALARM
+ baseline_direct | currency_quantize__v12       | FALSE ALARM
+ baseline_direct | iso_week_date__t20           | clean
+ baseline_direct | iso_week_date__v0            | FALSE ALARM
+ baseline_direct | http_range_resolve__v2       | clean
+ baseline_direct | iso_week_date__v1            | clean
+ baseline_direct | http_range_resolve__v0       | missed

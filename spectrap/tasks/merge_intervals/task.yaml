@@ -1,0 +1,44 @@
+task_id: merge_intervals
+title: Coalesce a room's booking intervals into busy blocks
+entrypoint: merge_bookings
+difficulty: 3
+
+# The trap is not invented for this benchmark: it is the standard half-open
+# interval convention that the whole scheduling stack (and most of computing)
+# already uses, applied consistently.
+grounding:
+  standard: >-
+    Half-open interval convention [start, end), as argued in E. W. Dijkstra,
+    EWD 831, "Why numbering should start at zero"
+  url: https://www.cs.utexas.edu/~EWD/transcriptions/EWD08xx/EWD831.html
+trap_class: boundary/convention
+trap: >-
+  Intervals are half-open, so end-to-start bookings such as [60,120) and
+  [120,180) touch with no free minute between them and MUST merge (the guard is
+  `start <= prev_end`, not `<`), while zero-length entries (start == end) are
+  cancellations that must be discarded BEFORE merging so they neither appear in
+  the output nor act as a bridge between blocks that are genuinely separated by
+  free time.
+why_models_miss_it: >-
+  The textbook "merge intervals" exercise is stated over closed intervals, and
+  the memorised solution uses a strict `start < prev_end` overlap test that
+  leaves [60,120) and [120,180) as two blocks. Models that do flip the
+  comparison to `<=` then usually keep zero-length rows, because the same `<=`
+  guard happily absorbs or emits (90,90); dropping them is a separate step that
+  has to happen before the sort-and-sweep, and a filter applied after merging
+  is not equivalent. The two requirements also pull against each other, so a
+  candidate that fixes one frequently breaks the other.
+
+# Genuine under-determination, deliberately left in the spec. These exist so
+# the ambiguity gate has something real to catch; they are NOT defects and a
+# system that reports them as defects is penalised.
+open_questions:
+  - "Whether validation is exhaustive before any output is produced -- the spec says an invalid entry raises ValueError, but not whether an invalid entry appearing after the point where merging could have short-circuited is still guaranteed to be reported."
+  - "Whether a booking that survives unmerged may be returned as the very tuple object that was passed in, or must be a freshly constructed tuple."
+
+runtime:
+  pure: true
+  deterministic: true
+  stdlib_only: true
+  needs_clock: false
+  needs_rng: false

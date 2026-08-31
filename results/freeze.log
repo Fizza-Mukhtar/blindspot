@@ -1,0 +1,7 @@
+froze per_case.csv  sha256=53e26c99a17c44f1
+froze summary.json  sha256=784afafba6872587
+froze records.json  sha256=50fada8a7c0a685f
+froze RESULTS.md  sha256=6d0237dbed80aca3
+
+wrote C:\Users\USER\OneDrive\Desktop\Frontier Engineering challenge\results\expected\SHA256SUMS.json
+Now run `make reproduce` to confirm the offline replay agrees.

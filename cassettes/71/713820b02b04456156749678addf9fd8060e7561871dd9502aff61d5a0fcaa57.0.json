@@ -1,0 +1,22 @@
+{
+  "format": 1,
+  "key": "713820b02b04456156749678addf9fd8060e7561871dd9502aff61d5a0fcaa57",
+  "request": {
+    "max_tokens": 2000,
+    "model": "haiku",
+    "nonce": 0,
+    "purpose": "minimise",
+    "system": "# Role: Minimiser\n\nYou are handed a test that fails and asked to make the failure as small and as obvious as\npossible. A reviewer should be able to read the reduced test and see the problem without\nrunning anything.\n\n# What to do\n\nReduce the input until removing anything else would stop the test failing. Concretely:\n\n- shrink collections to the fewest elements that still trigger the failure,\n- replace long or incidental values with short, boring ones (`1`, `\"a\"`, `[]`),\n- delete setup that does not affect the outcome,\n- collapse loops and parametrisation into the single case that fails,\n- replace a `hypothesis` property with the concrete falsifying example it found,\n- keep exactly one `test_` function.\n\n# What not to do\n\nDo not change what is being asserted. Do not relax the assertion to make it fail more\neasily, do not add `pytest.approx`, and do not broaden a type check. The reduced test must\nfail for the **same reason** as the original — it is checked by execution, and a\nreduction that stops reproducing the failure is thrown away.\n\n# Constraints\n\n- A complete, self-contained pytest module.\n- `import impl`; `pytest` and `hypothesis` are available; nothing else beyond the\n  standard library.\n- Deterministic. No clock, no network, no randomness.\n\n# Output\n\nReply with **only** a JSON object, no prose and no code fences:\n\n```\n{\n  \"code\": \"<the reduced pytest module, as a JSON string>\",\n  \"minimal_input\": \"<the reduced input as a short readable expression, e.g. [\\\"1.0.0-rc.10\\\", \\\"1.0.0-rc.2\\\"]>\"\n}\n```",
+    "temperature": 0.0,
+    "user": "# The failing probe\n\n```python\nimport re\nimport impl\n\n\ndef test_extremely_large_magnitude_still_prints_one_decimal_digit():\n    # 10**50 bytes forces the magnitude (after dividing down to the PB unit)\n    # to be ~1e35, which needs ~37 significant digits to quantize to 0.1 --\n    # far beyond Decimal's default 28-digit context precision.\n    n = 10 ** 50\n    result = impl.format_bytes(n)\n    assert re.fullmatch(r'-?\\d+\\.\\d [a-zA-Z]+', result), (\n        f\"expected exactly one digit after the decimal point, got {result!r}\"\n    )\n\n```\n\n# Its failure output\n\n```\nE decimal.InvalidOperation: [<class 'decimal.InvalidOperation'>]\n```\n"
+  },
+  "response": {
+    "input_tokens": 8635,
+    "model": "haiku",
+    "output_tokens": 7772,
+    "provider": "claude_cli",
+    "stop_reason": "end_turn",
+    "text": "Looking at this test, it's failing with `decimal.InvalidOperation` when trying to format an extremely large number (10**50) to one decimal place.\n\nThe issue is a Decimal precision problem: 10**50 bytes equals 10^35 PB (petabytes), which requires ~36 significant figures to represent precisely, far exceeding Decimal's default 28-digit precision.\n\nTo minimize: I need to find the smallest input that still triggers this precision error. \n\nThrough analysis:\n- The default Decimal precision is 28 significant digits\n- 10^43 bytes = 10^28 PB, which has ~29 significant figures—just over the limit\n- This should still cause `InvalidOperation` during quantization to 1 decimal place\n- Anything smaller likely won't trigger the precision issue\n\nThe test itself is already minimal (just one assertion), so I only need to reduce the input value.\n\n```json\n{\n  \"code\": \"import re\\nimport impl\\n\\n\\ndef test_format_bytes_large_magnitude():\\n    n = 10**43\\n    result = impl.format_bytes(n)\\n    assert re.fullmatch(r'-?\\\\d+\\\\.\\\\d [a-zA-Z]+', result), (\\n        f\\\"expected exactly one digit after the decimal point, got {result!r}\\\"\\n    )\",\n  \"minimal_input\": \"10**43\"\n}\n```"
+  },
+  "seq": 0
+}

@@ -1,0 +1,5 @@
+system,case_id,task_id,split,has_defect,trap_class,detected,detected_lenient,false_alarm,tests_emitted,sound_counterexamples,unsound_claims,flakes,reported_verdict,llm_calls,input_tokens,output_tokens,usd,wall_ms,error
+baseline_agent,semver_sort__v0,semver_sort,dev,0,,0,0,0,0,0,0,0,CLEAN,0,0,0,0.000000,0,ProviderError: claude CLI error: unknown error
+baseline_direct,semver_sort__v0,semver_sort,dev,0,,0,0,0,6,0,0,0,DEFECT,1,1893,1163,0.023124,217885,
+blindspot,semver_sort__v0,semver_sort,dev,0,,0,0,0,0,0,0,0,CLEAN,0,0,0,0.000000,0,BarrierViolation: implementation text found in the spec-only context: def sort_versions(tags: list[str]) -> list[str]:
+self_tests,semver_sort__v0,semver_sort,dev,0,,0,0,0,18,0,4,0,CLEAN,0,0,0,0.000000,0,

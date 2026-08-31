@@ -1,0 +1,20 @@
+case_id: semver_sort__t46
+difficulty: 4
+entrypoint: sort_versions
+forged_by: haiku
+grounding: https://semver.org/spec/v2.0.0.html
+has_defect: true
+notes: reference raises ValueError; candidate returns ['1.0.0-']
+provenance: forged
+self_tests_green: true
+spec_variant: terse
+spec_visible: true
+split: dev
+task_id: semver_sort
+trap: Purely numeric pre-release identifiers rank BELOW alphanumeric ones (11.4.3),
+  numeric identifiers compare numerically rather than lexically (11.4.1), a longer
+  identifier set wins when the shared prefix is equal (11.4.4), and build metadata
+  is excluded from precedence (item 10), which makes equal-precedence ties observable
+  and the sort's stability testable.
+trap_class: ordering/precedence
+witness_input: sort_versions(['1.0.0-'])

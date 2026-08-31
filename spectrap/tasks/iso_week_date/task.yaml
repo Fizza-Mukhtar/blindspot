@@ -1,0 +1,44 @@
+task_id: iso_week_date
+title: Convert a calendar date to an ISO-8601 week date
+entrypoint: to_iso_week_date
+difficulty: 4
+
+# The trap is not invented for this benchmark: it is a clause of a published
+# standard that implementations routinely get wrong.
+grounding:
+  standard: ISO 8601 week date (as worded for datetime.date.isocalendar)
+  url: https://docs.python.org/3/library/datetime.html#datetime.date.isocalendar
+trap_class: calendar/boundary
+trap: >-
+  The week-numbering year returned is NOT the calendar year that was passed in:
+  a week belongs entirely to the year holding its Thursday, so 2021-01-01 is
+  (2020, 53, 5) and 2019-12-30 is (2020, 1, 1); week 1 is the week containing
+  the first Thursday / 4 January, weeks run Monday..Sunday with Monday = 1,
+  and a week-numbering year has 52 or 53 weeks, so week 53 must exist for 2020
+  and must not for 2021.
+why_models_miss_it: >-
+  The overwhelmingly common shortcut is to return the input year as the first
+  element of the tuple and to compute the week as
+  (day_of_year + offset) // 7 + 1, which is right for roughly 97% of dates and
+  wrong for exactly the days the ticket exists to fix. Second most common is
+  clamping or wrapping the result into 1..52, which silently destroys week 53
+  of the long years, or emitting week 0 for early January instead of rolling
+  into the previous week-numbering year. The Monday=1 convention is also
+  routinely conflated with weekday()'s Monday=0 or with a Sunday-first week,
+  which shifts every boundary by a day and changes which year the week's
+  Thursday falls in. Because the ticket forbids delegating to isocalendar(),
+  none of these can be papered over by calling the standard library.
+
+# Genuine under-determination, deliberately left in the spec. These exist so
+# the ambiguity gate has something real to catch; they are NOT defects and a
+# system that reports them as defects is penalised.
+open_questions:
+  - "Whether the returned value must be a plain tuple or may be a tuple subclass such as a NamedTuple with the fields named."
+  - "Whether the ValueError raised for an out-of-range date must distinguish which of year, month or day was at fault, or may carry any message at all."
+
+runtime:
+  pure: true
+  deterministic: true
+  stdlib_only: true
+  needs_clock: false
+  needs_rng: false

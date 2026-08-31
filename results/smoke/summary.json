@@ -1,0 +1,53 @@
+{
+  "config_fingerprint": "437f8efc3f573153",
+  "models": {
+    "fast": "haiku",
+    "smart": "sonnet"
+  },
+  "n_cases": 1,
+  "paired_comparisons": [
+    {
+      "b_system_only": 0,
+      "baseline": "baseline_direct",
+      "c_baseline_only": 0,
+      "cases_baseline_only": [],
+      "cases_system_only": [],
+      "delta": 0.0,
+      "delta_ci95": [
+        0.0,
+        0.0
+      ],
+      "n_paired": 0,
+      "p_exact": 1.0,
+      "p_midp": 1.0,
+      "power_note": "No discordant pairs: the two systems agreed on every case.",
+      "significant_at_05": false,
+      "system": "blindspot"
+    },
+    {
+      "b_system_only": 0,
+      "baseline": "baseline_agent",
+      "c_baseline_only": 0,
+      "cases_baseline_only": [],
+      "cases_system_only": [],
+      "delta": 0.0,
+      "delta_ci95": [
+        0.0,
+        0.0
+      ],
+      "n_paired": 0,
+      "p_exact": 1.0,
+      "p_midp": 1.0,
+      "power_note": "No discordant pairs: the two systems agreed on every case.",
+      "significant_at_05": false,
+      "system": "blindspot"
+    }
+  ],
+  "split": "all",
+  "systems": [
+    "blindspot",
+    "baseline_direct",
+    "baseline_agent",
+    "self_tests"
+  ]
+}

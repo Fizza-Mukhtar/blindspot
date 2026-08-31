@@ -1,0 +1,46 @@
+{
+  "ablation_case_ids": null,
+  "ablation_reference": {},
+  "config_fingerprint": "775e60e43ff72726",
+  "models": {
+    "fast": "haiku",
+    "smart": "sonnet"
+  },
+  "n_cases": 1,
+  "paired_comparisons": [],
+  "split": "test",
+  "systems": [
+    {
+      "detected": 1,
+      "detection_ci95": [
+        0.2065,
+        1.0
+      ],
+      "detection_rate": 1.0,
+      "detection_rate_lenient": 1.0,
+      "errors": 0,
+      "false_alarm_ci95": [
+        0.0,
+        0.0
+      ],
+      "false_alarm_rate": 0.0,
+      "false_alarms": 0,
+      "flakes": 0,
+      "input_tokens": 20979,
+      "label": "Baseline B: general agent with tools",
+      "llm_calls": 6,
+      "n_buggy": 1,
+      "n_clean": 0,
+      "output_tokens": 1635,
+      "system": "baseline_agent",
+      "tests_emitted": 1,
+      "unsound_claims": 0,
+      "usd": 0.0875,
+      "wall_ms": 223120,
+      "youden_j": 1.0
+    }
+  ],
+  "systems_evaluated": [
+    "baseline_agent"
+  ]
+}

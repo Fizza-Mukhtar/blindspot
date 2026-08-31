@@ -1,0 +1,22 @@
+{
+  "format": 1,
+  "key": "265c2e09e827db46517ae91accc89d11586f3c65cb147982f6b7d9f6315e9380",
+  "request": {
+    "max_tokens": 2000,
+    "model": "haiku",
+    "nonce": 0,
+    "purpose": "minimise",
+    "system": "# Role: Minimiser\n\nYou are handed a test that fails and asked to make the failure as small and as obvious as\npossible. A reviewer should be able to read the reduced test and see the problem without\nrunning anything.\n\n# What to do\n\nReduce the input until removing anything else would stop the test failing. Concretely:\n\n- shrink collections to the fewest elements that still trigger the failure,\n- replace long or incidental values with short, boring ones (`1`, `\"a\"`, `[]`),\n- delete setup that does not affect the outcome,\n- collapse loops and parametrisation into the single case that fails,\n- replace a `hypothesis` property with the concrete falsifying example it found,\n- keep exactly one `test_` function.\n\n# What not to do\n\nDo not change what is being asserted. Do not relax the assertion to make it fail more\neasily, do not add `pytest.approx`, and do not broaden a type check. The reduced test must\nfail for the **same reason** as the original — it is checked by execution, and a\nreduction that stops reproducing the failure is thrown away.\n\n# Constraints\n\n- A complete, self-contained pytest module.\n- `import impl`; `pytest` and `hypothesis` are available; nothing else beyond the\n  standard library.\n- Deterministic. No clock, no network, no randomness.\n\n# Output\n\nReply with **only** a JSON object, no prose and no code fences:\n\n```\n{\n  \"code\": \"<the reduced pytest module, as a JSON string>\",\n  \"minimal_input\": \"<the reduced input as a short readable expression, e.g. [\\\"1.0.0-rc.10\\\", \\\"1.0.0-rc.2\\\"]>\"\n}\n```",
+    "temperature": 0.0,
+    "user": "# The failing probe\n\n```python\nimport pytest\nimport impl\n\n\ndef test_whitespace_in_range_header_is_malformed_and_ignored():\n    length = 1000\n    full = [(0, length - 1)]\n\n    assert impl.resolve_range('bytes = 0-1', length) == full\n    assert impl.resolve_range('bytes=0 - 1', length) == full\n    assert impl.resolve_range('bytes=0-1 ', length) == full\n    assert impl.resolve_range('bytes=0- 1', length) == full\n    assert impl.resolve_range('bytes=0 -1', length) == full\n\n    valid = impl.resolve_range('bytes=0-1', length)\n    assert valid == [(0, 1)]\n\n```\n\n# Its failure output\n\n```\nE assert [(0, 1)] == [(0, 999)]\nE E     At index 0 diff: (0, 1) != (0, 999)\nE Use -v to get more diff\n```\n"
+  },
+  "response": {
+    "input_tokens": 8679,
+    "model": "haiku",
+    "output_tokens": 1825,
+    "provider": "claude_cli",
+    "stop_reason": "end_turn",
+    "text": "Looking at this test, I need to identify which assertion is failing and minimize to just that case.\n\nThe error shows the function returned `[(0, 1)]` when it expected `[(0, 999)]`. This means one of the \"malformed\" assertions (with whitespace) is failing - it's returning the parsed range instead of the full range as expected.\n\nLet me reduce this to the single failing case:\n\n```json\n{\n  \"code\": \"import pytest\\nimport impl\\n\\ndef test_whitespace_in_range_header_is_malformed_and_ignored():\\n    assert impl.resolve_range('bytes = 0-1', 1000) == [(0, 999)]\\n\",\n  \"minimal_input\": \"resolve_range('bytes = 0-1', 1000) should return full range [(0, 999)] but returns [(0, 1)]\"\n}\n```"
+  },
+  "seq": 0
+}

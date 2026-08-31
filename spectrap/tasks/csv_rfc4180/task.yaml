@@ -1,0 +1,45 @@
+task_id: csv_rfc4180
+title: Emit strict RFC 4180 CSV from an in-memory table
+entrypoint: write_csv
+difficulty: 3
+
+# The trap is not invented for this benchmark: it is a set of clauses of a
+# published standard that hand-rolled CSV writers routinely get wrong.
+grounding:
+  standard: RFC 4180 section 2, clauses 1, 2, 4, 5, 6 and 7 plus the ABNF grammar
+  url: https://datatracker.ietf.org/doc/html/rfc4180#section-2
+trap_class: serialisation/escaping
+trap: >-
+  A field is quoted if and only if it contains a comma, a double quote, CR or
+  LF -- spaces are ordinary data and are neither trimmed nor a reason to quote
+  (clause 4); an inner double quote is escaped by DOUBLING it, never with a
+  backslash (clause 7); the separator is CRLF and, by this ticket's explicit
+  resolution of clause 2's "may or may not", EVERY record including the last is
+  terminated by it; an empty field is zero characters rather than `""`; a
+  zero-field record is a bare CRLF; and ragged records are written as-is even
+  though clause 4 says field counts should match.
+why_models_miss_it: >-
+  The common failure modes all still produce plausible-looking CSV. Writers
+  quote any field with leading or trailing whitespace (or strip that whitespace
+  first), because "trim the input" is a reflex; they quote unconditionally,
+  which is legal for the RFC but not for this ticket's minimal-quoting rule;
+  they escape an embedded quote as \" out of JSON habit; they join records with
+  "\n" or with os.linesep, or they use "\r\n".join(...) and silently drop the
+  terminator on the final record; and they render an empty field as `""`
+  because that is what "empty string" looks like when quoting is reached for
+  before the trigger set is checked. Each of these diverges from the reference
+  on a single character in an otherwise identical document.
+
+# Genuine under-determination, deliberately left in the spec. These exist so
+# the ambiguity gate has something real to catch; they are NOT defects and a
+# system that reports them as defects is penalised.
+open_questions:
+  - "Whether a record supplied as a tuple or other non-list sequence should be accepted and written, or rejected: the signature types `rows` as `list[list[str]]` but the ticket never says what happens when the caller passes something else."
+  - "Whether the `TypeError` message must also identify the row and field position of the offending value, or whether naming the Python type alone is sufficient."
+
+runtime:
+  pure: true
+  deterministic: true
+  stdlib_only: true
+  needs_clock: false
+  needs_rng: false

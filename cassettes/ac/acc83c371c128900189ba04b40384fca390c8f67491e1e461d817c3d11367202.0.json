@@ -1,0 +1,22 @@
+{
+  "format": 1,
+  "key": "acc83c371c128900189ba04b40384fca390c8f67491e1e461d817c3d11367202",
+  "request": {
+    "max_tokens": 2000,
+    "model": "haiku",
+    "nonce": 0,
+    "purpose": "minimise",
+    "system": "# Role: Minimiser\n\nYou are handed a test that fails and asked to make the failure as small and as obvious as\npossible. A reviewer should be able to read the reduced test and see the problem without\nrunning anything.\n\n# What to do\n\nReduce the input until removing anything else would stop the test failing. Concretely:\n\n- shrink collections to the fewest elements that still trigger the failure,\n- replace long or incidental values with short, boring ones (`1`, `\"a\"`, `[]`),\n- delete setup that does not affect the outcome,\n- collapse loops and parametrisation into the single case that fails,\n- replace a `hypothesis` property with the concrete falsifying example it found,\n- keep exactly one `test_` function.\n\n# What not to do\n\nDo not change what is being asserted. Do not relax the assertion to make it fail more\neasily, do not add `pytest.approx`, and do not broaden a type check. The reduced test must\nfail for the **same reason** as the original — it is checked by execution, and a\nreduction that stops reproducing the failure is thrown away.\n\n# Constraints\n\n- A complete, self-contained pytest module.\n- `import impl`; `pytest` and `hypothesis` are available; nothing else beyond the\n  standard library.\n- Deterministic. No clock, no network, no randomness.\n\n# Output\n\nReply with **only** a JSON object, no prose and no code fences:\n\n```\n{\n  \"code\": \"<the reduced pytest module, as a JSON string>\",\n  \"minimal_input\": \"<the reduced input as a short readable expression, e.g. [\\\"1.0.0-rc.10\\\", \\\"1.0.0-rc.2\\\"]>\"\n}\n```",
+    "temperature": 0.0,
+    "user": "# The failing probe\n\n```python\nimport pytest\nimport impl\n\n\ndef test_last_byte_pos_at_length_is_clamped_not_unsatisfiable():\n    # length=1000, last-byte-pos=9999 >= length must clamp to length-1=999,\n    # not raise UnsatisfiableRange.\n    result = impl.resolve_range('bytes=0-9999', 1000)\n    assert result == [(0, 999)]\n\n\ndef test_last_byte_pos_exactly_equal_to_length_is_clamped():\n    # length=1, last-byte-pos=500 >= length=1 must clamp to length-1=0.\n    result = impl.resolve_range('bytes=500-500', 1)\n    assert result == [(0, 0)]\n\n```\n\n# Its failure output\n\n```\nE impl.UnsatisfiableRange: no requested range is satisfiable for this length\n```\n"
+  },
+  "response": {
+    "input_tokens": 8664,
+    "model": "haiku",
+    "output_tokens": 3758,
+    "provider": "claude_cli",
+    "stop_reason": "end_turn",
+    "text": "Looking at the two failing tests, I need to pick one and minimize it. The second test is already more minimal in terms of numbers (length=1, vs 1000), so I'll use that as my base.\n\nThe test is checking that a range request completely outside the valid byte range gets clamped instead of raising `UnsatisfiableRange`. Here's the reduced version:\n\n```json\n{\n  \"code\": \"import impl\\n\\n\\ndef test_range_clamping():\\n    result = impl.resolve_range('bytes=500-500', 1)\\n    assert result == [(0, 0)]\\n\",\n  \"minimal_input\": \"bytes=500-500 with content length=1\"\n}\n```\n\nThis removes:\n- The second test function (kept only the simpler one)\n- The redundant `pytest` import (no pytest-specific code used)\n- Verbose test names and comments\n- The unused `raise` context from the original test names\n\nThe failure is now obvious: a byte range (500-500) that's completely beyond the content length (1) should clamp to `[(0, 0)]` rather than raising `UnsatisfiableRange`."
+  },
+  "seq": 0
+}

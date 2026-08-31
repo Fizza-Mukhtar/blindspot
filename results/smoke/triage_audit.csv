@@ -1,0 +1,7 @@
+system,case_id,finding_id,obligation_id,referee_outcome,on_candidate,on_reference,grader_label,false_accusation,title
+baseline_direct,semver_sort__v0,F-01,-,upheld,pass,pass,not_a_counterexample,0,"Ticket rule 3 requires purely-numeric pre-release identifiers to compare numerically so rc.2 sorts below rc.10, falsifying any implementation that falls back to"
+baseline_direct,semver_sort__v0,F-02,-,upheld,pass,pass,not_a_counterexample,0,"Verifies the exact precedence chain the ticket quotes from the SemVer spec (alpha < alpha.1 < alpha.beta < beta < beta.2 < beta.11 < rc.1 < release), which exer"
+baseline_direct,semver_sort__v0,F-03,-,upheld,pass,pass,not_a_counterexample,0,"Rule 4 says build metadata must not affect precedence, so tags differing only by build metadata are equal-precedence and a stable sort must preserve their origi"
+baseline_direct,semver_sort__v0,F-04,-,upheld,pass,pass,not_a_counterexample,0,"The ticket mandates ValueError for leading-zero numeric parts in both the core version numbers and purely-numeric pre-release identifiers, with the offending ta"
+baseline_direct,semver_sort__v0,F-05,-,upheld,pass,pass,not_a_counterexample,0,"The ticket explicitly lists 1.0.0- and 1.0.0-a..b (and similarly a trailing/leading empty dot-segment) as invalid because of empty pre-release identifiers, whic"
+baseline_direct,semver_sort__v0,F-06,-,upheld,pass,pass,not_a_counterexample,0,"The ticket requires a new list (input left untouched) and the exact original tag strings (including the decorative leading 'v') to be returned unchanged, so mut"

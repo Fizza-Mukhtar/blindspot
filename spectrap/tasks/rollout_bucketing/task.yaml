@@ -1,0 +1,43 @@
+task_id: rollout_bucketing
+title: Consistent percentage rollout for a feature flag
+entrypoint: is_enabled
+difficulty: 3
+
+# The trap is not invented for this benchmark: cross-process bucket stability
+# and ramp monotonicity are the two properties every feature-flag SDK is built
+# around, and both are routinely broken by plausible-looking code.
+grounding:
+  standard: Monotonic gradual rollout (consistent hashing of flag+user into 100 buckets); CPython PYTHONHASHSEED randomisation
+  url: https://www.getunleash.io/blog/hashing-it-right-solving-a-gradual-rollout-puzzle
+trap_class: nondeterminism/invariant
+trap: >-
+  The bucket must come from a SHA-256 digest of the exact string
+  "{flag_key}:{user_id}" encoded UTF-8, taken modulo 100 and compared with a
+  strict `bucket < percentage` -- not from the builtin hash(), which is salted
+  per process, and never from material that includes the percentage, which
+  would destroy the requirement that a user enabled at p stays enabled at every
+  q > p.
+why_models_miss_it: >-
+  hash(f"{flag_key}:{user_id}") % 100 is the reflex, and it looks perfect: it is
+  a one-liner, it is stable within a process, and every test written in the same
+  process passes. The salting is documented but invisible until a second
+  interpreter runs. The second reflex, "re-randomise the cohort at each step so
+  the rollout isn't biased", sounds like good statistics and quietly makes the
+  ramp non-monotonic. Off-by-ones then cluster at the boundaries: `<=` instead
+  of `<` leaks 1% extra, `% 100 + 1` or a 1..100 bucket range leaves someone
+  disabled at 100%, and bool passing isinstance(x, int) lets True through as a
+  percentage of 1.
+
+# Genuine under-determination, deliberately left in the spec. These exist so
+# the ambiguity gate has something real to catch; they are NOT defects and a
+# system that reports them as defects is penalised.
+open_questions:
+  - "Whether a flag_key containing the ':' separator should be rejected, since ('a:b', 'c') and ('a', 'b:c') collide onto the same hash material."
+  - "Whether the residual modulo bias is acceptable: 2**256 is not divisible by 100, so the 100 buckets are not exactly equiprobable. The ticket pins the formula but never says whether that bias is tolerated or merely unnoticed."
+
+runtime:
+  pure: true
+  deterministic: true
+  stdlib_only: true
+  needs_clock: false
+  needs_rng: false

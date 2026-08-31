@@ -1,0 +1,41 @@
+task_id: byte_units
+title: Render byte counts with the correct SI or IEC prefix
+entrypoint: format_bytes
+difficulty: 3
+
+# The trap is not invented for this benchmark: it is the distinction between two
+# published prefix systems that implementations collapse into one every day.
+grounding:
+  standard: IEC 80000-13 binary prefixes, and the SI decimal prefixes (BIPM)
+  url: https://www.iec.ch/prefixes-binary-multiples
+trap_class: units/formatting
+trap: >-
+  SI mode divides by 1000 and uses a LOWERCASE kilo symbol ("1.0 kB"), while IEC
+  mode divides by 1024 and uses an UPPERCASE "KiB"; and because the one decimal
+  digit is rounded half up before the label is chosen, a value that rounds up to
+  the divisor must be promoted to the next unit, so 999_950 bytes is "1.0 MB"
+  rather than "1000.0 kB".
+why_models_miss_it: >-
+  Training data is saturated with "KB = 1024", so the two ladders get welded
+  together: the overwhelmingly common implementation divides by 1024 and labels
+  the result KB/MB/GB, or divides by 1000 and still writes an uppercase K. The
+  promotion rule is missed independently and by almost everyone: the usual shape
+  is to pick the unit from the magnitude first (a loop of `while n >= base`) and
+  only then format, which locks in the smaller unit before rounding happens and
+  emits "1000.0 kB". Rounding is also normally delegated to `round()` or to an
+  f-string `:.1f`, both of which are half-to-even over binary floats rather than
+  half-up, so 1150 bytes comes out as 1.1 kB.
+
+# Genuine under-determination, deliberately left in the spec. These exist so
+# the ambiguity gate has something real to catch; they are NOT defects and a
+# system that reports them as defects is penalised.
+open_questions:
+  - "Whether a magnitude far past the top of the ladder (say 10^24 bytes) should keep widening the integer part or switch to exponential notation."
+  - "Whether `binary` must be a real `bool`, or whether any truthy value (1, a non-empty string) selects the IEC ladder."
+
+runtime:
+  pure: true
+  deterministic: true
+  stdlib_only: true
+  needs_clock: false
+  needs_rng: false

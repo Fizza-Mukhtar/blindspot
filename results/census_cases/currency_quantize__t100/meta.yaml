@@ -1,0 +1,16 @@
+case_id: currency_quantize__t100
+difficulty: 3
+entrypoint: format_amount
+forged_by: haiku
+grounding: https://www.iso.org/iso-4217-currency-codes.html
+has_defect: false
+notes: ''
+provenance: forged
+self_tests_green: true
+spec_variant: terse
+spec_visible: null
+split: test
+task_id: currency_quantize
+trap: ''
+trap_class: ''
+witness_input: ''

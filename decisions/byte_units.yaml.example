@@ -1,0 +1,38 @@
+# Human decisions for the `byte_units` ticket.
+#
+# THIS FILE IS AN EXAMPLE and is deliberately not loaded: the published run
+# recorded no decisions at all, so every ambiguity stayed escalated.  Rename
+# it to `byte_units.yaml` to apply it (and re-record, because resolving a
+# question changes what the agent probes).
+#
+# Written by `blindspot decide byte_units`, which walks a human through the
+# open questions one at a time.  Answers are keyed by a hash of the
+# normalised question text, not by the run-assigned id, so they survive
+# re-runs that renumber the questions.
+
+task_id: byte_units
+decided_by: <your name>
+decisions:
+  - key: 6675989a69c86659
+    question: "Does the int-type validation reject any int subclass other than bool (e.g. an IntEnum or numpy integer), or is bool merely the one explicitly-called-out exception to an otherwise permissive int-subtype check?"
+    options:
+      - "Use a strict `type(n) is int` check, rejecting bool and every other subclass"
+      - "Use `isinstance(n, int)` and special-case only bool, accepting other int subclasses"
+    resolution: "Use a strict `type(n) is int` check, rejecting bool and every other subclass"
+    rationale: "<why the team chose this; reviewed in the pull request>"
+
+  - key: add396d22d1f352d
+    question: "Does 'n must be an int' mean strict type(n) is int, or does it accept any int subclass other than bool (e.g. an IntEnum member or numpy.integer)?"
+    options:
+      - "Accept isinstance(n, int) and not isinstance(n, bool) \u2014 any int subclass besides bool is treated as a valid byte count"
+      - "Require type(n) is int exactly \u2014 reject all int subclasses, including non-bool ones, with TypeError"
+    resolution: "Accept isinstance(n, int) and not isinstance(n, bool) \u2014 any int subclass besides bool is treated as a valid byte count"
+    rationale: "<why the team chose this; reviewed in the pull request>"
+
+  - key: c4a3fd601d693a1f
+    question: "Does the type check on n reject only bool specifically, or does it reject all int subclasses other than plain int (e.g. an IntEnum or a custom int subtype)?"
+    options:
+      - "Only exactly type(n) is int is accepted; any subclass (bool or otherwise) raises TypeError"
+      - "Any isinstance(n, int) is accepted except bool is specifically special-cased to raise TypeError"
+    resolution: "Only exactly type(n) is int is accepted; any subclass (bool or otherwise) raises TypeError"
+    rationale: "<why the team chose this; reviewed in the pull request>"

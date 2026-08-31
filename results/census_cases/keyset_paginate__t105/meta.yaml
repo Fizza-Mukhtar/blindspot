@@ -1,0 +1,16 @@
+case_id: keyset_paginate__t105
+difficulty: 4
+entrypoint: page
+forged_by: haiku
+grounding: https://use-the-index-luke.com/no-offset
+has_defect: false
+notes: ''
+provenance: forged
+self_tests_green: true
+spec_variant: terse
+spec_visible: null
+split: test
+task_id: keyset_paginate
+trap: ''
+trap_class: ''
+witness_input: ''

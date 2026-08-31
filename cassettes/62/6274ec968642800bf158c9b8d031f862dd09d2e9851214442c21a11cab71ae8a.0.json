@@ -1,0 +1,22 @@
+{
+  "format": 1,
+  "key": "6274ec968642800bf158c9b8d031f862dd09d2e9851214442c21a11cab71ae8a",
+  "request": {
+    "max_tokens": 2000,
+    "model": "haiku",
+    "nonce": 0,
+    "purpose": "minimise",
+    "system": "# Role: Minimiser\n\nYou are handed a test that fails and asked to make the failure as small and as obvious as\npossible. A reviewer should be able to read the reduced test and see the problem without\nrunning anything.\n\n# What to do\n\nReduce the input until removing anything else would stop the test failing. Concretely:\n\n- shrink collections to the fewest elements that still trigger the failure,\n- replace long or incidental values with short, boring ones (`1`, `\"a\"`, `[]`),\n- delete setup that does not affect the outcome,\n- collapse loops and parametrisation into the single case that fails,\n- replace a `hypothesis` property with the concrete falsifying example it found,\n- keep exactly one `test_` function.\n\n# What not to do\n\nDo not change what is being asserted. Do not relax the assertion to make it fail more\neasily, do not add `pytest.approx`, and do not broaden a type check. The reduced test must\nfail for the **same reason** as the original — it is checked by execution, and a\nreduction that stops reproducing the failure is thrown away.\n\n# Constraints\n\n- A complete, self-contained pytest module.\n- `import impl`; `pytest` and `hypothesis` are available; nothing else beyond the\n  standard library.\n- Deterministic. No clock, no network, no randomness.\n\n# Output\n\nReply with **only** a JSON object, no prose and no code fences:\n\n```\n{\n  \"code\": \"<the reduced pytest module, as a JSON string>\",\n  \"minimal_input\": \"<the reduced input as a short readable expression, e.g. [\\\"1.0.0-rc.10\\\", \\\"1.0.0-rc.2\\\"]>\"\n}\n```",
+    "temperature": 0.0,
+    "user": "# The failing probe\n\n```python\nimport pytest\nimport impl\n\n\ndef test_cap_at_or_below_base_is_accepted():\n    rand = lambda: 0.5\n\n    # cap strictly below base: legitimate and common, must not raise\n    result_below = impl.schedule(3, 5.0, 1.0, rand)\n    assert isinstance(result_below, list)\n    assert len(result_below) == 3\n\n    # cap exactly equal to base: also legitimate, must not raise\n    result_equal = impl.schedule(3, 5.0, 5.0, rand)\n    assert isinstance(result_equal, list)\n    assert len(result_equal) == 3\n\n```\n\n# Its failure output\n\n```\nE TypeError: test_cap_at_or_below_base_is_accepted.<locals>.<lambda>() takes 0 positional arguments but 1 was given\n```\n"
+  },
+  "response": {
+    "input_tokens": 8650,
+    "model": "haiku",
+    "output_tokens": 1192,
+    "provider": "claude_cli",
+    "stop_reason": "end_turn",
+    "text": "```json\n{\n  \"code\": \"import pytest\\nimport impl\\n\\n\\ndef test_cap_at_or_below_base_is_accepted():\\n    rand = lambda: 0.5\\n    result = impl.schedule(3, 5.0, 1.0, rand)\\n    assert isinstance(result, list)\\n    assert len(result) == 3\",\n  \"minimal_input\": \"schedule(3, 5.0, 1.0, lambda: 0.5) — rand function takes 0 args but impl.schedule calls it with 1\"\n}\n```"
+  },
+  "seq": 0
+}

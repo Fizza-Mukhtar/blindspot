@@ -1,0 +1,15 @@
+case_id: allocate_money__t21
+difficulty: 3
+entrypoint: allocate
+forged_by: haiku
+grounding: https://martinfowler.com/eaaCatalog/money.html
+has_defect: false
+notes: ''
+provenance: forged
+self_tests_green: true
+spec_variant: terse
+split: test
+task_id: allocate_money
+trap: ''
+trap_class: ''
+witness_input: ''

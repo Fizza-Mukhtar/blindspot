@@ -1,0 +1,44 @@
+task_id: keyset_paginate
+title: Keyset (cursor) pagination over a feed with duplicate sort keys
+entrypoint: page
+difficulty: 4
+
+# The trap is not invented for this benchmark: it is the failure mode the
+# seek-method literature warns about first, and the one production cursor
+# implementations ship with most often.
+grounding:
+  standard: The seek method ("no offset" keyset pagination) -- the cursor must carry the full sort key
+  url: https://use-the-index-luke.com/no-offset
+trap_class: boundary/non-unique-sort-key
+trap: >-
+  The continuation predicate must compare the FULL tuple
+  (created_at, id) < (cursor_created_at, cursor_id) under descending order;
+  filtering on created_at alone with '<' silently drops every remaining row
+  that shares the previous page's last timestamp, and '<=' replays them
+  forever. Secondary edges: the input arrives unsorted, and next_cursor is
+  None exactly when the returned page exhausted the remaining rows -- so a
+  page landing on the final row must report None rather than a cursor whose
+  only possible page is empty.
+why_models_miss_it: >-
+  The overwhelmingly common shortcut is `[r for r in ordered if r["created_at"]
+  < c_created_at]`, which is what the phrase "rows after the cursor timestamp"
+  suggests and which passes every test built on a feed with distinct
+  timestamps. The tie-break appears in the sort key but is then quietly dropped
+  from the seek predicate, so ordering looks right and only the page boundary
+  is wrong. The off-by-one on next_cursor is missed for the mirror-image
+  reason: `len(page_rows) == limit` is the intuitive end-of-feed test and it is
+  wrong precisely when the page lands on the last row.
+
+# Genuine under-determination, deliberately left in the spec. These exist so
+# the ambiguity gate has something real to catch; they are NOT defects and a
+# system that reports them as defects is penalised.
+open_questions:
+  - "Whether the returned page may contain the caller's own row dicts or must contain copies of them."
+  - "Whether a cursor with redundant leading zeros (`0200:09`) is well-formed or malformed."
+
+runtime:
+  pure: true
+  deterministic: true
+  stdlib_only: true
+  needs_clock: false
+  needs_rng: false

@@ -1,0 +1,22 @@
+{
+  "format": 1,
+  "key": "c55c8f85405617cc398259e807f2646de383dfb1d877f26f7e6039f21a81a70a",
+  "request": {
+    "max_tokens": 2000,
+    "model": "haiku",
+    "nonce": 0,
+    "purpose": "minimise",
+    "system": "# Role: Minimiser\n\nYou are handed a test that fails and asked to make the failure as small and as obvious as\npossible. A reviewer should be able to read the reduced test and see the problem without\nrunning anything.\n\n# What to do\n\nReduce the input until removing anything else would stop the test failing. Concretely:\n\n- shrink collections to the fewest elements that still trigger the failure,\n- replace long or incidental values with short, boring ones (`1`, `\"a\"`, `[]`),\n- delete setup that does not affect the outcome,\n- collapse loops and parametrisation into the single case that fails,\n- replace a `hypothesis` property with the concrete falsifying example it found,\n- keep exactly one `test_` function.\n\n# What not to do\n\nDo not change what is being asserted. Do not relax the assertion to make it fail more\neasily, do not add `pytest.approx`, and do not broaden a type check. The reduced test must\nfail for the **same reason** as the original — it is checked by execution, and a\nreduction that stops reproducing the failure is thrown away.\n\n# Constraints\n\n- A complete, self-contained pytest module.\n- `import impl`; `pytest` and `hypothesis` are available; nothing else beyond the\n  standard library.\n- Deterministic. No clock, no network, no randomness.\n\n# Output\n\nReply with **only** a JSON object, no prose and no code fences:\n\n```\n{\n  \"code\": \"<the reduced pytest module, as a JSON string>\",\n  \"minimal_input\": \"<the reduced input as a short readable expression, e.g. [\\\"1.0.0-rc.10\\\", \\\"1.0.0-rc.2\\\"]>\"\n}\n```",
+    "temperature": 0.0,
+    "user": "# The failing probe\n\n```python\nimport pytest\nfrom hypothesis import given, strategies as st, settings\nimport impl\n\n\n@settings(max_examples=100)\n@given(\n    capacity=st.floats(min_value=0.0, max_value=100.0, allow_nan=False, allow_infinity=False),\n    refill_per_second=st.floats(min_value=0.0, max_value=1000.0, allow_nan=False, allow_infinity=False),\n    wait_time=st.floats(min_value=0.0, max_value=1e9, allow_nan=False, allow_infinity=False),\n    excess=st.floats(min_value=2e-9, max_value=1e6, allow_nan=False, allow_infinity=False),\n)\ndef test_overcost_request_never_admitted_no_matter_wait_time(capacity, refill_per_second, wait_time, excess):\n    cost = capacity + excess\n    requests = [(wait_time, cost)]\n    result = impl.simulate(capacity, refill_per_second, requests)\n    assert result[-1] is False, (\n        f\"capacity={capacity}, refill={refill_per_second}, wait_time={wait_time}, \"\n        f\"cost={cost} (excess={excess}) was admitted but exceeds capacity+1e-9\"\n    )\n\n```\n\n# Its failure output\n\n```\n(no assertion output captured)\n```\n"
+  },
+  "response": {
+    "input_tokens": 17981,
+    "model": "haiku",
+    "output_tokens": 5571,
+    "provider": "claude_cli",
+    "stop_reason": "end_turn",
+    "text": "```json\n{\n  \"code\": \"import pytest\\nimport impl\\n\\n\\ndef test_overcost_request_never_admitted():\\n    capacity = 1.0\\n    cost = capacity + 2e-9\\n    result = impl.simulate(capacity, 0.0, [(0.0, cost)])\\n    assert result[-1] is False\\n\",\n  \"minimal_input\": \"capacity=1.0, refill_per_second=0.0, requests=[(wait_time=0.0, cost=1.0+2e-9)]\"\n}\n```"
+  },
+  "seq": 0
+}

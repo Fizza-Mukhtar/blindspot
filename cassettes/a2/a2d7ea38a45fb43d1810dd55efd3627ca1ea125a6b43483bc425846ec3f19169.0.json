@@ -1,0 +1,22 @@
+{
+  "format": 1,
+  "key": "a2d7ea38a45fb43d1810dd55efd3627ca1ea125a6b43483bc425846ec3f19169",
+  "request": {
+    "max_tokens": 2000,
+    "model": "haiku",
+    "nonce": 0,
+    "purpose": "minimise",
+    "system": "# Role: Minimiser\n\nYou are handed a test that fails and asked to make the failure as small and as obvious as\npossible. A reviewer should be able to read the reduced test and see the problem without\nrunning anything.\n\n# What to do\n\nReduce the input until removing anything else would stop the test failing. Concretely:\n\n- shrink collections to the fewest elements that still trigger the failure,\n- replace long or incidental values with short, boring ones (`1`, `\"a\"`, `[]`),\n- delete setup that does not affect the outcome,\n- collapse loops and parametrisation into the single case that fails,\n- replace a `hypothesis` property with the concrete falsifying example it found,\n- keep exactly one `test_` function.\n\n# What not to do\n\nDo not change what is being asserted. Do not relax the assertion to make it fail more\neasily, do not add `pytest.approx`, and do not broaden a type check. The reduced test must\nfail for the **same reason** as the original — it is checked by execution, and a\nreduction that stops reproducing the failure is thrown away.\n\n# Constraints\n\n- A complete, self-contained pytest module.\n- `import impl`; `pytest` and `hypothesis` are available; nothing else beyond the\n  standard library.\n- Deterministic. No clock, no network, no randomness.\n\n# Output\n\nReply with **only** a JSON object, no prose and no code fences:\n\n```\n{\n  \"code\": \"<the reduced pytest module, as a JSON string>\",\n  \"minimal_input\": \"<the reduced input as a short readable expression, e.g. [\\\"1.0.0-rc.10\\\", \\\"1.0.0-rc.2\\\"]>\"\n}\n```",
+    "temperature": 0.0,
+    "user": "# The failing probe\n\n```python\nimport pytest\nfrom hypothesis import given, strategies as st, settings\n\nimport impl\n\n\n@given(\n    attempts=st.integers(min_value=1, max_value=10),\n    base=st.floats(min_value=0.0, max_value=1000.0, allow_nan=False, allow_infinity=False),\n    delta=st.floats(min_value=0.0, max_value=1000.0, allow_nan=False, allow_infinity=False),\n)\n@settings(max_examples=100)\ndef test_all_ceilings_equal_cap_when_cap_le_base(attempts, base, delta):\n    cap = base - delta  # guarantees cap <= base\n    result = impl.schedule(attempts, base, cap, lambda u: u)\n    assert len(result) == attempts\n    for i, ceiling in enumerate(result):\n        assert ceiling == cap, f\"attempt {i}: ceiling {ceiling} != cap {cap} (base={base}, attempts={attempts})\"\n\n```\n\n# Its failure output\n\n```\n(no assertion output captured)\n```\n"
+  },
+  "response": {
+    "input_tokens": 8702,
+    "model": "haiku",
+    "output_tokens": 4240,
+    "provider": "claude_cli",
+    "stop_reason": "end_turn",
+    "text": "```json\n{\n  \"code\": \"import impl\\n\\ndef test_all_ceilings_equal_cap_when_cap_le_base():\\n    cap = 0.0\\n    result = impl.schedule(1, 0.0, cap, lambda u: u)\\n    assert len(result) == 1\\n    for i, ceiling in enumerate(result):\\n        assert ceiling == cap, f\\\"attempt {i}: ceiling {ceiling} != cap {cap}\\\"\",\n  \"minimal_input\": \"attempts=1, base=0.0, delta=0.0\"\n}\n```"
+  },
+  "seq": 0
+}

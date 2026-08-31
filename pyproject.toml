@@ -1,0 +1,94 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "blindspot"
+version = "1.0.0"
+description = "Adversarial verification for AI-written code: derive obligations from the spec alone, then falsify the implementation."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Apache-2.0" }
+authors = [{ name = "Fizza Mukhtar" }]
+keywords = ["agents", "verification", "testing", "llm", "counterexample"]
+classifiers = [
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Software Development :: Testing",
+]
+
+# Core dependencies.  Deliberately small and pure-Python so that
+# `make reproduce` works on a clean machine with no compiler and no network
+# beyond PyPI.  Live model providers live in the [live] extra.
+dependencies = [
+  "pydantic>=2.7,<3",
+  "PyYAML>=6.0,<7",
+  "rich>=13.7,<15",
+  "Jinja2>=3.1,<4",
+  "hypothesis>=6.100,<7",
+  "pytest>=8.0,<9",
+]
+
+[project.optional-dependencies]
+live = [
+  "anthropic>=0.40,<1",
+  "openai>=1.40,<3",
+]
+dev = [
+  "ruff>=0.6",
+  "mypy>=1.11",
+  "pytest-timeout>=2.3",
+  "types-PyYAML",
+]
+
+[project.scripts]
+blindspot = "blindspot.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+blindspot = ["prompts/*.md", "eval/templates/*.html", "trace/templates/*.html"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q --strict-markers"
+markers = [
+  "live: requires a live model provider (skipped by default)",
+  "slow: takes more than a few seconds",
+]
+filterwarnings = ["ignore::DeprecationWarning"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "C4", "RUF"]
+ignore = [
+  "E501",   # line length is handled by the formatter
+  "B008",   # function call in argument default: pydantic Field() is the idiom
+  # `str, Enum` rather than `StrEnum`: pydantic v2 serialises the former to its
+  # value in `model_dump()` on every supported Python, which the cassette and
+  # results formats depend on. Deliberate, not an oversight.
+  "UP042",
+  # Greek alpha in "alpha = 0.05" is the correct statistical notation.
+  "RUF001",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"spectrap/**" = ["ALL"]        # corpus code is intentionally naive / under test
+"tests/**" = ["B011"]
+
+[tool.mypy]
+python_version = "3.11"
+packages = ["blindspot"]
+mypy_path = "src"
+warn_unused_configs = true
+warn_redundant_casts = true
+disallow_untyped_defs = true
+no_implicit_optional = true
+ignore_missing_imports = true
+exclude = "^(spectrap|results|cassettes)/"

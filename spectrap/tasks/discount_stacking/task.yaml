@@ -1,0 +1,41 @@
+task_id: discount_stacking
+title: Apply a stack of promotions to a cart line total
+entrypoint: apply_discounts
+difficulty: 4
+
+# The trap is not invented for this benchmark: it is how every real commerce
+# platform stacks discounts, and it is what merchants see on the storefront.
+grounding:
+  standard: Shopify Help Center, "Discount combinations" — combined discounts apply successively to the amount remaining after the previous discount
+  url: https://help.shopify.com/en/manual/discounts/discount-combinations
+trap_class: arithmetic/rounding
+trap: >-
+  Percentage discounts compound multiplicatively against the running total in
+  list order (20% then 10% off 100.00 is 72.00, not 70.00), the running total is
+  re-quantized to two decimals with ROUND_HALF_EVEN after EVERY step rather than
+  once at the end (so 1.15 with 10% twice is 0.94, not 0.93), and a fixed-amount
+  discount clamps the running total at 0.00 with the excess discarded, after
+  which later discounts still validate but change nothing.
+why_models_miss_it: >-
+  The overwhelmingly common shortcut is to sum the percentages and take one cut,
+  or to build the whole expression as a product and quantize once at the return
+  statement. Both look correct on 100.00 with 25% and 25% and only diverge on
+  half-cent ties and on stacks of three or more. Models also reach for float or
+  for round(), which is neither ROUND_HALF_EVEN on binary floats nor stable
+  across platforms, and they routinely let the total go negative on an
+  over-large fixed amount, or short-circuit out of the loop once it hits zero
+  and thereby skip the validation of the remaining entries.
+
+# Genuine under-determination, deliberately left in the spec. These exist so
+# the ambiguity gate has something real to catch; they are NOT defects and a
+# system that reports them as defects is penalised.
+open_questions:
+  - "Whether a discount mapping carrying keys beyond `kind` and `value` (a promo code, a display title) should be rejected or its extra keys ignored."
+  - "Whether the unused remainder of a fixed-amount discount that clamped at zero has to be surfaced for reconciliation, or may simply be discarded."
+
+runtime:
+  pure: true
+  deterministic: true
+  stdlib_only: true
+  needs_clock: false
+  needs_rng: false

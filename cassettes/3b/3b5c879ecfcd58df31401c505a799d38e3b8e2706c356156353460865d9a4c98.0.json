@@ -1,0 +1,22 @@
+{
+  "format": 1,
+  "key": "3b5c879ecfcd58df31401c505a799d38e3b8e2706c356156353460865d9a4c98",
+  "request": {
+    "max_tokens": 2000,
+    "model": "haiku",
+    "nonce": 0,
+    "purpose": "minimise",
+    "system": "# Role: Minimiser\n\nYou are handed a test that fails and asked to make the failure as small and as obvious as\npossible. A reviewer should be able to read the reduced test and see the problem without\nrunning anything.\n\n# What to do\n\nReduce the input until removing anything else would stop the test failing. Concretely:\n\n- shrink collections to the fewest elements that still trigger the failure,\n- replace long or incidental values with short, boring ones (`1`, `\"a\"`, `[]`),\n- delete setup that does not affect the outcome,\n- collapse loops and parametrisation into the single case that fails,\n- replace a `hypothesis` property with the concrete falsifying example it found,\n- keep exactly one `test_` function.\n\n# What not to do\n\nDo not change what is being asserted. Do not relax the assertion to make it fail more\neasily, do not add `pytest.approx`, and do not broaden a type check. The reduced test must\nfail for the **same reason** as the original — it is checked by execution, and a\nreduction that stops reproducing the failure is thrown away.\n\n# Constraints\n\n- A complete, self-contained pytest module.\n- `import impl`; `pytest` and `hypothesis` are available; nothing else beyond the\n  standard library.\n- Deterministic. No clock, no network, no randomness.\n\n# Output\n\nReply with **only** a JSON object, no prose and no code fences:\n\n```\n{\n  \"code\": \"<the reduced pytest module, as a JSON string>\",\n  \"minimal_input\": \"<the reduced input as a short readable expression, e.g. [\\\"1.0.0-rc.10\\\", \\\"1.0.0-rc.2\\\"]>\"\n}\n```",
+    "temperature": 0.0,
+    "user": "# The failing probe\n\n```python\nimport impl\nimport pytest\n\n\ndef test_rounds_after_every_step_not_just_at_end():\n    # Continuous (round-once-at-end) math:\n    #   33.34 * 0.85 = 28.339\n    #   28.339 * 0.85 = 24.08815\n    #   24.08815 * 0.85 = 20.4749275 -> rounds to 20.47\n    # Per-step (round-after-every-step, required by spec) math:\n    #   round(33.34*0.85,2) = round(28.339,2) = 28.34\n    #   round(28.34*0.85,2) = round(24.089,2) = 24.09\n    #   round(24.09*0.85,2) = round(20.4765,2) = 20.48\n    # These two approaches diverge by exactly one cent, so the result\n    # tells us definitively which rounding strategy was used.\n    subtotal = \"33.34\"\n    discounts = [\n        {\"type\": \"percentage\", \"value\": 15},\n        {\"type\": \"percentage\", \"value\": 15},\n        {\"type\": \"percentage\", \"value\": 15},\n    ]\n\n    result = impl.apply_discounts(subtotal, discounts)\n\n    assert result == \"20.48\"\n\n```\n\n# Its failure output\n\n```\nE ValueError: discount is missing 'kind': {'type': 'percentage', 'value': 15}\n```\n"
+  },
+  "response": {
+    "input_tokens": 8819,
+    "model": "haiku",
+    "output_tokens": 5689,
+    "provider": "claude_cli",
+    "stop_reason": "end_turn",
+    "text": "```json\n{\n  \"code\": \"import impl\\n\\n\\ndef test_rounds_after_every_step_not_just_at_end():\\n    subtotal = \\\"1\\\"\\n    discounts = [{\\\"type\\\": \\\"percentage\\\", \\\"value\\\": 15}]\\n    result = impl.apply_discounts(subtotal, discounts)\\n    assert result == \\\"0.85\\\"\",\n  \"minimal_input\": \"subtotal=\\\"1\\\", discounts=[{\\\"type\\\": \\\"percentage\\\", \\\"value\\\": 15}]\"\n}\n```"
+  },
+  "seq": 0
+}

@@ -1,0 +1,14 @@
+case_id: iso_week_date__v1
+difficulty: 4
+entrypoint: to_iso_week_date
+forged_by: sonnet
+grounding: https://docs.python.org/3/library/datetime.html#datetime.date.isocalendar
+has_defect: false
+notes: ''
+provenance: forged
+self_tests_green: true
+split: test
+task_id: iso_week_date
+trap: ''
+trap_class: ''
+witness_input: ''

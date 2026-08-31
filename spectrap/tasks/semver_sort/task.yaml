@@ -1,0 +1,37 @@
+task_id: semver_sort
+title: Order release tags by Semantic Versioning precedence
+entrypoint: sort_versions
+difficulty: 4
+
+# The trap is not invented for this benchmark: it is a clause of a published
+# standard that implementations routinely get wrong.
+grounding:
+  standard: Semantic Versioning 2.0.0, items 10 and 11
+  url: https://semver.org/spec/v2.0.0.html
+trap_class: ordering/precedence
+trap: >-
+  Purely numeric pre-release identifiers rank BELOW alphanumeric ones
+  (11.4.3), numeric identifiers compare numerically rather than lexically
+  (11.4.1), a longer identifier set wins when the shared prefix is equal
+  (11.4.4), and build metadata is excluded from precedence (item 10), which
+  makes equal-precedence ties observable and the sort's stability testable.
+why_models_miss_it: >-
+  The overwhelmingly common shortcut is to compare pre-release strings
+  lexically, or to split on dots and compare each part as a string. Both give a
+  plausible-looking ordering that only diverges on rc.2 vs rc.10 and on
+  alpha.11 vs alpha.beta. Build metadata is usually either compared or
+  stripped-and-deduplicated, neither of which preserves the stable tie.
+
+# Genuine under-determination, deliberately left in the spec. These exist so
+# the ambiguity gate has something real to catch; they are NOT defects and a
+# system that reports them as defects is penalised.
+open_questions:
+  - "Whether tags differing only in the decorative leading `v` should be treated as duplicates."
+  - "Whether a `ValueError` message may contain additional text beyond the offending tag."
+
+runtime:
+  pure: true
+  deterministic: true
+  stdlib_only: true
+  needs_clock: false
+  needs_rng: false

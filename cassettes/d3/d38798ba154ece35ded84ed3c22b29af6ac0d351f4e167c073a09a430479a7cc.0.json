@@ -1,0 +1,22 @@
+{
+  "format": 1,
+  "key": "d38798ba154ece35ded84ed3c22b29af6ac0d351f4e167c073a09a430479a7cc",
+  "request": {
+    "max_tokens": 2000,
+    "model": "haiku",
+    "nonce": 0,
+    "purpose": "minimise",
+    "system": "# Role: Minimiser\n\nYou are handed a test that fails and asked to make the failure as small and as obvious as\npossible. A reviewer should be able to read the reduced test and see the problem without\nrunning anything.\n\n# What to do\n\nReduce the input until removing anything else would stop the test failing. Concretely:\n\n- shrink collections to the fewest elements that still trigger the failure,\n- replace long or incidental values with short, boring ones (`1`, `\"a\"`, `[]`),\n- delete setup that does not affect the outcome,\n- collapse loops and parametrisation into the single case that fails,\n- replace a `hypothesis` property with the concrete falsifying example it found,\n- keep exactly one `test_` function.\n\n# What not to do\n\nDo not change what is being asserted. Do not relax the assertion to make it fail more\neasily, do not add `pytest.approx`, and do not broaden a type check. The reduced test must\nfail for the **same reason** as the original — it is checked by execution, and a\nreduction that stops reproducing the failure is thrown away.\n\n# Constraints\n\n- A complete, self-contained pytest module.\n- `import impl`; `pytest` and `hypothesis` are available; nothing else beyond the\n  standard library.\n- Deterministic. No clock, no network, no randomness.\n\n# Output\n\nReply with **only** a JSON object, no prose and no code fences:\n\n```\n{\n  \"code\": \"<the reduced pytest module, as a JSON string>\",\n  \"minimal_input\": \"<the reduced input as a short readable expression, e.g. [\\\"1.0.0-rc.10\\\", \\\"1.0.0-rc.2\\\"]>\"\n}\n```",
+    "temperature": 0.0,
+    "user": "# The failing probe\n\n```python\nimport copy\nimport pytest\nimport impl\n\n\ndef test_page_does_not_mutate_input_rows_or_dicts():\n    rows = [\n        {\"id\": 3, \"name\": \"c\"},\n        {\"id\": 1, \"name\": \"a\"},\n        {\"id\": 2, \"name\": \"b\"},\n    ]\n    snapshot = copy.deepcopy(rows)\n\n    impl.page(rows, None, 2)\n\n    assert rows == snapshot, \"rows list contents/order changed after page()\"\n    assert all(r1 is r2 for r1, r2 in zip(rows, snapshot)) or True\n    for original_dict, current_dict in zip(snapshot, rows):\n        assert current_dict == original_dict, \"a row dict was mutated by page()\"\n\n```\n\n# Its failure output\n\n```\nE KeyError: 'created_at'\n```\n"
+  },
+  "response": {
+    "input_tokens": 8655,
+    "model": "haiku",
+    "output_tokens": 7871,
+    "provider": "claude_cli",
+    "stop_reason": "end_turn",
+    "text": "```json\n{\n  \"code\": \"import copy\\nimport pytest\\nimport impl\\n\\n\\ndef test_page_does_not_mutate_input_rows_or_dicts():\\n    rows = [{\\\"id\\\": 1, \\\"name\\\": \\\"a\\\"}]\\n    snapshot = copy.deepcopy(rows)\\n\\n    impl.page(rows, None, 2)\\n\\n    assert rows == snapshot, \\\"rows list contents/order changed after page()\\\"\\n    assert all(r1 is r2 for r1, r2 in zip(rows, snapshot)) or True\\n    for original_dict, current_dict in zip(snapshot, rows):\\n        assert current_dict == original_dict, \\\"a row dict was mutated by page()\\\"\\n\",\n  \"minimal_input\": \"[{\\\"id\\\": 1, \\\"name\\\": \\\"a\\\"}]\"\n}\n```"
+  },
+  "seq": 0
+}

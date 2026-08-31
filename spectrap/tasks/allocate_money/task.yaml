@@ -1,0 +1,43 @@
+task_id: allocate_money
+title: Split a settlement amount across weighted payees without losing a cent
+entrypoint: allocate
+difficulty: 3
+
+# The trap is not invented for this benchmark: it is the defining clause of a
+# published pattern that implementations routinely get wrong.
+grounding:
+  standard: Martin Fowler, Money pattern (PoEAA), the allocate operation; equivalently the largest-remainder / Hamilton apportionment method
+  url: https://martinfowler.com/eaaCatalog/money.html
+trap_class: rounding/conservation
+trap: >-
+  The parts must sum to the whole exactly, and the shortfall left by flooring
+  every exact share must be handed out one unit each to the LARGEST fractional
+  remainders with ties broken by LOWEST INDEX -- and for a negative total the
+  sign is factored out first, so allocate(-5, [1, 1]) is [-3, -2], the
+  elementwise negation of [3, 2], not the [-2, -3] that floored division on the
+  signed total produces.
+why_models_miss_it: >-
+  The reflex implementation is round(total * w / W) per share, or floor-then-
+  dump-the-whole-remainder-on-the-last-payee. The first breaks conservation
+  outright; the second conserves but assigns the odd cent to the wrong payee
+  and only diverges from largest-remainder when the remainders are unequal, so
+  it looks right on the equal-weights cases people try first. Tie-breaking is
+  usually left to whatever sorted() does with an unstable-looking key, or to
+  max(), and the negative branch is nearly always written with // or math.floor
+  on the signed total, which conserves the sum -- masking the bug from any test
+  that only checks the sum -- while silently disagreeing with the allocation of
+  the identical positive amount.
+
+# Genuine under-determination, deliberately left in the spec. These exist so
+# the ambiguity gate has something real to catch; they are NOT defects and a
+# system that reports them as defects is penalised.
+open_questions:
+  - "When several validation rules are broken at once (e.g. `[-1, 1]`, which both contains a negative weight and sums to zero), which rule the `ValueError` message should name."
+  - "Whether `bool` values in `weights` are acceptable as `0`/`1`, given that `bool` is a subclass of `int` in Python, or should be rejected as the wrong type."
+
+runtime:
+  pure: true
+  deterministic: true
+  stdlib_only: true
+  needs_clock: false
+  needs_rng: false

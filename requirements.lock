@@ -1,0 +1,20 @@
+# Exact versions used to produce the committed results.
+# Generated with `pip freeze`, filtered to the runtime dependency closure.
+# `pip install -e .` resolves compatible versions; install this file to pin exactly:
+#     pip install -r requirements.lock
+annotated-types==0.7.0
+attrs==25.3.0
+hypothesis==6.165.10
+iniconfig==2.3.0
+Jinja2==3.1.6
+markdown-it-py==4.0.0
+MarkupSafe==3.0.2
+mdurl==0.1.2
+packaging==24.2
+pluggy==1.6.0
+pydantic==2.11.9
+Pygments==2.19.1
+pytest==8.4.2
+PyYAML==6.0.2
+rich==14.1.0
+sortedcontainers==2.4.0

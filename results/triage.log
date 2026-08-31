@@ -1,0 +1,18 @@
+wrote C:\Users\USER\OneDrive\Desktop\Frontier Engineering challenge\results\triage_audit.csv (256 finding(s))
+
+system                     emitted  sound  unsound  precision
+abl_clause_only_referee          3      1        2        33%
+abl_docstrings                   4      1        3        25%
+abl_no_barrier                   2      1        1        50%
+abl_no_gate                      1      1        0       100%
+abl_no_memory                    1      1        0       100%
+abl_no_oracle                    1      1        0       100%
+abl_no_property                  1      1        0       100%
+abl_no_referee                  10      1        9        10%
+baseline_agent                  26     18        5        69%
+baseline_direct                201     35        7        17%
+blindspot                        2      1        1        50%
+blindspot_search                 4      1        3        25%
+
+precision = sound counterexamples / findings shown to the reader.
+An unsound finding is a false accusation that survived adjudication.

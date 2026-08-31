@@ -1,0 +1,43 @@
+task_id: token_bucket
+title: Replay a token-bucket limiter over a recorded request trace
+entrypoint: simulate
+difficulty: 4
+
+# The trap is not invented for this benchmark: it is the accrual bookkeeping of
+# a published meter that reimplementations routinely get wrong.
+grounding:
+  standard: RFC 2697 section 2, the committed bucket of the single rate three color marker
+  url: https://datatracker.ietf.org/doc/html/rfc2697
+trap_class: state-update/accumulation
+trap: >-
+  The accrual mark must advance on EVERY trace entry including rejected ones
+  (updating it only on admission re-counts the elapsed interval and silently
+  grants extra credit later), credit accrues continuously as
+  elapsed * refill_per_second with no flooring or whole-second bucketing, the
+  bucket starts full and is clamped at capacity, a rejection consumes nothing,
+  and admission is the inclusive comparison tokens + 1e-9 >= cost rather than a
+  strict one.
+why_models_miss_it: >-
+  The textbook snippet everyone has memorised writes `self.tokens -= cost` and
+  `self.last = now` inside the `if allowed:` branch, because in that snippet the
+  two updates look like one atomic "the request happened" step; hoisting only
+  the timestamp out of the branch is the whole ticket and is easy to skim past.
+  Flooring is the second reflex -- `int(elapsed * rate)` or a per-second loop
+  reads as defensive rounding and is invisible at one-second gaps, diverging
+  only on sub-second traces. The remaining two are boundary reflexes: writing
+  `tokens > cost`, and forgetting that a rejected oversized request must leave
+  the bucket alone rather than draining it.
+
+# Genuine under-determination, deliberately left in the spec. These exist so
+# the ambiguity gate has something real to catch; they are NOT defects and a
+# system that reports them as defects is penalised.
+open_questions:
+  - "Whether trace timestamps are required to be non-negative, or may sit on any finite epoch since only their differences are used."
+  - "Whether the `ValueError` message must identify which trace entry was at fault, or may be any wording."
+
+runtime:
+  pure: true
+  deterministic: true
+  stdlib_only: true
+  needs_clock: false
+  needs_rng: false

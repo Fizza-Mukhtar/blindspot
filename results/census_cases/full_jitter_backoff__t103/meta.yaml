@@ -1,0 +1,16 @@
+case_id: full_jitter_backoff__t103
+difficulty: 3
+entrypoint: schedule
+forged_by: haiku
+grounding: https://aws.amazon.com/blogs/architecture/exponential-backoff-and-jitter/
+has_defect: false
+notes: ''
+provenance: forged
+self_tests_green: true
+spec_variant: terse
+spec_visible: null
+split: test
+task_id: full_jitter_backoff
+trap: ''
+trap_class: ''
+witness_input: ''

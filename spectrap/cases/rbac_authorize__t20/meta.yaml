@@ -1,0 +1,15 @@
+case_id: rbac_authorize__t20
+difficulty: 3
+entrypoint: authorize
+forged_by: haiku
+grounding: https://docs.oasis-open.org/xacml/3.0/xacml-3.0-core-spec-os-en.html
+has_defect: false
+notes: ''
+provenance: forged
+self_tests_green: true
+spec_variant: terse
+split: dev
+task_id: rbac_authorize
+trap: ''
+trap_class: ''
+witness_input: ''

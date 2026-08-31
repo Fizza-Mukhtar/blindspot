@@ -1,0 +1,3 @@
+{"case_id": "discount_stacking__v11", "config": {"system": "self_tests"}, "event": "run.start", "format": 1, "inputs": {"case_id": "discount_stacking__v11"}, "run_id": "self_tests--discount_stacking__v11", "stage": "init", "step": 1, "system": "self_tests"}
+{"case_id": "discount_stacking__v11", "event": "note", "format": 1, "message": "replaying 23 self-written test(s); no model call", "run_id": "self_tests--discount_stacking__v11", "stage": "init", "step": 2, "system": "self_tests"}
+{"case_id": "discount_stacking__v11", "cost": {}, "event": "run.end", "findings": 0, "format": 1, "run_id": "self_tests--discount_stacking__v11", "stage": "done", "step": 3, "system": "self_tests", "verdict": "CLEAN"}

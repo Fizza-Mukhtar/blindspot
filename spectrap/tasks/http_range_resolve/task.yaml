@@ -1,0 +1,46 @@
+task_id: http_range_resolve
+title: Resolve an HTTP Range header into inclusive byte offsets
+entrypoint: resolve_range
+difficulty: 4
+
+# The trap is not invented for this benchmark: it is a clause of a published
+# standard that implementations routinely get wrong.
+grounding:
+  standard: RFC 7233 section 2.1 (byte ranges), with section 3.1 for ignored headers
+  url: https://www.rfc-editor.org/rfc/rfc7233.html#section-2.1
+trap_class: boundary/off-by-one
+trap: >-
+  Byte offsets are inclusive at both ends, and the two ends behave
+  asymmetrically when they overrun the object: a last-byte-pos at or past the
+  end is CLAMPED to length-1 and an oversized suffix-length yields the whole
+  representation, while a first-byte-pos at or past the end is unsatisfiable
+  and "bytes=-0" is unsatisfiable too. On top of that, unsatisfiable specs are
+  dropped rather than fatal unless every spec is unsatisfiable, whereas a
+  syntactically malformed header (including "bytes=2-1", where last <
+  first) is ignored entirely and resolves to the whole object instead of
+  raising.
+why_models_miss_it: >-
+  The overwhelmingly common implementation returns half-open [first, last+1)
+  slices, or treats "bytes=0-499" as 499 bytes. Almost as common is collapsing
+  every out-of-bounds case into one branch: a 416 for anything that overruns
+  the length, which wrongly rejects "bytes=0-9999" and "bytes=-5000", or a
+  clamp for everything, which wrongly accepts "bytes=1000-" and "bytes=-0". The
+  malformed-header path is usually written as a raise, because raising on bad
+  input is the reflex, even though RFC 7233 section 3.1 says to ignore the
+  field; and mixed headers are typically all-or-nothing rather than
+  drop-the-unsatisfiable-ones. Many implementations also helpfully coalesce or
+  sort the resulting ranges, which the ticket forbids.
+
+# Genuine under-determination, deliberately left in the spec. These exist so
+# the ambiguity gate has something real to catch; they are NOT defects and a
+# system that reports them as defects is penalised.
+open_questions:
+  - "Whether an upper bound should be placed on the number of ranges accepted; RFC 7233 section 6.1 flags large overlapping range sets as a denial-of-service vector, but the ticket sets no limit and pushes the decision to the byte server."
+  - "Whether the caller needs to tell an unrecognised range unit apart from a syntactically malformed byte range, since both resolve to the whole representation and the return type carries no way to distinguish them."
+
+runtime:
+  pure: true
+  deterministic: true
+  stdlib_only: true
+  needs_clock: false
+  needs_rng: false

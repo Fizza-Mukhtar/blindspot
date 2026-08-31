@@ -1,0 +1,15 @@
+case_id: discount_stacking__t20
+difficulty: 4
+entrypoint: apply_discounts
+forged_by: haiku
+grounding: https://help.shopify.com/en/manual/discounts/discount-combinations
+has_defect: false
+notes: ''
+provenance: forged
+self_tests_green: true
+spec_variant: terse
+split: test
+task_id: discount_stacking
+trap: ''
+trap_class: ''
+witness_input: ''

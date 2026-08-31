@@ -1,0 +1,455 @@
+14 system(s) x 35 case(s) = 490 runs · provider=replay · 
+fingerprint=a4af2c197d192ec3
+      self_tests | currency_quantize__t24       | clean
+      self_tests | csv_rfc4180__v1              | clean
+      self_tests | allocate_money__v1           | clean
+      self_tests | allocate_money__v0           | clean
+      self_tests | csv_rfc4180__t20             | clean
+      self_tests | csv_rfc4180__v0              | clean
+      self_tests | currency_quantize__v11       | clean
+      self_tests | allocate_money__t21          | clean
+      self_tests | full_jitter_backoff__t20     | clean
+      self_tests | currency_quantize__v12       | clean
+      self_tests | discount_stacking__v0        | clean
+      self_tests | discount_stacking__t20       | clean
+      self_tests | discount_stacking__v12       | missed
+      self_tests | discount_stacking__v10       | clean
+      self_tests | full_jitter_backoff__t22     | missed
+      self_tests | full_jitter_backoff__t42     | missed
+      self_tests | discount_stacking__v11       | missed
+      self_tests | full_jitter_backoff__t46     | missed
+      self_tests | full_jitter_backoff__v11     | clean
+      self_tests | full_jitter_backoff__v10     | clean
+      self_tests | iso_week_date__t20           | clean
+      self_tests | full_jitter_backoff__v12     | missed
+      self_tests | http_range_resolve__t20      | missed
+      self_tests | http_range_resolve__t21      | clean
+      self_tests | http_range_resolve__v0       | missed
+      self_tests | http_range_resolve__v1       | clean
+      self_tests | http_range_resolve__t40      | missed
+      self_tests | iso_week_date__v0            | clean
+      self_tests | http_range_resolve__v2       | clean
+      self_tests | iso_week_date__v1            | clean
+      self_tests | keyset_paginate__t20         | clean
+      self_tests | rollout_bucketing__t20       | clean
+      self_tests | rollout_bucketing__v0        | clean
+      self_tests | rollout_bucketing__v1        | clean
+ baseline_direct | allocate_money__v0           | clean
+ baseline_direct | allocate_money__v1           | clean
+      self_tests | token_bucket__t20            | clean
+ baseline_direct | allocate_money__t21          | clean
+ baseline_direct | csv_rfc4180__t20             | clean
+ baseline_direct | csv_rfc4180__v0              | clean
+ baseline_direct | csv_rfc4180__v1              | clean
+ baseline_direct | discount_stacking__t20       | FALSE ALARM
+ baseline_direct | full_jitter_backoff__t20     | clean
+ baseline_direct | full_jitter_backoff__t22     | missed
+ baseline_direct | full_jitter_backoff__t42     | missed
+ baseline_direct | full_jitter_backoff__t46     | missed
+ baseline_direct | currency_quantize__t24       | FALSE ALARM
+ baseline_direct | currency_quantize__v11       | FALSE ALARM
+ baseline_direct | discount_stacking__v0        | FALSE ALARM
+ baseline_direct | full_jitter_backoff__v10     | clean
+ baseline_direct | full_jitter_backoff__v11     | clean
+ baseline_direct | discount_stacking__v10       | FALSE ALARM
+ baseline_direct | discount_stacking__v12       | missed
+ baseline_direct | discount_stacking__v11       | missed
+ baseline_direct | full_jitter_backoff__v12     | detected
+ baseline_direct | http_range_resolve__v1       | FALSE ALARM
+ baseline_direct | currency_quantize__v12       | FALSE ALARM
+ baseline_direct | iso_week_date__t20           | clean
+ baseline_direct | iso_week_date__v0            | FALSE ALARM
+ baseline_direct | iso_week_date__v1            | clean
+ baseline_direct | http_range_resolve__v0       | detected
+ baseline_direct | rollout_bucketing__t20       | clean
+ baseline_direct | http_range_resolve__v2       | FALSE ALARM
+ baseline_direct | rollout_bucketing__v0        | clean
+ baseline_direct | rollout_bucketing__v1        | clean
+ baseline_direct | token_bucket__t20            | clean
+ baseline_direct | keyset_paginate__t20         | FALSE ALARM
+  baseline_agent | allocate_money__v1           | clean
+  baseline_agent | allocate_money__v0           | clean
+  baseline_agent | allocate_money__t21          | clean
+  baseline_agent | csv_rfc4180__t20             | clean
+ baseline_direct | http_range_resolve__t20      | detected
+  baseline_agent | csv_rfc4180__v1              | clean
+  baseline_agent | csv_rfc4180__v0              | clean
+ baseline_direct | http_range_resolve__t40      | detected
+ baseline_direct | http_range_resolve__t21      | FALSE ALARM
+  baseline_agent | currency_quantize__v12       | FALSE ALARM
+  baseline_agent | currency_quantize__t24       | FALSE ALARM
+  baseline_agent | currency_quantize__v11       | FALSE ALARM
+  baseline_agent | discount_stacking__v0        | clean
+  baseline_agent | full_jitter_backoff__t20     | clean
+  baseline_agent | discount_stacking__v10       | FALSE ALARM
+  baseline_agent | discount_stacking__v12       | missed
+  baseline_agent | full_jitter_backoff__t22     | missed
+  baseline_agent | discount_stacking__t20       | FALSE ALARM
+  baseline_agent | full_jitter_backoff__t46     | missed
+  baseline_agent | full_jitter_backoff__t42     | missed
+  baseline_agent | full_jitter_backoff__v10     | clean
+  baseline_agent | full_jitter_backoff__v11     | clean
+  baseline_agent | discount_stacking__v11       | detected
+  baseline_agent | http_range_resolve__t40      | missed
+  baseline_agent | http_range_resolve__v2       | FALSE ALARM
+  baseline_agent | iso_week_date__v0            | clean
+  baseline_agent | iso_week_date__t20           | clean
+  baseline_agent | iso_week_date__v1            | clean
+  baseline_agent | full_jitter_backoff__v12     | detected
+  baseline_agent | rollout_bucketing__t20       | clean
+  baseline_agent | http_range_resolve__v1       | FALSE ALARM
+  baseline_agent | rollout_bucketing__v0        | clean
+  baseline_agent | http_range_resolve__v0       | detected
+       blindspot | allocate_money__t21          | clean
+       blindspot | allocate_money__v0           | clean
+  baseline_agent | rollout_bucketing__v1        | clean
+       blindspot | allocate_money__v1           | clean
+       blindspot | csv_rfc4180__t20             | clean
+       blindspot | csv_rfc4180__v0              | clean
+  baseline_agent | token_bucket__t20            | clean
+       blindspot | csv_rfc4180__v1              | clean
+  baseline_agent | keyset_paginate__t20         | FALSE ALARM
+       blindspot | currency_quantize__t24       | clean
+  baseline_agent | http_range_resolve__t21      | FALSE ALARM
+       blindspot | currency_quantize__v11       | clean
+       blindspot | currency_quantize__v12       | clean
+       blindspot | discount_stacking__t20       | clean
+       blindspot | discount_stacking__v0        | clean
+       blindspot | discount_stacking__v10       | clean
+       blindspot | discount_stacking__v11       | missed
+  baseline_agent | http_range_resolve__t20      | detected
+       blindspot | discount_stacking__v12       | missed
+       blindspot | full_jitter_backoff__t20     | clean
+       blindspot | full_jitter_backoff__t22     | missed
+       blindspot | full_jitter_backoff__t46     | missed
+       blindspot | full_jitter_backoff__t42     | missed
+       blindspot | http_range_resolve__t20      | missed
+       blindspot | full_jitter_backoff__v10     | clean
+       blindspot | full_jitter_backoff__v11     | clean
+       blindspot | http_range_resolve__t21      | clean
+       blindspot | http_range_resolve__t40      | missed
+       blindspot | http_range_resolve__v1       | clean
+       blindspot | http_range_resolve__v0       | missed
+       blindspot | http_range_resolve__v2       | clean
+       blindspot | iso_week_date__v0            | clean
+       blindspot | iso_week_date__t20           | clean
+       blindspot | iso_week_date__v1            | clean
+       blindspot | rollout_bucketing__t20       | clean
+blindspot_search | allocate_money__t21          | clean
+       blindspot | rollout_bucketing__v0        | clean
+blindspot_search | allocate_money__v0           | clean
+       blindspot | rollout_bucketing__v1        | clean
+       blindspot | token_bucket__t20            | clean
+blindspot_search | allocate_money__v1           | clean
+       blindspot | keyset_paginate__t20         | FALSE ALARM
+blindspot_search | csv_rfc4180__v0              | clean
+blindspot_search | csv_rfc4180__v1              | clean
+blindspot_search | currency_quantize__t24       | clean
+blindspot_search | currency_quantize__v11       | clean
+blindspot_search | csv_rfc4180__t20             | clean
+blindspot_search | currency_quantize__v12       | clean
+blindspot_search | discount_stacking__t20       | clean
+       blindspot | full_jitter_backoff__v12     | detected
+blindspot_search | discount_stacking__v0        | clean
+blindspot_search | discount_stacking__v10       | clean
+blindspot_search | discount_stacking__v11       | missed
+blindspot_search | discount_stacking__v12       | missed
+blindspot_search | full_jitter_backoff__t20     | clean
+blindspot_search | full_jitter_backoff__t22     | missed
+blindspot_search | full_jitter_backoff__t42     | missed
+blindspot_search | full_jitter_backoff__t46     | missed
+blindspot_search | http_range_resolve__t20      | missed
+blindspot_search | http_range_resolve__t21      | clean
+blindspot_search | full_jitter_backoff__v10     | clean
+blindspot_search | full_jitter_backoff__v11     | clean
+blindspot_search | http_range_resolve__t40      | missed
+blindspot_search | http_range_resolve__v1       | clean
+blindspot_search | http_range_resolve__v0       | missed
+blindspot_search | http_range_resolve__v2       | clean
+blindspot_search | iso_week_date__v0            | clean
+blindspot_search | iso_week_date__t20           | clean
+blindspot_search | iso_week_date__v1            | clean
+blindspot_search | rollout_bucketing__v0        | clean
+blindspot_search | rollout_bucketing__t20       | clean
+blindspot_search | rollout_bucketing__v1        | clean
+blindspot_search | keyset_paginate__t20         | FALSE ALARM
+agent_plus_oracle | allocate_money__v0           | clean
+blindspot_search | full_jitter_backoff__v12     | detected
+agent_plus_oracle | allocate_money__v1           | clean
+blindspot_search | token_bucket__t20            | FALSE ALARM
+agent_plus_oracle | allocate_money__t21          | clean
+agent_plus_oracle | csv_rfc4180__v1              | clean
+agent_plus_oracle | csv_rfc4180__v0              | clean
+agent_plus_oracle | csv_rfc4180__t20             | clean
+agent_plus_oracle | currency_quantize__v12       | FALSE ALARM
+agent_plus_oracle | currency_quantize__t24       | FALSE ALARM
+agent_plus_oracle | currency_quantize__v11       | FALSE ALARM
+agent_plus_oracle | discount_stacking__v0        | clean
+agent_plus_oracle | full_jitter_backoff__t20     | clean
+agent_plus_oracle | discount_stacking__v12       | missed
+agent_plus_oracle | discount_stacking__v10       | FALSE ALARM
+agent_plus_oracle | discount_stacking__t20       | FALSE ALARM
+agent_plus_oracle | full_jitter_backoff__t22     | missed
+agent_plus_oracle | full_jitter_backoff__t46     | missed
+agent_plus_oracle | discount_stacking__v11       | detected
+agent_plus_oracle | full_jitter_backoff__t42     | missed
+agent_plus_oracle | full_jitter_backoff__v10     | clean
+agent_plus_oracle | full_jitter_backoff__v11     | clean
+agent_plus_oracle | http_range_resolve__t40      | missed
+agent_plus_oracle | iso_week_date__v0            | clean
+agent_plus_oracle | http_range_resolve__v2       | FALSE ALARM
+agent_plus_oracle | iso_week_date__t20           | clean
+agent_plus_oracle | iso_week_date__v1            | clean
+agent_plus_oracle | full_jitter_backoff__v12     | detected
+agent_plus_oracle | rollout_bucketing__t20       | clean
+agent_plus_oracle | rollout_bucketing__v0        | clean
+agent_plus_oracle | http_range_resolve__v1       | FALSE ALARM
+agent_plus_oracle | http_range_resolve__v0       | detected
+agent_plus_oracle | rollout_bucketing__v1        | clean
+  abl_no_barrier | allocate_money__t21          | clean
+  abl_no_barrier | allocate_money__v0           | clean
+  abl_no_barrier | csv_rfc4180__t20             | clean
+  abl_no_barrier | allocate_money__v1           | clean
+agent_plus_oracle | token_bucket__t20            | clean
+  abl_no_barrier | csv_rfc4180__v0              | clean
+  abl_no_barrier | csv_rfc4180__v1              | clean
+  abl_no_barrier | discount_stacking__v11       | missed
+agent_plus_oracle | keyset_paginate__t20         | FALSE ALARM
+agent_plus_oracle | http_range_resolve__t21      | FALSE ALARM
+  abl_no_barrier | full_jitter_backoff__t46     | missed
+  abl_no_barrier | full_jitter_backoff__t22     | missed
+  abl_no_barrier | full_jitter_backoff__t42     | missed
+  abl_no_barrier | discount_stacking__v12       | missed
+  abl_no_barrier | full_jitter_backoff__v12     | missed
+  abl_no_referee | allocate_money__v0           | clean
+  abl_no_referee | allocate_money__t21          | clean
+  abl_no_referee | allocate_money__v1           | clean
+  abl_no_barrier | http_range_resolve__t20      | missed
+  abl_no_barrier | http_range_resolve__t40      | missed
+agent_plus_oracle | http_range_resolve__t20      | detected
+  abl_no_referee | csv_rfc4180__t20             | clean
+  abl_no_referee | csv_rfc4180__v0              | clean
+  abl_no_referee | csv_rfc4180__v1              | clean
+  abl_no_barrier | http_range_resolve__v0       | missed
+  abl_no_referee | full_jitter_backoff__t42     | missed
+  abl_no_referee | full_jitter_backoff__t22     | missed
+  abl_no_referee | http_range_resolve__t20      | missed
+  abl_no_referee | discount_stacking__v11       | missed
+  abl_no_referee | http_range_resolve__v0       | missed
+  abl_no_referee | discount_stacking__v12       | missed
+  abl_no_referee | full_jitter_backoff__t46     | missed
+  abl_no_referee | http_range_resolve__t40      | missed
+     abl_no_gate | allocate_money__t21          | clean
+     abl_no_gate | allocate_money__v0           | clean
+     abl_no_gate | csv_rfc4180__t20             | clean
+     abl_no_gate | csv_rfc4180__v0              | clean
+     abl_no_gate | allocate_money__v1           | clean
+     abl_no_gate | csv_rfc4180__v1              | clean
+     abl_no_gate | discount_stacking__v11       | missed
+     abl_no_gate | discount_stacking__v12       | missed
+     abl_no_gate | full_jitter_backoff__t22     | missed
+     abl_no_gate | full_jitter_backoff__t42     | missed
+     abl_no_gate | full_jitter_backoff__t46     | missed
+     abl_no_gate | http_range_resolve__t20      | missed
+     abl_no_gate | http_range_resolve__t40      | missed
+   abl_no_oracle | allocate_money__t21          | clean
+     abl_no_gate | http_range_resolve__v0       | missed
+   abl_no_oracle | allocate_money__v0           | clean
+   abl_no_oracle | allocate_money__v1           | clean
+  abl_no_referee | full_jitter_backoff__v12     | detected
+   abl_no_oracle | csv_rfc4180__t20             | clean
+   abl_no_oracle | csv_rfc4180__v0              | clean
+   abl_no_oracle | csv_rfc4180__v1              | clean
+   abl_no_oracle | full_jitter_backoff__t22     | missed
+   abl_no_oracle | discount_stacking__v11       | missed
+   abl_no_oracle | discount_stacking__v12       | missed
+   abl_no_oracle | full_jitter_backoff__t42     | missed
+   abl_no_oracle | full_jitter_backoff__t46     | missed
+   abl_no_oracle | http_range_resolve__t20      | missed
+   abl_no_oracle | http_range_resolve__t40      | missed
+abl_clause_only_referee | allocate_money__t21          | clean
+abl_clause_only_referee | allocate_money__v0           | clean
+   abl_no_oracle | http_range_resolve__v0       | missed
+abl_clause_only_referee | allocate_money__v1           | clean
+abl_clause_only_referee | csv_rfc4180__t20             | clean
+abl_clause_only_referee | csv_rfc4180__v0              | clean
+abl_clause_only_referee | csv_rfc4180__v1              | clean
+     abl_no_gate | full_jitter_backoff__v12     | detected
+abl_clause_only_referee | discount_stacking__v11       | missed
+abl_clause_only_referee | discount_stacking__v12       | missed
+abl_clause_only_referee | full_jitter_backoff__t22     | missed
+abl_clause_only_referee | full_jitter_backoff__t42     | missed
+abl_clause_only_referee | full_jitter_backoff__t46     | missed
+abl_clause_only_referee | http_range_resolve__t40      | missed
+   abl_no_memory | allocate_money__t21          | clean
+abl_clause_only_referee | http_range_resolve__v0       | missed
+   abl_no_memory | allocate_money__v0           | clean
+   abl_no_memory | allocate_money__v1           | clean
+abl_clause_only_referee | http_range_resolve__t20      | missed
+   abl_no_memory | csv_rfc4180__t20             | clean
+   abl_no_memory | csv_rfc4180__v0              | clean
+   abl_no_memory | csv_rfc4180__v1              | clean
+   abl_no_memory | discount_stacking__v11       | missed
+   abl_no_oracle | full_jitter_backoff__v12     | detected
+   abl_no_memory | discount_stacking__v12       | missed
+   abl_no_memory | full_jitter_backoff__t22     | missed
+   abl_no_memory | full_jitter_backoff__t42     | missed
+   abl_no_memory | full_jitter_backoff__t46     | missed
+   abl_no_memory | http_range_resolve__t20      | missed
+   abl_no_memory | http_range_resolve__t40      | missed
+  abl_docstrings | allocate_money__t21          | clean
+   abl_no_memory | http_range_resolve__v0       | missed
+  abl_docstrings | allocate_money__v0           | clean
+  abl_docstrings | allocate_money__v1           | clean
+  abl_docstrings | csv_rfc4180__t20             | clean
+  abl_docstrings | csv_rfc4180__v0              | clean
+  abl_docstrings | csv_rfc4180__v1              | clean
+  abl_docstrings | full_jitter_backoff__t22     | missed
+  abl_docstrings | discount_stacking__v11       | missed
+abl_clause_only_referee | full_jitter_backoff__v12     | detected
+  abl_docstrings | discount_stacking__v12       | missed
+  abl_docstrings | full_jitter_backoff__t42     | missed
+  abl_docstrings | http_range_resolve__t20      | missed
+  abl_docstrings | http_range_resolve__t40      | missed
+ abl_no_property | allocate_money__t21          | clean
+ abl_no_property | allocate_money__v0           | clean
+  abl_docstrings | http_range_resolve__v0       | missed
+ abl_no_property | allocate_money__v1           | clean
+ abl_no_property | csv_rfc4180__t20             | clean
+ abl_no_property | csv_rfc4180__v0              | clean
+  abl_docstrings | full_jitter_backoff__t46     | missed
+ abl_no_property | csv_rfc4180__v1              | clean
+ abl_no_property | discount_stacking__v11       | missed
+   abl_no_memory | full_jitter_backoff__v12     | detected
+ abl_no_property | discount_stacking__v12       | missed
+ abl_no_property | full_jitter_backoff__t22     | missed
+ abl_no_property | full_jitter_backoff__t42     | missed
+ abl_no_property | full_jitter_backoff__t46     | missed
+ abl_no_property | http_range_resolve__t20      | missed
+ abl_no_property | http_range_resolve__t40      | missed
+ abl_no_property | http_range_resolve__v0       | missed
+  abl_docstrings | full_jitter_backoff__v12     | detected
+ abl_no_property | full_jitter_backoff__v12     | detected
+
+# SpecTrap results — `test` split
+
+Generated by `blindspot eval`. Every figure here is recomputed from
+`results/per_case.csv`; nothing in this file is hand-written.
+
+## Detection and false alarms
+
+| System | Detection rate (95% CI) | ...clustered by defect | False-alarm rate 
+(95% CI) | Youden J | Unsound claims | Tests emitted | Calls | USD |
+|---|---|---|---|---|---|---|---|---|
+| The model's own test suite | 0/9 = 0% [0, 30] | [0, 0] (4 defect(s)) | 0/26 =
+0% [0, 13] | +0.00 | 24 | 615 | 0 | $0.000 |
+| Baseline A: one direct prompt | 4/9 = 44% [19, 73] | [0, 100] (4 defect(s)) |
+11/26 = 42% [26, 61] | +0.02 | 7 | 201 | 35 | $0.807 |
+| Baseline B: general agent with tools | 4/9 = 44% [19, 73] | [10, 80] (4 
+defect(s)) | 9/26 = 35% [19, 54] | +0.10 | 5 | 24 | 155 | $2.054 |
+| Blindspot | 1/9 = 11% [2, 44] | [0, 50] (4 defect(s)) | 1/26 = 4% [1, 19] | 
++0.07 | 1 | 2 | 394 | $3.475 |
+| General agent + spec-anchored Oracle | 4/9 = 44% [19, 73] | [10, 80] (4 
+defect(s)) | 9/26 = 35% [19, 54] | +0.10 | 5 | 24 | 285 | $3.422 |
+| Blindspot (search-first probes) | 1/9 = 11% [2, 44] | [0, 50] (4 defect(s)) |
+2/26 = 8% [2, 24] | +0.03 | 2 | 3 | 398 | $3.975 |
+| Ablation: roles without the barrier | 0/9 = 0% [0, 30] | [0, 0] (4 defect(s))
+| 0/6 = 0% [0, 39] | +0.00 | 1 | 1 | 186 | $2.094 |
+| Ablation: no adjudication | 1/9 = 11% [2, 44] | [0, 50] (4 defect(s)) | 0/6 =
+0% [0, 39] | +0.11 | 7 | 8 | 172 | $1.511 |
+| Ablation: no ambiguity gate | 1/9 = 11% [2, 44] | [0, 50] (4 defect(s)) | 0/6
+= 0% [0, 39] | +0.11 | 0 | 1 | 182 | $1.618 |
+| Ablation: no independent oracle | 1/9 = 11% [2, 44] | [0, 50] (4 defect(s)) |
+0/6 = 0% [0, 39] | +0.11 | 0 | 1 | 163 | $1.511 |
+| Ablation: referee sees only the clause | 1/9 = 11% [2, 44] | [0, 50] (4 
+defect(s)) | 0/6 = 0% [0, 39] | +0.11 | 1 | 2 | 162 | $1.466 |
+| Ablation: no archetype memory | 1/9 = 11% [2, 44] | [0, 50] (4 defect(s)) | 
+0/6 = 0% [0, 39] | +0.11 | 0 | 1 | 165 | $1.526 |
+| Ablation: leak the docstrings | 1/9 = 11% [2, 44] | [0, 50] (4 defect(s)) | 
+0/6 = 0% [0, 39] | +0.11 | 1 | 2 | 156 | $1.448 |
+| Ablation: no property-based probes | 1/9 = 11% [2, 44] | [0, 50] (4 
+defect(s)) | 0/6 = 0% [0, 39] | +0.11 | 0 | 1 | 159 | $1.470 |
+
+The corpus contains several independently generated implementations that carry
+the *same* defect, so their outcomes are correlated. The clustered interval
+resamples distinct defects rather than cases, and is the honest one to quote.
+
+## Paired comparisons (buggy cases only)
+
+**blindspot vs baseline_direct** (n = 9 paired cases)
+
+- discordance: b = 0 system-only, c = 3 baseline-only
+- exact two-sided McNemar p = 0.25 (mid-p = 0.125) — NOT significant at α = 
+0.05
+- Δ = -33.3 pp, 95% bootstrap [-66.7, +0.0]
+- 3 discordant pairs; exact conditional McNemar is the appropriate test at this
+n.
+
+**blindspot vs baseline_agent** (n = 9 paired cases)
+
+- discordance: b = 0 system-only, c = 3 baseline-only
+- exact two-sided McNemar p = 0.25 (mid-p = 0.125) — NOT significant at α = 
+0.05
+- Δ = -33.3 pp, 95% bootstrap [-66.7, +0.0]
+- 3 discordant pairs; exact conditional McNemar is the appropriate test at this
+n.
+
+**blindspot vs abl_no_barrier** (n = 9 paired cases)
+
+- discordance: b = 1 system-only, c = 0 baseline-only
+- exact two-sided McNemar p = 1.0 (mid-p = 0.5) — NOT significant at α = 0.05
+- Δ = +11.1 pp, 95% bootstrap [+0.0, +33.3]
+- With c=0, exact two-sided McNemar gives p = 2^(1-b); reaching p < 0.05 
+requires b >= 6 system-only wins (observed b = 1).
+
+**blindspot vs abl_no_referee** (n = 9 paired cases)
+
+- discordance: b = 0 system-only, c = 0 baseline-only
+- exact two-sided McNemar p = 1.0 (mid-p = 1.0) — NOT significant at α = 0.05
+- Δ = +0.0 pp, 95% bootstrap [+0.0, +0.0]
+- No discordant pairs: the two systems agreed on every case.
+
+**blindspot vs abl_no_gate** (n = 9 paired cases)
+
+- discordance: b = 0 system-only, c = 0 baseline-only
+- exact two-sided McNemar p = 1.0 (mid-p = 1.0) — NOT significant at α = 0.05
+- Δ = +0.0 pp, 95% bootstrap [+0.0, +0.0]
+- No discordant pairs: the two systems agreed on every case.
+
+**blindspot vs abl_no_oracle** (n = 9 paired cases)
+
+- discordance: b = 0 system-only, c = 0 baseline-only
+- exact two-sided McNemar p = 1.0 (mid-p = 1.0) — NOT significant at α = 0.05
+- Δ = +0.0 pp, 95% bootstrap [+0.0, +0.0]
+- No discordant pairs: the two systems agreed on every case.
+
+**blindspot vs abl_clause_only_referee** (n = 9 paired cases)
+
+- discordance: b = 0 system-only, c = 0 baseline-only
+- exact two-sided McNemar p = 1.0 (mid-p = 1.0) — NOT significant at α = 0.05
+- Δ = +0.0 pp, 95% bootstrap [+0.0, +0.0]
+- No discordant pairs: the two systems agreed on every case.
+
+**blindspot vs abl_no_memory** (n = 9 paired cases)
+
+- discordance: b = 0 system-only, c = 0 baseline-only
+- exact two-sided McNemar p = 1.0 (mid-p = 1.0) — NOT significant at α = 0.05
+- Δ = +0.0 pp, 95% bootstrap [+0.0, +0.0]
+- No discordant pairs: the two systems agreed on every case.
+
+**blindspot vs abl_docstrings** (n = 9 paired cases)
+
+- discordance: b = 0 system-only, c = 0 baseline-only
+- exact two-sided McNemar p = 1.0 (mid-p = 1.0) — NOT significant at α = 0.05
+- Δ = +0.0 pp, 95% bootstrap [+0.0, +0.0]
+- No discordant pairs: the two systems agreed on every case.
+
+**blindspot vs abl_no_property** (n = 9 paired cases)
+
+- discordance: b = 0 system-only, c = 0 baseline-only
+- exact two-sided McNemar p = 1.0 (mid-p = 1.0) — NOT significant at α = 0.05
+- Δ = +0.0 pp, 95% bootstrap [+0.0, +0.0]
+- No discordant pairs: the two systems agreed on every case.
+
+
+wrote results\per_case.csv, results\summary.json, results\RESULTS.md

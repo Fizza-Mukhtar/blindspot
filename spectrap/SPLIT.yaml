@@ -1,0 +1,21 @@
+drawn_by: blindspot split
+seed: 20260828
+dev_size: 4
+procedure: sorted(task_ids) shuffled with random.Random(seed); the first dev_size
+  go to dev. Drawn once, before any system was run against the test split.
+task_ids_sha256: 5b19d86023cd4a399029e69a74e6ebb7a9d61729270b4dd36b78cc3fa788703d
+assignments:
+  allocate_money: test
+  byte_units: dev
+  csv_rfc4180: test
+  currency_quantize: test
+  discount_stacking: test
+  full_jitter_backoff: test
+  http_range_resolve: test
+  iso_week_date: test
+  keyset_paginate: test
+  merge_intervals: dev
+  rbac_authorize: dev
+  rollout_bucketing: test
+  semver_sort: dev
+  token_bucket: test

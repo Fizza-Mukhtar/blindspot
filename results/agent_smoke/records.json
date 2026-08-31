@@ -1,0 +1,89 @@
+{
+  "config_fingerprint": "775e60e43ff72726",
+  "generated_utc": "2026-08-29T11:41:09Z",
+  "models": {
+    "fast": "haiku",
+    "smart": "sonnet"
+  },
+  "provider": "claude_cli",
+  "records": [
+    {
+      "case_id": "http_range_resolve__v0",
+      "grade": {
+        "case_id": "http_range_resolve__v0",
+        "detected": true,
+        "detected_lenient": true,
+        "emitted": 1,
+        "error": "",
+        "false_alarm": false,
+        "flakes": 0,
+        "has_defect": true,
+        "reported_verdict": "DEFECT",
+        "sound_counterexamples": 1,
+        "split": "test",
+        "system": "baseline_agent",
+        "task_id": "http_range_resolve",
+        "unsound_claims": 0,
+        "verdicts": [
+          {
+            "assertion": "AssertionError: expected malformed header to be ignored and whole object returned, got [(0, 5)]",
+            "failing_input": "",
+            "flaky": false,
+            "index": 0,
+            "on_candidate": "fail",
+            "on_reference": "pass",
+            "sound": true,
+            "unsound": false
+          }
+        ]
+      },
+      "report": {
+        "case_id": "http_range_resolve__v0",
+        "cost": {
+          "calls": 6,
+          "input_tokens": 20979,
+          "output_tokens": 1635,
+          "provider_input_tokens": 201360,
+          "provider_output_tokens": 20233,
+          "sandbox_runs": 5,
+          "usd": 0.087462,
+          "wall_ms": 223120
+        },
+        "error": null,
+        "findings": [
+          {
+            "actual": "see the repro test",
+            "expected": "see the repro test",
+            "id": "F-01",
+            "minimal_input": "(see the repro test)",
+            "obligation_id": "-",
+            "repro_test": "import impl\n\n\ndef test_non_ascii_digits_rejected_as_malformed():\n    # Arabic-Indic digits U+0660..U+0665 spell '0'-'5' but are not ASCII digits.\n    header = \"bytes=\\u0660-\\u0665\"\n    length = 100\n    result = impl.resolve_range(header, length)\n    assert result == [(0, length - 1)], (\n        f\"expected malformed header to be ignored and whole object returned, got {result}\"\n    )\n",
+            "severity": "medium",
+            "shrink_steps": 0,
+            "spec_quote": "(baseline: no obligation ledger)",
+            "strategy": "example",
+            "title": "Falsifies the ticket's grammar requirement that first/last/suffix be 'one or more ASCII digits'; the implementation's `\\d+` regex (without re.ASCII) matches non",
+            "triage": {
+              "outcome": "upheld",
+              "reason": "baseline systems do not adjudicate their own findings",
+              "spec_supports_expectation": true
+            }
+          }
+        ],
+        "notes": [
+          "react loop, 6 rounds, execution feedback, no adjudication"
+        ],
+        "obligations_probed": 0,
+        "obligations_total": 0,
+        "open_questions": [],
+        "probes_discarded": 0,
+        "probes_run": 5,
+        "system": "baseline_agent",
+        "verdict": "DEFECT",
+        "withdrawn_by_oracle": 0
+      },
+      "system": "baseline_agent",
+      "trajectory": "baseline_agent--http_range_resolve__v0.jsonl"
+    }
+  ]
+}

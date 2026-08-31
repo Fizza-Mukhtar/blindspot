@@ -1,0 +1,14 @@
+case_id: http_range_resolve__v2
+difficulty: 4
+entrypoint: resolve_range
+forged_by: sonnet
+grounding: https://www.rfc-editor.org/rfc/rfc7233.html#section-2.1
+has_defect: false
+notes: ''
+provenance: forged
+self_tests_green: true
+split: test
+task_id: http_range_resolve
+trap: ''
+trap_class: ''
+witness_input: ''

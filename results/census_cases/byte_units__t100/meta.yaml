@@ -1,0 +1,16 @@
+case_id: byte_units__t100
+difficulty: 3
+entrypoint: format_bytes
+forged_by: haiku
+grounding: https://www.iec.ch/prefixes-binary-multiples
+has_defect: false
+notes: ''
+provenance: forged
+self_tests_green: true
+spec_variant: terse
+spec_visible: null
+split: dev
+task_id: byte_units
+trap: ''
+trap_class: ''
+witness_input: ''

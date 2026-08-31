@@ -1,0 +1,37 @@
+{
+  "case_id": "impl",
+  "system": "blindspot",
+  "verdict": "NEEDS_HUMAN",
+  "findings": [],
+  "open_questions": [
+    {
+      "id": "AM-001",
+      "question": "Should a bool value for length (True/False), which is an int subclass in Python, be accepted as satisfying 'length must be an int that is zero or greater', or must it be rejected as not genuinely an int?",
+      "options": [
+        "Accept via isinstance(length, int), so True behaves as length=1 and False as length=0",
+        "Reject bool explicitly, requiring type(length) is int, raising ValueError for True/False"
+      ],
+      "quote": "must be a `str` and `length` must be an",
+      "why_it_matters": "Determines whether resolve_range(header, True) raises ValueError or is treated as a valid 1-byte-length call, which changes both the argument-validation behavior and downstream range resolution for that edge case.",
+      "affects": [],
+      "resolution": null,
+      "resolved_by": "unresolved"
+    }
+  ],
+  "obligations_total": 10,
+  "obligations_probed": 10,
+  "probes_run": 10,
+  "probes_discarded": 1,
+  "cost": {
+    "calls": 14,
+    "input_tokens": 20181,
+    "output_tokens": 3514,
+    "provider_input_tokens": 168153,
+    "provider_output_tokens": 29846,
+    "usd": 0.109775,
+    "wall_ms": 5682,
+    "sandbox_runs": 10
+  },
+  "notes": [],
+  "error": null
+}

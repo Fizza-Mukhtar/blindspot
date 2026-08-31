@@ -1,0 +1,47 @@
+task_id: rbac_authorize
+title: Decide access requests against a policy set
+entrypoint: authorize
+difficulty: 3
+
+# The trap is not invented for this benchmark: it is the rule-combining
+# algorithm of a published standard, and the one production access-control
+# systems most often reimplement incorrectly.
+grounding:
+  standard: XACML 3.0 core specification, deny-overrides rule-combining algorithm (Appendix C.2)
+  url: https://docs.oasis-open.org/xacml/3.0/xacml-3.0-core-spec-os-en.html
+trap_class: combining-algorithm/precedence
+trap: >-
+  A matching DENY beats every matching ALLOW unconditionally -- independent of
+  list order, of action/resource specificity, and of principal specificity, so a
+  role-level DENY overrides a user-level ALLOW -- with default deny when nothing
+  matches (including an empty policy list), a wildcard grammar limited to a
+  trailing `*` prefix match (an interior `*` is a literal asterisk and a
+  principal is never a pattern), case-sensitive comparison throughout, and a
+  ValueError for any effect that is not exactly "ALLOW" or "DENY", raised even
+  for policies that would not have matched.
+why_models_miss_it: >-
+  The habitual shortcuts all look plausible and all diverge from the standard.
+  Iterating the list and returning the effect of the last (or first) matching
+  policy reproduces "later overrides earlier", which is how firewall and
+  .gitignore rules work but not how XACML or IAM works. Scoring specificity and
+  letting the narrowest match win is the other common invention, and it reverses
+  the answer exactly in the case the ticket describes: a user-level ALLOW under
+  a role-level DENY. fnmatch/glob or a regex translation is the reflex reach for
+  the wildcards, which silently promotes an interior `*` to a wildcard and adds
+  `?` and character-class syntax the spec does not define. Validation is
+  routinely short-circuited so a malformed effect behind an early match goes
+  unreported, or an unknown effect is treated as a non-match instead of raising.
+
+# Genuine under-determination, deliberately left in the spec. These exist so
+# the ambiguity gate has something real to catch; they are NOT defects and a
+# system that reports them as defects is penalised.
+open_questions:
+  - "Whether extra keys on a request or policy dict (a `sid` label, a `conditions` block) should be ignored or rejected."
+  - "Whether a field of a non-string type (e.g. `principal: None`) must raise `ValueError` or is simply outside the accepted input domain."
+
+runtime:
+  pure: true
+  deterministic: true
+  stdlib_only: true
+  needs_clock: false
+  needs_rng: false

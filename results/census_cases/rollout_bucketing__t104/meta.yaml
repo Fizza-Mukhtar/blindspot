@@ -1,0 +1,16 @@
+case_id: rollout_bucketing__t104
+difficulty: 3
+entrypoint: is_enabled
+forged_by: haiku
+grounding: https://www.getunleash.io/blog/hashing-it-right-solving-a-gradual-rollout-puzzle
+has_defect: false
+notes: ''
+provenance: forged
+self_tests_green: true
+spec_variant: terse
+spec_visible: null
+split: test
+task_id: rollout_bucketing
+trap: ''
+trap_class: ''
+witness_input: ''

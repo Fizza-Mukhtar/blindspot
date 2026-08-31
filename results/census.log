@@ -1,0 +1,16 @@
+                       Forge                        
+┌──────────────────────────────────────────┬───────┐
+│ statistic                                │ value │
+├──────────────────────────────────────────┼───────┤
+│ tasks                                    │    14 │
+│ implementations generated                │    84 │
+│ self-written suites green                │    56 │
+│ self-written suites red (discarded)      │    28 │
+│ green but provably wrong                 │     9 │
+│ green and equivalent to reference        │    47 │
+│ green-and-wrong rate                     │   16% │
+│ suites that reject the correct reference │    16 │
+│ oracle disagreements (flagged)           │     8 │
+└──────────────────────────────────────────┴───────┘
+wrote C:\Users\USER\OneDrive\Desktop\Frontier Engineering 
+challenge\results\forge\census-haiku-terse.json

@@ -1,0 +1,19 @@
+case_id: byte_units__v10
+difficulty: 3
+entrypoint: format_bytes
+forged_by: haiku
+grounding: https://www.iec.ch/prefixes-binary-multiples
+has_defect: true
+notes: reference returns '-999.9 PB'; candidate returns '-1000.0 PB'
+provenance: forged
+self_tests_green: true
+spec_visible: false
+split: dev
+task_id: byte_units
+trap: SI mode divides by 1000 and uses a LOWERCASE kilo symbol ("1.0 kB"), while IEC
+  mode divides by 1024 and uses an UPPERCASE "KiB"; and because the one decimal digit
+  is rounded half up before the label is chosen, a value that rounds up to the divisor
+  must be promoted to the next unit, so 999_950 bytes is "1.0 MB" rather than "1000.0
+  kB".
+trap_class: units/formatting
+witness_input: format_bytes(-999949999999999999)

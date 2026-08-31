@@ -1,0 +1,16 @@
+case_id: csv_rfc4180__t104
+difficulty: 3
+entrypoint: write_csv
+forged_by: haiku
+grounding: https://datatracker.ietf.org/doc/html/rfc4180#section-2
+has_defect: false
+notes: ''
+provenance: forged
+self_tests_green: true
+spec_variant: terse
+spec_visible: null
+split: test
+task_id: csv_rfc4180
+trap: ''
+trap_class: ''
+witness_input: ''

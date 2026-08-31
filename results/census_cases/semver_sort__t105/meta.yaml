@@ -1,0 +1,16 @@
+case_id: semver_sort__t105
+difficulty: 4
+entrypoint: sort_versions
+forged_by: haiku
+grounding: https://semver.org/spec/v2.0.0.html
+has_defect: false
+notes: ''
+provenance: forged
+self_tests_green: true
+spec_variant: terse
+spec_visible: null
+split: dev
+task_id: semver_sort
+trap: ''
+trap_class: ''
+witness_input: ''

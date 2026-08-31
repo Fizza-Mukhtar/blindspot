@@ -1,0 +1,2 @@
+system,case_id,task_id,split,has_defect,trap_class,detected,detected_lenient,false_alarm,tests_emitted,sound_counterexamples,unsound_claims,flakes,reported_verdict,llm_calls,input_tokens,output_tokens,usd,wall_ms,error
+baseline_agent,http_range_resolve__v0,http_range_resolve,test,1,boundary/off-by-one,1,1,0,1,1,0,0,DEFECT,6,20979,1635,0.087462,223120,

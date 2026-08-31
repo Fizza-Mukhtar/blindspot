@@ -1,0 +1,20 @@
+case_id: discount_stacking__v11
+difficulty: 4
+entrypoint: apply_discounts
+forged_by: haiku
+grounding: https://help.shopify.com/en/manual/discounts/discount-combinations
+has_defect: true
+notes: 'AssertionError: assert ''-0.00'' == ''0.00'''
+provenance: forged
+self_tests_green: true
+spec_visible: true
+split: test
+task_id: discount_stacking
+trap: Percentage discounts compound multiplicatively against the running total in
+  list order (20% then 10% off 100.00 is 72.00, not 70.00), the running total is re-quantized
+  to two decimals with ROUND_HALF_EVEN after EVERY step rather than once at the end
+  (so 1.15 with 10% twice is 0.94, not 0.93), and a fixed-amount discount clamps the
+  running total at 0.00 with the excess discarded, after which later discounts still
+  validate but change nothing.
+trap_class: arithmetic/rounding
+witness_input: (found by authoritative selftest, not by fuzzing)
